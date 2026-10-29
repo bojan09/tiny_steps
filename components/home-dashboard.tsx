@@ -59,7 +59,7 @@ const cards = [
     title: "AI Assistant",
     sub: "Meet your future learning helper.",
     href: "/ai-assistant",
-    art: "sprout",
+    art: "potato",
     icon: "sparkles",
     color: "lavender",
   },
@@ -114,7 +114,7 @@ export function HomeDashboard() {
               We’ll take it one step at a time.
             </div>
             <Image
-              src="/images/sprout.webp"
+              src="/images/potato.webp"
               alt="Sprout, your friendly TinySteps companion"
               width={130}
               height={150}
@@ -195,13 +195,13 @@ export function HomeDashboard() {
                 className={"destination-card tone-" + c.color}
               >
                 <div className="destination-art">
-                  {["baby", "house", "sprout"].includes(c.art) ? (
+                  {["baby", "house", "potato"].includes(c.art) ? (
                     <Image
                       src={"/images/" + c.art + ".webp"}
                       alt=""
                       fill
                       sizes="(max-width: 767px) 45vw, 16vw"
-                      className={c.art === "sprout" ? "contain" : ""}
+                      className={c.art === "potato" ? "contain" : ""}
                     />
                   ) : c.art === "parent" ? (
                     <Image

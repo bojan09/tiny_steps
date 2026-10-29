@@ -1,3 +1,4 @@
+import { version } from "@/lib/version";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -118,7 +119,7 @@ export default async function Section({
       : section === "safenest"
         ? "house"
         : section === "ai-assistant"
-          ? "sprout"
+          ? "potato"
           : null;
   if (section === "my-journey")
     return (
@@ -152,17 +153,17 @@ export default async function Section({
         <section className="paper content-panel">
           <h2>About this early release</h2>
           <p>
-            This is the Phase 1 foundation: explore the app, complete the
-            introduction, save collections, and personalize your appearance.
-            Full care lessons, monthly chapters, room explorations, AI
-            responses, and account synchronization are not available yet.
+            Version {version} includes Google sign-in, account preferences,
+            bookmarks, introduction progress, expanded appearance and your
+            potato companion. Full care lessons, monthly chapters, room
+            explorations and AI responses are still being prepared.
           </p>
           <h2>Your information</h2>
           <p>
-            Preferences, bookmarks, and introduction progress are saved in this
-            browser. This release does not send questions or family information
-            to an AI provider. Clearing site data in your browser removes
-            locally saved information.
+            Guest preferences, bookmarks and introduction progress stay in this
+            browser. When signed in, these choices are stored in your account in
+            Supabase. Guest choices are kept separate. This release does not
+            send questions or family information to an AI provider.
           </p>
           <h2>Learning with care</h2>
           <p>
@@ -251,12 +252,12 @@ export default async function Section({
                   ? "Decorative illustration of a warm family home"
                   : art === "baby"
                     ? "An awake baby on a play mat, surrounded by botanical artwork"
-                    : "The friendly TinySteps sprout companion"
+                    : "The friendly TinySteps potato companion"
               }
               fill
               sizes="(max-width:767px) 100vw, 45vw"
               style={
-                art === "sprout"
+                art === "potato"
                   ? { objectFit: "contain", padding: 35 }
                   : undefined
               }

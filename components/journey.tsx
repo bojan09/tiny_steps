@@ -1,8 +1,10 @@
 "use client";
+import { useAccount } from "./account-provider";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { usePreferences } from "@/lib/preferences";
 export function Journey() {
+  const { account } = useAccount();
   const done = usePreferences((s) => s.orientationComplete);
   const step = usePreferences((s) => s.orientationStep);
   return (
@@ -37,8 +39,9 @@ export function Journey() {
         </div>
       </section>
       <p className="release-note">
-        This progress belongs to this browser. Secure account synchronization
-        will be connected in Phase 2.
+        {account
+          ? "Your introduction progress is saved to your account."
+          : "This progress belongs to this browser. Sign in to start an account journey."}
       </p>
     </>
   );

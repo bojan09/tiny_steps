@@ -10,3 +10,8 @@ Generated with the built-in image-generation tool on 2026-10-28; optimized local
 - public/icons/icon.svg and PNG derivatives — original sprout brand mark. Lucide provides UI icons under its ISC license.
 
 Full generation prompts are retained in this Codex chat. Generated source PNGs remain in the Codex generated_images folder; the app references only the checked-in WebP versions.
+
+## Phase 2 artwork (2026-10-29)
+- public/images/potato.webp — original rounded golden potato companion, freckles, peach cheeks, small arms and feet; transparent background; no sprout or leaves. Replaces the sprout companion in app screens.
+- public/images/meadow.webp — original pastoral meadow landscape, generated for appearance backgrounds and optimized to WebP.
+- Coastal calm and Twilight are original CSS scene compositions. Cozy home and Garden retreat reuse the existing original living-room and house artwork.

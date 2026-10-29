@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { useAccount } from "./account-provider";
+import { version } from "@/lib/version";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import { Search, ArrowUpRight, ChevronDown, X, Menu, Leaf } from "lucide-react";
@@ -15,6 +17,7 @@ function isMobileViewport() {
 }
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const auth = useAccount();
   const isMobile = useSyncExternalStore(
     subscribeMobile,
     isMobileViewport,
@@ -210,7 +213,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <span className="avatar">
                 <Icon name="user" />
               </span>
-              <span className="account-text">Your space</span>
+              <span className="account-text">
+                {auth.account?.displayName || "Your space"}
+              </span>
               <ChevronDown size={14} />
             </button>
             {account && (
@@ -228,7 +233,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     </Link>
                   ),
                 )}
-                <p>Browsing on this device</p>
+                <p>
+                  {auth.account
+                    ? "Signed in · Your account"
+                    : "Browsing on this device"}
+                </p>
               </div>
             )}
           </div>
@@ -239,7 +248,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <footer className="footer">
           <span>
             <BrandMark />
-            Little steps. Lasting confidence.
+            Little steps. Lasting confidence. · v{version}
           </span>
           <Link href="/help">Made with care · About TinySteps</Link>
         </footer>

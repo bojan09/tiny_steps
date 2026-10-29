@@ -1,44 +1,25 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useAccount } from "./account-provider";
 import { Bookmark, Check } from "lucide-react";
 import { destinations } from "@/lib/navigation";
 import { Icon } from "./icons";
-import { browserStorage } from "@/lib/browser-storage";
+
 export function Bookmarks() {
-  const [saved, setSaved] = useState<string[]>([]);
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    let values: string[] = [];
-    try {
-      const raw = JSON.parse(
-        browserStorage.getItem("tinysteps-bookmarks-v1") || "[]",
-      );
-      if (Array.isArray(raw))
-        values = raw.filter(
-          (v: unknown) =>
-            typeof v === "string" && destinations.some((d) => d.id === v),
-        );
-    } catch {}
-    queueMicrotask(() => {
-      setSaved(values);
-      setReady(true);
-    });
-  }, []);
-  function toggle(id: string) {
-    const next = saved.includes(id)
-      ? saved.filter((v) => v !== id)
-      : [...saved, id];
-    setSaved(next);
-    try {
-      browserStorage.setItem("tinysteps-bookmarks-v1", JSON.stringify(next));
-    } catch {}
-  }
+  const {
+    bookmarks: saved,
+    loading,
+    account,
+    toggleBookmark: toggle,
+  } = useAccount();
+  const ready = !loading;
   return (
     <>
       <p className="release-note">
-        Save a collection to return to it easily. Bookmarks are stored on this
-        device.
+        Save a collection to return to it easily.{" "}
+        {account
+          ? "Bookmarks are saved to your account."
+          : "Bookmarks are stored on this device."}
       </p>
       <div className="bookmark-list">
         {destinations.slice(1, 8).map((d) => (

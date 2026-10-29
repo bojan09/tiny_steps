@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Phase 1 of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.2.0: Phase 2 of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. For the production build and service worker:
+Open http://127.0.0.1:3000. The server needs outbound access to Supabase for sign-in and account storage. For the production build and service worker:
 
 ```sh
 npm run build
@@ -41,19 +41,23 @@ Browser checks use an installed Google Chrome. To use bundled Chromium instead, 
 - Informative route introductions for later modules, with explicit release boundaries.
 - Install manifest, PNG and maskable icons, production service worker and a verified offline fallback. Only public static assets and the offline page are cached.
 
+## Phase 2 local implementation
+
+Google OAuth entry/callback, Supabase schema and RLS, profile edits, account appearance/progress/bookmarks, isolated guest storage, preference conflict checks, original potato companion, 12 palettes plus Custom, eight scenes and a visible version. Real disposable-account checks pass; user Google consent and GitHub Actions activation remain external gates. See docs/PHASE_2_STATUS.md and docs/SUPABASE_KEEPALIVE.md.
+
 ## Not delivered yet
 
-Google sign-in, Supabase schema/RLS, account sync, full care lessons, monthly chapters, room simulations, live Groq AI, full lesson downloads and production deployment. Existing Supabase/Google configuration is user-supplied; no end-to-end auth claim is made. The 64-lesson curriculum needs an explicit roadmap allocation.
+The 64-lesson curriculum is allocated to Phase 3 (eight lessons per Care Academy collection). Monthly chapters, room simulations, live Groq AI and full lesson downloads remain later phases. No production release of these local Phase 2 changes has been performed.
 
 ## Configuration and privacy
 
-The existing .env stays local and ignored. Variable names are documented in .env.example; no real values belong in Git. Phase 1 does not use database, service-role or Groq credentials. Never expose those secrets through NEXT_PUBLIC variables. Local preferences, bookmarks and introduction progress can be removed by clearing this site's browser data.
+The existing .env stays local and ignored. Variable names are documented in .env.example; no real values belong in Git. The application uses only public Supabase settings with per-user authentication. Privileged database/service-role credentials are confined to local migration and disposable-test scripts; Groq is not connected yet. Never expose those secrets through NEXT_PUBLIC variables. Local preferences, bookmarks and introduction progress can be removed by clearing this site's browser data.
 
 See docs/PHASE_1_REVIEW.md for the architecture and Supabase/auth plan. See docs/CODEX_PROMPT_REVIEW.md for differences in the later Codex-specific brief. Original references are retained under docs/reference, not rendered as application screens.
 
 ## Deployment
 
-Repository: https://github.com/bojan09/tiny_steps.git. Work remains on master. No hosting is connected and no deployment workflow is included. The user will configure Vercel manually later; review automatic deployments before connecting it, since the roadmap permits production deployment only after Phase 5 unless changed by the user.
+Repository: https://github.com/bojan09/tiny_steps.git. Work remains on master. The user has added https://tiny-steps-six.vercel.app. Confirm automatic deployment behavior before pushing Phase 2; the original roadmap permits production deployment only after Phase 5 unless the user changes that instruction. The health-check workflow does not deploy the app.
 
 ## Content and artwork
 

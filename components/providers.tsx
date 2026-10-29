@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import { AccountProvider } from "./account-provider";
 import { MotionConfig } from "motion/react";
+import { appearanceTokens } from "@/lib/appearance";
 import { usePreferences } from "@/lib/preferences";
 export function Providers({ children }: { children: React.ReactNode }) {
   const p = usePreferences((s) => s.preferences);
@@ -25,6 +27,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       html.dataset.theme = p.theme;
       html.dataset.mode =
         p.mode === "system" ? (media.matches ? "dark" : "light") : p.mode;
+      const tokens = appearanceTokens(p, html.dataset.mode === "dark");
+      html.style.setProperty("--accent", tokens.accent);
+      html.style.setProperty("--accent-soft", tokens.soft);
+      html.style.setProperty("--canvas", tokens.canvas);
       html.dataset.motion = p.motion;
       html.dataset.background = p.background;
       html.dataset.text = p.textSize;
@@ -43,7 +49,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         p.motion === "off" || p.motion === "minimal" ? "always" : "user"
       }
     >
-      {children}
+      <AccountProvider>{children}</AccountProvider>
       {storageWarning && (
         <div role="status" className="storage-notice">
           Changes work for this visit, but your browser could not save them.

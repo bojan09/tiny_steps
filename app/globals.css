@@ -2111,3 +2111,118 @@ html[data-motion="minimal"] * {
     right: 20px;
   }
 }
+
+/* Phase 2.2: decorative scenes sit behind opaque, readable content. */
+.workspace {
+  position: relative;
+  isolation: isolate;
+}
+.workspace::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--scene-image, none) center / cover no-repeat;
+  opacity: calc(var(--background-intensity) * 0.28);
+}
+html[data-background="meadow"] {
+  --scene-image: url("/images/meadow.webp");
+}
+html[data-background="home"] {
+  --scene-image: url("/images/living-room.webp");
+}
+html[data-background="garden"] {
+  --scene-image: url("/images/house.webp");
+}
+html[data-background="coast"] {
+  --scene-image: linear-gradient(
+    175deg,
+    #c8e1e9 0%,
+    #f6eee0 40%,
+    #a3c8cc 41%,
+    #dbe9e5 65%,
+    #e5d1af 66%,
+    #fff6e5 100%
+  );
+}
+html[data-background="twilight"] {
+  --scene-image:
+    radial-gradient(circle at 78% 20%, #fff2c9 0 3%, transparent 3.3%),
+    linear-gradient(165deg, #635e86, #c8a8b5 48%, #536d69 49%, #304b4c);
+}
+html[data-mode="dark"] .workspace::before {
+  opacity: calc(var(--background-intensity) * 0.13);
+}
+.background-option.meadow > span {
+  background: url("/images/meadow.webp") center/cover;
+}
+.background-option.home > span {
+  background: url("/images/living-room.webp") center/cover;
+}
+.background-option.garden > span {
+  background: url("/images/house.webp") center/cover;
+}
+.background-option.coast > span {
+  background: linear-gradient(
+    175deg,
+    #c8e1e9,
+    #f6eee0 40%,
+    #a3c8cc 41%,
+    #dbe9e5 65%,
+    #e5d1af 66%
+  );
+}
+.background-option.twilight > span {
+  background:
+    radial-gradient(circle at 78% 20%, #fff2c9 0 6%, transparent 6.5%),
+    linear-gradient(165deg, #635e86, #c8a8b5 48%, #536d69 49%, #304b4c);
+}
+.custom-color {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.custom-color input {
+  height: 44px;
+  width: 60px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  padding: 4px;
+}
+.custom-color p {
+  flex-basis: 100%;
+}
+.profile-panel form {
+  display: grid;
+  gap: 12px;
+  margin: 24px auto;
+  max-width: 400px;
+  text-align: left;
+}
+.profile-panel input {
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.account-text {
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-option small {
+  color: var(--muted);
+}
+
+.settings-controls {
+  margin: 0;
+  min-width: 0;
+}

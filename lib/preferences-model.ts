@@ -6,17 +6,35 @@ export const themes = [
   "sand",
   "rose",
   "forest",
+  "mint",
+  "honey",
+  "sky",
+  "clay",
+  "plum",
+  "custom",
+] as const;
+export const backgrounds = [
+  "botanical",
+  "sunlight",
+  "solid",
+  "meadow",
+  "coast",
+  "twilight",
+  "home",
+  "garden",
 ] as const;
 export type Preferences = {
+  customColor: string;
   theme: (typeof themes)[number];
   mode: "light" | "dark" | "system";
-  background: "botanical" | "solid" | "sunlight";
+  background: (typeof backgrounds)[number];
   intensity: number;
   motion: "cinematic" | "balanced" | "minimal" | "off";
   companion: boolean;
   textSize: "standard" | "large";
 };
 export const defaults: Preferences = {
+  customColor: "#345b49",
   theme: "sage",
   mode: "system",
   background: "botanical",
@@ -31,15 +49,18 @@ export function sanitizePreferences(value: unknown): Preferences {
       ? (value as Record<string, unknown>)
       : {};
   return {
+    customColor:
+      typeof v.customColor === "string" &&
+      /^#[0-9a-fA-F]{6}$/.test(v.customColor)
+        ? v.customColor.toLowerCase()
+        : defaults.customColor,
     theme: themes.includes(v.theme as Preferences["theme"])
       ? (v.theme as Preferences["theme"])
       : defaults.theme,
     mode: ["light", "dark", "system"].includes(String(v.mode))
       ? (v.mode as Preferences["mode"])
       : defaults.mode,
-    background: ["botanical", "solid", "sunlight"].includes(
-      String(v.background),
-    )
+    background: backgrounds.includes(v.background as Preferences["background"])
       ? (v.background as Preferences["background"])
       : defaults.background,
     intensity:

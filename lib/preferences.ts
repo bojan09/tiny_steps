@@ -7,6 +7,19 @@ import {
   sanitizePreferences,
   type Preferences,
 } from "./preferences-model";
+let accountScope = false;
+export function setAccountScope(value: boolean) {
+  accountScope = value;
+}
+const guestStorage = {
+  getItem: browserStorage.getItem,
+  setItem: (key: string, value: string) => {
+    if (!accountScope) browserStorage.setItem(key, value);
+  },
+  removeItem: (key: string) => {
+    if (!accountScope) browserStorage.removeItem(key);
+  },
+};
 type State = {
   preferences: Preferences;
   orientationStep: number;
@@ -33,7 +46,7 @@ export const usePreferences = create<State>()(
     {
       name: "tinysteps-local-v1",
       version: 1,
-      storage: createJSONStorage(() => browserStorage),
+      storage: createJSONStorage(() => guestStorage),
       skipHydration: true,
       merge: (stored, current) => {
         const s =

@@ -1,0 +1,25 @@
+name: Supabase health check
+on:
+  schedule:
+    - cron: "23 8 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: supabase-healthcheck
+  cancel-in-progress: false
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Read the restricted health record
+        run: node scripts/supabase-keepalive.mjs
+        env:
+          SUPABASE_KEEPALIVE_DATABASE_URL: ${{ secrets.SUPABASE_KEEPALIVE_DATABASE_URL }}
