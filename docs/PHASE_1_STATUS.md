@@ -33,4 +33,7 @@ No database changes, OAuth test, Groq calls, cloud handoff, production deploymen
 - Author review found restricted browser storage could throw during preference writes. Reproduced in a failing browser test; added a safe persistence adapter with visible session-only warning.
 
 ## Result
-Phase 1 implementation and verification complete. Commit/push verification recorded in the chat after publication. No deployment performed. Full medical content, account integration and later modules remain outside this phase.
+Phase 1 implementation and verification complete. Implementation commit 7e98d168b085e18c04aada512c8bf55b6c7615f1 was pushed to origin/master. git ls-remote returned the identical SHA on 2026-10-29. No deployment performed. Full medical content, account integration and later modules remain outside this phase.
+
+- Final dark-mode check caught a transient contrast failure while the saved theme hydrated. Removed background-color interpolation; all 13 browser tests then passed.
+- Deferred minor: short initial light-theme paint may appear before local preferences hydrate. Full theme bootstrap can be refined with account preferences; final colors are contrast-tested.
