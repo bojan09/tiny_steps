@@ -49,3 +49,14 @@ Next after this increment: obtain working authoritative source access, review CD
 
 ### Explorer increment remote evidence
 Implementation commit c7ddebf6a2f26e151ab83fae7b9984e574b05c74 was pushed successfully to origin/master. A subsequent `git ls-remote origin refs/heads/master` matched that exact SHA. This documentation follow-up preserves the evidence. Automatic Vercel deployment is authorized but the resulting production version is not independently verified because runtime access remains blocked. The sourced developmental-content scope remains pending; do not label the whole phase complete.
+
+## Phase 5 SafeNest explorer increment — v1.5.0
+User authorized proceeding with Phase 5. Initial fetch matched origin/master. Implemented four room choices through map and equivalent text controls, twelve bounded reference-review prompts, follow-up/review states, collection bookmarks, preference persistence, optional reduced-motion-aware companion and My Journey counts. Room selection focuses the room heading and scrolls to the prompts, without smooth motion when reduced motion is requested. Appearance reset preserves review choices. No new dependencies, schema or paid services.
+
+Release scope: reference-review planner only. It does not label a home safe, score hazards, certify completion or provide verified safe/unsafe demonstrations. The full Phase 5 checkpoint is still open for reviewed safety education, live auth/RLS and production deployment verification. Phase 4 sourced developmental content is also still open. See PHASE_5_REVIEW.md.
+
+Checks: 15 unit tests passed; full 26-test browser suite passed before final room-focus refinement; all 5 final affected checks passed after room-focus/release-copy refinements. Final lint, typecheck and webpack production build passed too. Mocked account tests cover revisioned persistence, guest isolation and visible save failure, not live RLS. Existing service-role/database credential variables were checked for presence, including local config: SERVICE_ROLE_KEY, DATABASE_URL, DIRECT_URL absent; public settings present. No live account creation/database writes attempted.
+
+Mobile/desktop screenshots reviewed. Fresh-context local Chromium, mobile viewport, unthrottled synthetic sample before final room-focus refinement: TTFB 8 ms, DOMContentLoaded 55 ms, load 259 ms, JavaScript transfer 292,997 bytes. This is not production field Core Web Vitals or a throttled midrange-device benchmark.
+
+Runtime status still shows enforced restricted policy with zero custom domains. NHS source request returned proxy CONNECT 403, despite correct domain entries in saved settings. Do not ask the user to add duplicate entries. Git network access is separate and works. Final push/deployment evidence is recorded after verification below.

@@ -1,4 +1,10 @@
 import { validMonth, validReadMonths } from "./first-year/content.ts";
+import {
+  validRoom,
+  validNestChecks,
+  type RoomId,
+  type NestChecks,
+} from "./safenest/model.ts";
 export const themes = [
   "sage",
   "peach",
@@ -25,6 +31,8 @@ export const backgrounds = [
   "garden",
 ] as const;
 export type Preferences = {
+  safeNestRoom: RoomId;
+  safeNestChecks: NestChecks;
   firstYearMonth: number;
   firstYearRead: number[];
   firstYearLanguage: "en" | "mk";
@@ -39,6 +47,8 @@ export type Preferences = {
   textSize: "standard" | "large";
 };
 export const defaults: Preferences = {
+  safeNestRoom: "nursery",
+  safeNestChecks: {},
   firstYearMonth: 0,
   firstYearRead: [],
   firstYearLanguage: "en",
@@ -58,6 +68,8 @@ export function sanitizePreferences(value: unknown): Preferences {
       ? (value as Record<string, unknown>)
       : {};
   return {
+    safeNestRoom: validRoom(v.safeNestRoom),
+    safeNestChecks: validNestChecks(v.safeNestChecks),
     firstYearMonth: validMonth(v.firstYearMonth),
     firstYearRead: validReadMonths(v.firstYearRead),
     firstYearLanguage: v.firstYearLanguage === "mk" ? "mk" : "en",

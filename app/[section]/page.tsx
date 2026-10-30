@@ -8,6 +8,7 @@ import { StillLife } from "@/components/art";
 import { Journey } from "@/components/journey";
 import { Bookmarks } from "@/components/bookmarks";
 import { FirstYear } from "@/components/first-year";
+import { SafeNest } from "@/components/safenest";
 const sectionIds: readonly string[] = destinations
   .filter((d) => !["home", "settings", "profile"].includes(d.id))
   .map((d) => d.id);
@@ -115,6 +116,7 @@ export default async function Section({
   const d = destinations.find((v) => v.id === section);
   if (!d || !sectionIds.includes(section)) notFound();
   if (section === "first-365-days") return <FirstYear />;
+  if (section === "safenest") return <SafeNest />;
   const art =
     section === "first-365-days"
       ? "baby"
@@ -157,8 +159,10 @@ export default async function Section({
           <p>
             Version {version} includes Google sign-in, account preferences,
             bookmarks, introduction progress, expanded appearance and your
-            potato companion. Full care lessons, monthly chapters, room
-            explorations and AI responses are still being prepared.
+            potato companion, first-year caregiver reflections and the SafeNest
+            reference-review planner. Reviewed developmental cards, safe/unsafe
+            room lessons, full care lessons and AI responses are still being
+            prepared.
           </p>
           <h2>Your information</h2>
           <p>

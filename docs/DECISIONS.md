@@ -10,3 +10,7 @@
 
 - Phase 4 local draft: reuse the revisioned preference JSON for chapter month, language and explored-month IDs; sanitize all loaded state and preserve guest/account isolation. Reading progress is explicitly separate from child development. Monthly reflections collect no health data or journal entries.
 - Do not substitute general caregiver reflection cards for the required sourced developmental experience. Keep the sourced-developmental-content scope incomplete until authoritative guidance can be retrieved and reviewed. The tested nonclinical explorer can ship separately with its limitations stated. Further-reading links are not proof of source review.
+
+- Phase 5 explorer increment: preserve learning versus home-safety status. Reference-review states never mean a room is safe or a hazard resolved. Use the existing revisioned preferences rather than adding a remote schema for planning choices. Preserve those choices when resetting appearance.
+- House artwork is decorative navigation with equivalent text buttons, not a safe room diagram. All controls work without animation; companion respects reduced-motion/user settings. No risk gamification.
+- Source verification and live RLS remain separate required gates. Do not mislabel the planner as reviewed safe/unsafe training or its mocked account tests as live security verification. The full Phase 5 checkpoint remains open.

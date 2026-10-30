@@ -2485,3 +2485,226 @@ html[data-mode="dark"] .workspace::before {
   color: var(--muted);
   font-size: 0.85rem;
 }
+
+.nest-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.nest-header h1 {
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  margin: 8px 0;
+}
+.nest-header p {
+  max-width: 60ch;
+  color: var(--muted);
+}
+.nest-intro {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: clamp(20px, 3vw, 36px);
+  border-radius: 22px;
+  margin-bottom: 28px;
+}
+.nest-intro > div {
+  flex: 1;
+}
+.nest-intro p,
+.nest-topic p,
+.nest-guidance p {
+  line-height: 1.8;
+}
+.nest-companion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 290px;
+}
+.nest-companion img {
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.nest-companion p {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+}
+.nest-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: 28px;
+  align-items: start;
+}
+.nest-map-panel {
+  padding: 24px;
+  border-radius: 22px;
+}
+.nest-map {
+  position: relative;
+  aspect-ratio: 1.2;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-top: 20px;
+  background: var(--accent-soft);
+}
+.nest-map img {
+  object-fit: cover;
+}
+.nest-marker {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--accent);
+  font-weight: bold;
+  box-shadow: 0 2px 10px #0002;
+}
+.nest-marker[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink, #fff);
+}
+.nest-marker-0 {
+  top: 22%;
+  left: 32%;
+}
+.nest-marker-1 {
+  top: 52%;
+  left: 62%;
+}
+.nest-marker-2 {
+  top: 24%;
+  left: 68%;
+}
+.nest-marker-3 {
+  top: 66%;
+  left: 23%;
+}
+.nest-room-list {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0;
+}
+.nest-room-list button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  text-align: start;
+  min-height: 48px;
+}
+.nest-room-list svg {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
+.nest-room-list [aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.nest-room-list span {
+  font-family: var(--serif);
+}
+.nest-summary {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+.nest-summary p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+.nest-room-panel > header {
+  margin: 4px 0 24px;
+}
+.nest-room-panel > header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 10px 0;
+}
+.nest-topics {
+  display: grid;
+  gap: 18px;
+}
+.nest-topic,
+.nest-guidance {
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 20px;
+}
+.nest-topic h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.3rem;
+}
+.nest-topic h3 svg {
+  flex-shrink: 0;
+}
+.nest-topic details {
+  border-inline-start: 2px solid var(--accent);
+  padding-inline-start: 16px;
+  margin: 20px 0;
+}
+.nest-topic summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 10px 0;
+}
+.nest-topic-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: end;
+  justify-content: space-between;
+}
+.nest-topic-controls > div {
+  display: grid;
+  gap: 8px;
+  max-width: 100%;
+}
+.nest-topic-controls label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.nest-topic-controls select {
+  width: 100%;
+}
+.nest-topic .field-help svg {
+  display: inline;
+  vertical-align: middle;
+}
+.nest-guidance {
+  margin-top: 24px;
+}
+.nest-guidance .text-link {
+  margin: 12px 20px 0 0;
+}
+@media (max-width: 900px) {
+  .nest-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .nest-intro {
+    flex-wrap: wrap;
+  }
+  .nest-companion {
+    max-width: 100%;
+  }
+  .nest-map {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  .nest-header .button {
+    white-space: normal;
+  }
+}
+html[data-mode="dark"] .nest-marker[aria-pressed="true"] {
+  color: #172c20;
+}
+#nest-room-title {
+  scroll-margin-top: 100px;
+}

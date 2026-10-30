@@ -47,6 +47,8 @@ export const usePreferences = create<State>()(
             firstYearMonth: s.preferences.firstYearMonth,
             firstYearRead: s.preferences.firstYearRead,
             firstYearLanguage: s.preferences.firstYearLanguage,
+            safeNestRoom: s.preferences.safeNestRoom,
+            safeNestChecks: s.preferences.safeNestChecks,
           },
         })),
       setStep: (orientationStep) => set({ orientationStep }),

@@ -8,6 +8,12 @@ export function Journey() {
   const done = usePreferences((s) => s.orientationComplete);
   const step = usePreferences((s) => s.orientationStep);
   const explored = usePreferences((s) => s.preferences.firstYearRead.length);
+  const nestReviewed = usePreferences(
+    (s) =>
+      Object.values(s.preferences.safeNestChecks).filter(
+        (value) => value === "reviewed",
+      ).length,
+  );
   return (
     <>
       <section className="paper progress-summary">
@@ -57,6 +63,20 @@ export function Journey() {
         </p>
         <Link className="text-link" href="/first-365-days">
           Return to First 365 Days <ArrowRight size={16} />
+        </Link>
+      </section>
+      <section className="paper content-panel">
+        <p className="eyebrow">YOUR SAFENEST REFERENCE REVIEWS</p>
+        <h2>
+          {nestReviewed}{" "}
+          {nestReviewed === 1 ? "reference reviewed" : "references reviewed"}
+        </h2>
+        <p>
+          These are reading choices, not a home inspection or confirmation that
+          a room is safe.
+        </p>
+        <Link className="text-link" href="/safenest">
+          Return to SafeNest <ArrowRight size={16} />
         </Link>
       </section>
     </>

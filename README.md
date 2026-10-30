@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.4.0: First-year exploration of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.5.0: SafeNest exploration of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -70,3 +70,7 @@ Living Home now reflects account greetings, real saved collections and introduct
 ## First 365 Days — v1.4.0
 
 Browse 13 monthly caregiver-reflection chapters in English or Macedonian, or jump to an approximate chapter by day/week. Mark reading progress explicitly, return through My Journey, and bookmark the collection. Choices use existing isolated guest/account preferences; no birth date or health observations are collected. This release does not include a developmental checklist or reviewed age-specific clinical guidance. Those Phase 4 content requirements remain pending source review; see docs/PHASE_4_CONTENT_REVIEW.md.
+
+## SafeNest — v1.5.0 explorer increment
+
+Choose one of four rooms from the illustrated map or equivalent text list. Twelve reference-review prompts support Not started, Needs follow-up and Reference reviewed states. Choices persist through the existing isolated guest/account settings, appear in My Journey, and survive an appearance reset. Collection bookmarks and the optional companion use existing controls. This is a reference-review planner, not a home inspection or verified safe/unsafe training. The complete Phase 5 source/security/deployment checkpoint remains open; see docs/PHASE_5_REVIEW.md.
