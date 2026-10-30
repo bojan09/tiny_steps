@@ -1,4 +1,4 @@
-const CACHE = "tinysteps-public-v1";
+const CACHE = "tinysteps-public-v2";
 const PUBLIC = [
   "/offline",
   "/icons/icon-192.png",
@@ -6,7 +6,34 @@ const PUBLIC = [
   "/icons/icon.svg",
 ];
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(PUBLIC)));
+  event.waitUntil(
+    (async () => {
+      const cache = await caches.open(CACHE);
+      const offline = await fetch("/offline", { cache: "reload" });
+      if (!offline.ok) throw new Error("Offline page could not be prepared");
+      const html = await offline.clone().text();
+      // The offline route has its own Next.js chunks. Cache them before the
+      // worker activates, even when this browser has never visited that route.
+      const assets = [...html.matchAll(/(?:src|href)=["']([^"']+)["']/g)]
+        .map(
+          (match) =>
+            new URL(match[1].replaceAll("&amp;", "&"), self.location.origin),
+        )
+        .filter(
+          (url) =>
+            url.origin === self.location.origin &&
+            url.pathname.startsWith("/_next/static/"),
+        )
+        .map((url) => url.href);
+      await cache.addAll([
+        ...new Set([
+          ...PUBLIC.filter((path) => path !== "/offline"),
+          ...assets,
+        ]),
+      ]);
+      await cache.put("/offline", offline);
+    })(),
+  );
 });
 self.addEventListener("activate", (event) => {
   event.waitUntil(

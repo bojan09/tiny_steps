@@ -2226,3 +2226,79 @@ html[data-mode="dark"] .workspace::before {
   margin: 0;
   min-width: 0;
 }
+
+.home-focus {
+  margin: 36px 0;
+  padding: clamp(20px, 3vw, 36px);
+  border-radius: 24px;
+}
+.home-focus-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.home-stage {
+  display: grid;
+  gap: 8px;
+  max-width: 100%;
+}
+.home-stage label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.home-stage select {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+.home-stage-note {
+  max-width: 70ch;
+  line-height: 1.7;
+}
+.home-storage-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.home-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.home-actions > a {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.home-actions strong {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+}
+.home-actions > a > span:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.home-actions svg {
+  margin-top: auto;
+}
+@media (max-width: 767px) {
+  .home-actions {
+    grid-template-columns: 1fr;
+  }
+  .home-stage {
+    width: 100%;
+  }
+}

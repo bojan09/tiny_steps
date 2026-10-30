@@ -24,6 +24,7 @@ export const backgrounds = [
   "garden",
 ] as const;
 export type Preferences = {
+  learningStage: "all" | "preparing" | "early" | "middle" | "later";
   customColor: string;
   theme: (typeof themes)[number];
   mode: "light" | "dark" | "system";
@@ -34,6 +35,7 @@ export type Preferences = {
   textSize: "standard" | "large";
 };
 export const defaults: Preferences = {
+  learningStage: "all",
   customColor: "#345b49",
   theme: "sage",
   mode: "system",
@@ -49,6 +51,11 @@ export function sanitizePreferences(value: unknown): Preferences {
       ? (value as Record<string, unknown>)
       : {};
   return {
+    learningStage: ["all", "preparing", "early", "middle", "later"].includes(
+      String(v.learningStage),
+    )
+      ? (v.learningStage as Preferences["learningStage"])
+      : defaults.learningStage,
     customColor:
       typeof v.customColor === "string" &&
       /^#[0-9a-fA-F]{6}$/.test(v.customColor)

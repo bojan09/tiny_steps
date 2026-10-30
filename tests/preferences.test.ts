@@ -29,3 +29,14 @@ test("null and corrupted storage shapes are harmless", () => {
   for (const value of [null, [], false, "broken", 42])
     assert.deepEqual(sanitizePreferences(value), defaults);
 });
+test("learning interests validate older settings and reject arbitrary stages", () => {
+  assert.equal(sanitizePreferences({}).learningStage, "all");
+  assert.equal(
+    sanitizePreferences({ learningStage: "early" }).learningStage,
+    "early",
+  );
+  assert.equal(
+    sanitizePreferences({ learningStage: "diagnosis" }).learningStage,
+    "all",
+  );
+});

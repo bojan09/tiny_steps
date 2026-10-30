@@ -14,6 +14,8 @@ import {
 import { usePreferences } from "@/lib/preferences";
 import { Icon } from "./icons";
 import { StillLife, Botanical } from "./art";
+import { useAccount } from "./account-provider";
+import { HomeFocus } from "./home-focus";
 const cards = [
   {
     title: "Care Academy",
@@ -65,6 +67,7 @@ const cards = [
   },
 ];
 export function HomeDashboard() {
+  const { account } = useAccount();
   const p = usePreferences((s) => s.preferences);
   const step = usePreferences((s) => s.orientationStep);
   const done = usePreferences((s) => s.orientationComplete);
@@ -86,7 +89,11 @@ export function HomeDashboard() {
           <span className="eyebrow">
             <span className="tiny-line" /> A GENTLER BEGINNING TO PARENTHOOD
           </span>
-          <p className="welcome">Welcome to your little village</p>
+          <p className="welcome">
+            {account?.displayName
+              ? `Welcome back, ${account.displayName}`
+              : "Welcome to your little village"}
+          </p>
           <h1>
             Small steps,
             <br />a brighter tomorrow.
@@ -95,8 +102,16 @@ export function HomeDashboard() {
             A little knowledge. A little reassurance.
             <br />A whole lot of growing together.
           </p>
-          <Link className="button primary" href="/care-academy/getting-started">
-            Find your first step <ArrowRight size={17} />
+          <Link
+            className="button primary"
+            href={done ? "/care-academy" : "/care-academy/getting-started"}
+          >
+            {done
+              ? "Explore your collections"
+              : step
+                ? "Continue your introduction"
+                : "Find your first step"}{" "}
+            <ArrowRight size={17} />
           </Link>
           <span className="hero-footnote">
             <Heart size={14} /> Made for every kind of family
@@ -172,6 +187,7 @@ export function HomeDashboard() {
           <ArrowUpRight size={21} />
         </Link>
       </section>
+      <HomeFocus />
       <section className="explore-section">
         <div className="section-heading">
           <div>

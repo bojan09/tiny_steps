@@ -39,7 +39,13 @@ export const usePreferences = create<State>()(
         set((s) => ({
           preferences: sanitizePreferences({ ...s.preferences, ...value }),
         })),
-      reset: () => set({ preferences: { ...defaults } }),
+      reset: () =>
+        set((s) => ({
+          preferences: {
+            ...defaults,
+            learningStage: s.preferences.learningStage,
+          },
+        })),
       setStep: (orientationStep) => set({ orientationStep }),
       finish: () => set({ orientationComplete: true, orientationStep: 4 }),
     }),

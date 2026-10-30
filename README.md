@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.2.0: Phase 2 of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.3.0: Phase 3 of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -62,3 +62,7 @@ Repository: https://github.com/bojan09/tiny_steps.git. Work remains on master. T
 ## Content and artwork
 
 This release contains app orientation and collection descriptions, not reviewed medical instruction. Original generated artwork is decorative. See docs/ASSETS.md for provenance and prompts. Health and safety content needs current source review before publication.
+
+## Cloud continuation — Phase 3
+
+Living Home now reflects account greetings, real saved collections and introduction progress, with an optional learning-stage interest (no birth date). Stage settings use the existing isolated guest/account preferences. Resetting appearance preserves the learning interest. The cold offline fallback now precaches its required static assets. See docs/CLOUD_HANDOFF.md for current verification and external blockers. In this cloud runtime use `npm run build -- --webpack`; browser checks use the saved local Chromium override.
