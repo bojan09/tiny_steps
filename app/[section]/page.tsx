@@ -7,6 +7,7 @@ import { destinations, collections } from "@/lib/navigation";
 import { StillLife } from "@/components/art";
 import { Journey } from "@/components/journey";
 import { Bookmarks } from "@/components/bookmarks";
+import { FirstYear } from "@/components/first-year";
 const sectionIds: readonly string[] = destinations
   .filter((d) => !["home", "settings", "profile"].includes(d.id))
   .map((d) => d.id);
@@ -113,6 +114,7 @@ export default async function Section({
   const { section } = await params;
   const d = destinations.find((v) => v.id === section);
   if (!d || !sectionIds.includes(section)) notFound();
+  if (section === "first-365-days") return <FirstYear />;
   const art =
     section === "first-365-days"
       ? "baby"

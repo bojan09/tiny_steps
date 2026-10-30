@@ -2302,3 +2302,186 @@ html[data-mode="dark"] .workspace::before {
     width: 100%;
   }
 }
+
+.year-hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  overflow: hidden;
+  border-radius: 24px;
+}
+.year-hero > div:first-child {
+  padding: clamp(24px, 4vw, 56px);
+}
+.year-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+}
+.year-hero p:not(.eyebrow) {
+  max-width: 48ch;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.year-art {
+  position: relative;
+  min-height: 280px;
+}
+.year-art img {
+  object-fit: cover;
+}
+.year-language {
+  display: grid;
+  gap: 8px;
+  max-width: 240px;
+  margin-top: 24px;
+}
+.year-context {
+  max-width: 85ch;
+  margin: 28px 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.year-explorer {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+.year-months {
+  padding: 20px;
+  border-radius: 18px;
+}
+.year-months label {
+  display: block;
+  margin-bottom: 10px;
+}
+.year-months select {
+  width: 100%;
+}
+.year-months ol {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+.year-months button {
+  width: 100%;
+  text-align: start;
+  padding: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+}
+.year-months small {
+  grid-column: 1;
+  color: var(--muted);
+}
+.year-months svg {
+  grid-column: 2;
+  grid-row: 1;
+}
+.year-months [aria-current] {
+  border-color: var(--line);
+  background: var(--accent-soft);
+}
+.year-chapter,
+.year-sources {
+  padding: clamp(20px, 3vw, 40px);
+  border-radius: 22px;
+}
+.year-chapter-meta,
+.year-controls,
+.year-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+}
+.year-chapter h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin: 20px 0;
+  overflow-wrap: anywhere;
+}
+.year-chapter h3 {
+  font-size: 1.2rem;
+}
+.year-chapter p,
+.year-sources p {
+  line-height: 1.8;
+}
+.year-reflection {
+  margin: 28px 0;
+  padding: 24px;
+  border-inline-start: 3px solid var(--accent);
+}
+.year-reflection small {
+  color: var(--muted);
+}
+.year-controls {
+  justify-content: start;
+}
+.year-controls button {
+  white-space: normal;
+  text-align: start;
+}
+.year-chapter progress {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--accent);
+}
+.year-pagination {
+  margin: 20px 0;
+}
+.year-sources li {
+  margin: 12px 0;
+}
+.year-sources a:not(.text-link) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 767px) {
+  .year-hero,
+  .year-explorer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .year-art {
+    min-height: 210px;
+  }
+  .year-months ol {
+    display: none;
+  }
+  .year-pagination button {
+    flex: 1;
+    white-space: normal;
+  }
+}
+.year-jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 24px;
+}
+.year-jump > div {
+  display: grid;
+  gap: 8px;
+}
+.year-jump input {
+  max-width: 140px;
+  min-height: 44px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+}
+.year-jump p {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}

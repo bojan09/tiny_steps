@@ -35,3 +35,14 @@ The saved environment install script recreates the ignored Chromium config after
 
 ## Commit and push
 Phase 3 implementation commit: d3a1bdf630f0372bfa496f80d9b11250436cbafd. `git push origin master` succeeded, and `git ls-remote origin refs/heads/master` independently matched that exact SHA. A follow-up documentation commit records this evidence. Vercel verification request returned proxy CONNECT 403; the new deployment is not independently verified. No further implementation phase started because current authoritative content sources are inaccessible.
+
+## Phase 4 explorer increment — v1.4.0
+User repeatedly authorized executing Phase 4. The nonclinical first-year explorer is implemented for an incremental release; the complete sourced-developmental-content scope is still pending. No milestone checklist, clinical guidance or medical source review is claimed.
+
+Implemented: English/Macedonian monthly caregiver reflections, approximate day/week jumps, previous/next controls, explicitly marked reading progress, collection bookmarking and a My Journey summary. Existing revisioned account preference storage and isolated guest storage are reused. No migrations or new dependencies. Appearance reset preserves reading preferences.
+
+Source access was retried after the user showed the correct domains in environment settings. Runtime status still reports revision 1 and zero custom domains; CDC CONNECT was denied with 403. This is a runtime/configuration mismatch, not a missing domain entry. Do not repeat instructions to add duplicate domains.
+
+Final validation: lint, typecheck, webpack production build and all 13 unit tests passed. Full final browser suite: 22 passed, including day/week/month controls, My Journey summary, appearance-reset preservation, Macedonian large-text keyboard navigation/accessibility, persistence and mocked revisioned account saves. Macedonian mobile/desktop screenshots were reviewed. Final version is 1.4.0; the complete sourced-developmental-content Phase 4 scope is not claimed complete. Commit/push evidence is recorded below.
+
+Next after this increment: obtain working authoritative source access, review CDC/NHS guidance, author and review sourced developmental cards/ranges and Macedonian equivalents, verify live cloud persistence where possible, run affected/full release checks, commit/push and verify deployment separately. Preserve user authorization for master pushes and deployments after each tested increment. See PHASE_4_CONTENT_REVIEW.md.

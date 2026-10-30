@@ -7,6 +7,7 @@ export function Journey() {
   const { account } = useAccount();
   const done = usePreferences((s) => s.orientationComplete);
   const step = usePreferences((s) => s.orientationStep);
+  const explored = usePreferences((s) => s.preferences.firstYearRead.length);
   return (
     <>
       <section className="paper progress-summary">
@@ -43,6 +44,21 @@ export function Journey() {
           ? "Your introduction progress is saved to your account."
           : "This progress belongs to this browser. Sign in to start an account journey."}
       </p>
+      <section className="paper content-panel">
+        <p className="eyebrow">YOUR FIRST-YEAR READING</p>
+        <h2>
+          {explored
+            ? `${explored} first-year ${explored === 1 ? "chapter" : "chapters"} explored`
+            : "A year to explore, at your own pace"}
+        </h2>
+        <p>
+          This records chapters you chose to mark as explored. It is not a
+          record of your baby’s abilities or a care qualification.
+        </p>
+        <Link className="text-link" href="/first-365-days">
+          Return to First 365 Days <ArrowRight size={16} />
+        </Link>
+      </section>
     </>
   );
 }

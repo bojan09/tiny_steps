@@ -24,3 +24,10 @@ Completed as d3a1bdf630f0372bfa496f80d9b11250436cbafd and pushed to origin/maste
 - Deployment cadence resolved by user: Vercel auto-deploys master and deployments after each phase are authorized. Verify remote push and deployment separately.
 - Apply saved cloud Supabase, GitHub API, CDC/NHS and Vercel domain policy. CDC source retrieval returned proxy CONNECT 403; current infant-development guidance cannot be reviewed until policy is applied. Phase 4 content/source review is blocked.
 - Verify existing Actions execution securely; do not recreate database, credentials or workflow blindly.
+
+## Phase 4 — First 365 Days explorer increment, v1.4.0
+User requested execution. Initial fetch matched origin/master with a clean working tree. Runtime network still has zero custom domains despite the settings UI displaying all five saved domains. CDC retry returned proxy CONNECT 403. The settings are correct; runtime application is unresolved. Do not ask the user to add the same domains again.
+
+Implemented: 13 caregiver-reflection chapters in English/Macedonian; approximate day/week jumps; monthly navigation; explicit reading progress; My Journey reading summary; collection bookmarking; validated preference persistence and guest/account separation; reading choices preserved by appearance reset. No birth date, health observations, diagnosis or ability scores.
+
+This is a deliverable nonclinical explorer increment. The complete Phase 4 developmental-content scope remains unfinished: current authoritative source review and sourced educational cards with flexible developmental ranges. No reviewed clinical curriculum or current-source verification is claimed. See PHASE_4_CONTENT_REVIEW.md for remaining requirements. Final check/commit/push evidence is in CLOUD_HANDOFF.md.

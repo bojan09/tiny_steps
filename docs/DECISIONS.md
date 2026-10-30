@@ -7,3 +7,6 @@
 - Use installed tools with explicit reporting while named optional skills are unavailable. Do not install unknown third-party skills.
 - Use Next's supported webpack build due to Turbopack worker socket restrictions; retain installed Chromium via ignored local Playwright configuration.
 - Production is already live and Google sign-in works according to the user. User explicitly confirms master auto-deploys and authorizes deployments after every completed phase, superseding the uploaded Phase 5-only checkpoint. Verify actual deployment separately from push.
+
+- Phase 4 local draft: reuse the revisioned preference JSON for chapter month, language and explored-month IDs; sanitize all loaded state and preserve guest/account isolation. Reading progress is explicitly separate from child development. Monthly reflections collect no health data or journal entries.
+- Do not substitute general caregiver reflection cards for the required sourced developmental experience. Keep the sourced-developmental-content scope incomplete until authoritative guidance can be retrieved and reviewed. The tested nonclinical explorer can ship separately with its limitations stated. Further-reading links are not proof of source review.

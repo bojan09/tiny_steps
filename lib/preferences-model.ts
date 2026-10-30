@@ -1,3 +1,4 @@
+import { validMonth, validReadMonths } from "./first-year/content.ts";
 export const themes = [
   "sage",
   "peach",
@@ -24,6 +25,9 @@ export const backgrounds = [
   "garden",
 ] as const;
 export type Preferences = {
+  firstYearMonth: number;
+  firstYearRead: number[];
+  firstYearLanguage: "en" | "mk";
   learningStage: "all" | "preparing" | "early" | "middle" | "later";
   customColor: string;
   theme: (typeof themes)[number];
@@ -35,6 +39,9 @@ export type Preferences = {
   textSize: "standard" | "large";
 };
 export const defaults: Preferences = {
+  firstYearMonth: 0,
+  firstYearRead: [],
+  firstYearLanguage: "en",
   learningStage: "all",
   customColor: "#345b49",
   theme: "sage",
@@ -51,6 +58,9 @@ export function sanitizePreferences(value: unknown): Preferences {
       ? (value as Record<string, unknown>)
       : {};
   return {
+    firstYearMonth: validMonth(v.firstYearMonth),
+    firstYearRead: validReadMonths(v.firstYearRead),
+    firstYearLanguage: v.firstYearLanguage === "mk" ? "mk" : "en",
     learningStage: ["all", "preparing", "early", "middle", "later"].includes(
       String(v.learningStage),
     )
