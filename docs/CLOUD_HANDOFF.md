@@ -34,4 +34,4 @@ The saved environment install script recreates the ignored Chromium config after
 - No Phase 4–8 completion or fresh production deployment is claimed.
 
 ## Commit and push
-Final Phase 3 checks/commit/push evidence will be recorded after verification; do not interpret a local build as a push or deployment.
+Phase 3 implementation commit: d3a1bdf630f0372bfa496f80d9b11250436cbafd. `git push origin master` succeeded, and `git ls-remote origin refs/heads/master` independently matched that exact SHA. A follow-up documentation commit records this evidence. Vercel verification request returned proxy CONNECT 403; the new deployment is not independently verified. No further implementation phase started because current authoritative content sources are inaccessible.

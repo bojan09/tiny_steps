@@ -12,7 +12,7 @@
 The user explicitly authorized the uploaded continuation prompt after inspection. Its Phase 3 Living Home roadmap supersedes the older curriculum-first ordering. No completed foundation is being rebuilt. Later phases: First 365 Days; SafeNest and Phase 5 production checkpoint; learning studio/map/companion; localization/personalization; offline/performance hardening.
 
 ## Phase 3 — Living Home, v1.3.0
-Implemented and tested; commit/push status is recorded in CLOUD_HANDOFF.md.
+Completed as d3a1bdf630f0372bfa496f80d9b11250436cbafd and pushed to origin/master; remote SHA independently verified. Lint, types, webpack build, 10 unit tests and full 18-test browser suite passed; 3 affected browser tests passed again after the final refinement. Deployment verification is blocked by current network policy.
 - Personalized account greeting and resumable introduction CTA.
 - Optional learning-stage interest with no birth date; uses existing validated preference persistence and account revision handling. It is a browsing interest, not a developmental assessment.
 - Honest next actions, real saved-collection counts and introduction progress; no invented lessons, metrics or medical claims.
