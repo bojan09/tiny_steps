@@ -7,7 +7,9 @@ export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   if (code) {
     const supabase = await serverSupabase();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const error = supabase
+      ? (await supabase.auth.exchangeCodeForSession(code)).error
+      : true;
     if (!error)
       return NextResponse.redirect(new URL("/profile", origin), {
         headers: { "Cache-Control": "private, no-store" },

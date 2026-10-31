@@ -9,6 +9,7 @@ const reply = (data: unknown, status = 200) =>
   });
 export async function GET() {
   const db = await serverSupabase();
+  if (!db) return reply({ guest: true, authAvailable: false });
   const {
     data: { user },
     error: authError,
@@ -70,6 +71,8 @@ export async function PATCH(request: NextRequest) {
   }
   if (!input) return reply({ error: "Invalid update." }, 400);
   const db = await serverSupabase();
+  if (!db)
+    return reply({ error: "Account sign-in is temporarily unavailable." }, 503);
   const {
     data: { user },
   } = await db.auth.getUser();

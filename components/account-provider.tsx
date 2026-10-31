@@ -7,6 +7,7 @@ import {
   useState,
   useCallback,
 } from "react";
+import { supabaseConfig } from "@/lib/supabase/config";
 import { browserSupabase } from "@/lib/supabase/browser";
 import { usePreferences, setAccountScope } from "@/lib/preferences";
 import { defaults, sanitizePreferences } from "@/lib/preferences-model";
@@ -17,6 +18,7 @@ type Account = {
   revision: number;
 };
 type Context = {
+  authAvailable: boolean;
   account: Account | null;
   loading: boolean;
   message: string;
@@ -31,6 +33,7 @@ export function useAccount() {
   return useContext(AccountContext)!;
 }
 export function AccountProvider({ children }: { children: React.ReactNode }) {
+  const [authAvailable, setAuthAvailable] = useState(!!supabaseConfig());
   const [account, setAccount] = useState<Account | null>(null),
     [loading, setLoading] = useState(true),
     [message, setMessage] = useState(""),
@@ -55,11 +58,20 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     bookmarkRef.current = [];
     setBookmarks([]);
     try {
-      const response = await fetch("/api/account", { cache: "no-store" });
+      let data;
+      if (!supabaseConfig()) data = { guest: true, authAvailable: false };
+      else {
+        const response = await fetch("/api/account", { cache: "no-store" });
+        if (generation !== epoch.current) return;
+        if (!response.ok) throw new Error();
+        data = await response.json();
+      }
       if (generation !== epoch.current) return;
-      if (!response.ok) throw new Error();
-      const data = await response.json();
-      if (generation !== epoch.current) return;
+      setAuthAvailable(data.authAvailable !== false);
+      if (data.authAvailable === false)
+        setMessage(
+          "Account sign-in is temporarily unavailable. You can still explore and save choices on this device.",
+        );
       if (data.guest) {
         setAccountScope(false);
         await usePreferences.persist.rehydrate();
@@ -106,19 +118,19 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Defer until the guest store has completed its initial hydration.
     const timer = setTimeout(() => void reload(), 0);
-    const {
-      data: { subscription },
-    } = browserSupabase().auth.onAuthStateChange((event, session) => {
-      if (
-        (event === "SIGNED_IN" && session?.user.id !== active.current?.id) ||
-        (event === "SIGNED_OUT" && active.current)
-      )
-        setTimeout(() => void reload(), 0);
-    });
+    const subscription = browserSupabase()?.auth.onAuthStateChange(
+      (event, session) => {
+        if (
+          (event === "SIGNED_IN" && session?.user.id !== active.current?.id) ||
+          (event === "SIGNED_OUT" && active.current)
+        )
+          setTimeout(() => void reload(), 0);
+      },
+    );
     const lifecycle = epoch;
     return () => {
       clearTimeout(timer);
-      subscription.unsubscribe();
+      subscription?.data.subscription.unsubscribe();
       lifecycle.current++;
       active.current = null;
       setAccountScope(false);
@@ -253,7 +265,10 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
       orientationComplete: false,
     });
     setBookmarks([]);
-    const { error } = await browserSupabase().auth.signOut({ scope: "local" });
+    const client = browserSupabase();
+    const error = client
+      ? (await client.auth.signOut({ scope: "local" })).error
+      : null;
     if (error) setMessage("Sign-out could not finish. Please retry.");
     else await reload();
   }
@@ -295,6 +310,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   return (
     <AccountContext.Provider
       value={{
+        authAvailable,
         account,
         loading,
         message,

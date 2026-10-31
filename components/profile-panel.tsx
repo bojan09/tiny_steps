@@ -3,7 +3,15 @@ import { useState, useSyncExternalStore } from "react";
 import { useAccount } from "./account-provider";
 import { browserSupabase } from "@/lib/supabase/browser";
 export function ProfilePanel() {
-  const { account, loading, message, reload, saveName, signOut } = useAccount();
+  const {
+    account,
+    loading,
+    message,
+    reload,
+    saveName,
+    signOut,
+    authAvailable,
+  } = useAccount();
   const [name, setName] = useState(""),
     [editing, setEditing] = useState(false),
     [error, setError] = useState(""),
@@ -11,7 +19,13 @@ export function ProfilePanel() {
   async function signIn() {
     setBusy(true);
     setError("");
-    const { error } = await browserSupabase().auth.signInWithOAuth({
+    const client = browserSupabase();
+    if (!client) {
+      setError("Account sign-in is temporarily unavailable.");
+      setBusy(false);
+      return;
+    }
+    const { error } = await client.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: window.location.origin + "/auth/callback" },
     });
@@ -67,7 +81,7 @@ export function ProfilePanel() {
           </p>
           <button
             className="button primary"
-            disabled={busy}
+            disabled={busy || !authAvailable}
             onClick={() => void signIn()}
           >
             {busy ? "Opening Google…" : "Continue with Google"}
