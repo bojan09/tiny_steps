@@ -1,0 +1,36 @@
+name: Isolated account and RLS verification
+on:
+  push:
+    branches: [master]
+    paths-ignore: ["docs/**", "README.md"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: account-rls-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+      - name: Locate test browser
+        run: node --input-type=module -e 'import { chromium } from "playwright"; import { appendFileSync } from "node:fs"; appendFileSync(process.env.GITHUB_ENV, "TINYSTEPS_CHROMIUM_EXECUTABLE=" + chromium.executablePath() + "\n");'
+      - name: Verify disposable accounts, persistence and RLS
+        run: npm run test:integration
+      - name: Preserve non-secret verification summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: isolated-account-rls-result
+          path: verification-results/local-integration/report.json
+          if-no-files-found: warn
+          retention-days: 7
