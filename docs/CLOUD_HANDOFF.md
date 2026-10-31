@@ -7,7 +7,7 @@
 - Added CDC-based bilingual developmental cards for reference ages 2, 4, 6, 9 and 12 months, covering all 13 chapters. Each includes selected developmental examples, a gentle interaction idea, variation/screening context, source jurisdiction/link/date and concern/lost-skill guidance. Reading groups are not clinical acquisition ranges; earlier chapters explicitly label content as looking ahead.
 - Added five stage shortcuts with current-stage semantics and chapter-heading focus. Preserved day/week/month navigation, previous/next boundaries, collection bookmarks, reading progress and My Journey. Added Macedonian save/error states. No birth date/ability tracking, new schema, dependencies or paid services.
 - Source review is complete for the educational scope. See PHASE_4_CONTENT_REVIEW.md for the source-to-claim mapping, dates and translation boundaries. This is not an independently clinically reviewed curriculum or CDC endorsement. Whole-app localization remains Phase 7.
-- Preserved pre-existing missing-Supabase-config fixes, verified them in the merged app and committed them separately as 0c1caf9. Account configuration is optional for guest exploration; unavailable sign-in is explained. Original stash backup remains; .codex-attachments is left untracked. Repository-local commit identity was restored from the existing commit history because this new machine had none configured; no global Git identity was changed.
+- Preserved pre-existing missing-Supabase-config fixes, verified them in the merged app and committed them separately (published as 0acc3dc). Account configuration is optional for guest exploration; unavailable sign-in is explained. Original stash backup remains; .codex-attachments is left untracked. Repository-local commit identity was restored from the existing commit history because this new machine had none configured; no global Git identity was changed.
 
 ### Final validation
 
@@ -25,7 +25,17 @@
 
 Checkout: /home/stan/projects/tiny_steps. Load the installed runtime with `source /home/stan/.nvm/nvm.sh` (Node 26.13.0/npm 11.20.0). Use npm ci, npm run lint, npm run typecheck, npm test and npm run build -- --webpack. Start the preview with npm run start. The browser executable for this machine is /home/stan/projects/tiny_steps/node_modules/.cache/phase4-browsers/chromium-1248/chrome-linux64/chrome; set TINYSTEPS_CHROMIUM_EXECUTABLE to that path for npm run test:e2e and npm run verify:performance. To recreate it, set PLAYWRIGHT_BROWSERS_PATH=/home/stan/projects/tiny_steps/node_modules/.cache/phase4-browsers when running npx playwright install chromium. Browser binaries and .env files remain ignored.
 
-Delivery SHA, remote verification and production observations are recorded below after push. The pre-push production endpoint returned HTTP 200 with version 1.5.1; that is not proof of the new deployment.
+
+### Verified Phase 4 delivery
+
+- Supporting configuration commit published as `0acc3dcd42974a5bbc7c2204b3c1715d517736f4`; Phase 4 implementation published as `7702539d39d9e255c4e066e2059fb54a6053b705` on origin/master.
+- The new machine lacked HTTPS Git push credentials. Publication used the authenticated GitHub connector to create the two commits and fast-forward master with an expected-head check; no force update or remote overwrite. The API-created release tree exactly matched the tested local tree `12b3c81e52040fa783fe0e69faf11f05f4f9fc23`. `git fetch`/`git rebase origin/master` recognized and skipped the equivalent local commits; `git ls-remote` independently confirmed the published implementation SHA. Local master matches the published content.
+- Vercel commit status for 7702539 is **success**: https://vercel.com/bojanstanimirovski097hotmailcoms-projects/tiny-steps/4K96nD3pjXUK3sE1vJSmKf6CSJyz .
+- Independently verified production at https://tiny-steps-six.vercel.app with a fresh guest Chromium context on 2026-10-31: /help HTTP 200 and version 1.5.2; /first-365-days HTTP 200; month 12 reference/source correct; Macedonian content and five stage controls work; no mobile overflow, page errors or account writes. Report: ignored verification-results/phase4/production-check.json. This verifies the implemented release, not remote account/RLS or field performance.
+- Phase 4 is complete; there are no remaining Phase 4 implementation/source-access blockers. Next roadmap work is completion of the existing Phase 5 SafeNest educational scope and its checkpoint; do not rebuild the planner or mark Phase 5 complete from Phase 4 evidence. No Phase 6–8 implementation was started.
+- This documentation follow-up records the delivered implementation; it does not change runtime behavior. The connector publication route remains available if command-line Git credentials are not configured.
+
+
 
 ## Earlier cloud history
 
