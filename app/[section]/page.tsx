@@ -1,3 +1,4 @@
+import { LearningStudio } from "@/components/learning-studio";
 import { version } from "@/lib/version";
 import Image from "next/image";
 import Link from "next/link";
@@ -117,14 +118,10 @@ export default async function Section({
   if (!d || !sectionIds.includes(section)) notFound();
   if (section === "first-365-days") return <FirstYear />;
   if (section === "safenest") return <SafeNest />;
-  const art =
-    section === "first-365-days"
-      ? "baby"
-      : section === "safenest"
-        ? "house"
-        : section === "ai-assistant"
-          ? "potato"
-          : null;
+  if (section === "care-academy") return <LearningStudio />;
+  if (section === "learning-map") return <LearningStudio map />;
+  if (section === "ai-assistant") return <LearningStudio companion />;
+  const art = null;
   if (section === "my-journey")
     return (
       <div className="page-content">
@@ -159,24 +156,24 @@ export default async function Section({
           <p>
             Version {version} includes Google sign-in, account preferences,
             bookmarks, introduction progress, expanded appearance and your
-            potato companion, first-year caregiver reflections and the SafeNest
-            reference-review planner. Reviewed developmental cards, safe/unsafe
-            room lessons, full care lessons and AI responses are still being
-            prepared.
+            companion guidance, sourced first-year developmental cards and
+            SafeNest comparisons, plus twelve guided Studio lessons with a
+            Learning Map and saved learning progress. The wider 64-lesson
+            curriculum and live AI responses are not released.
           </p>
           <h2>Your information</h2>
           <p>
-            Guest preferences, bookmarks and introduction progress stay in this
-            browser. When signed in, these choices are stored in your account in
-            Supabase. Guest choices are kept separate. This release does not
-            send questions or family information to an AI provider.
+            Guest preferences, bookmarks, lesson and introduction progress stay
+            in this browser. When signed in, these choices are stored in your
+            account in Supabase. Guest choices are kept separate. This release
+            does not send questions or family information to an AI provider.
           </p>
           <h2>Learning with care</h2>
           <p>
             TinySteps is for education, not diagnosis, treatment, or emergency
             assessment. Illustrations set a welcoming tone; they are not safety
-            instructions. Any future health or safety guidance must be verified
-            against current authoritative sources before it is published.
+            instructions. Published educational cards and lessons link to their
+            reviewed sources and identify the source jurisdiction.
           </p>
           <h2>Make the app comfortable</h2>
           <p>

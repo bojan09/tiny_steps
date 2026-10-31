@@ -44,6 +44,8 @@ export const usePreferences = create<State>()(
           preferences: {
             ...defaults,
             learningStage: s.preferences.learningStage,
+            activeLearningLesson: s.preferences.activeLearningLesson,
+            learningProgress: s.preferences.learningProgress,
             firstYearMonth: s.preferences.firstYearMonth,
             firstYearRead: s.preferences.firstYearRead,
             firstYearLanguage: s.preferences.firstYearLanguage,

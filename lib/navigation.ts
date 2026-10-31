@@ -57,9 +57,9 @@ export const destinations = [
   },
   {
     id: "ai-assistant",
-    title: "AI Assistant",
+    title: "Learning Companion",
     href: "/ai-assistant",
-    description: "About your future learning companion",
+    description: "Gentle guidance through your reviewed lessons",
     icon: "sparkles",
   },
   {

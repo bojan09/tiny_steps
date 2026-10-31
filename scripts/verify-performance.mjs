@@ -27,7 +27,13 @@ const report = {
   routes: [],
 };
 try {
-  for (const route of ["/first-365-days", "/safenest"]) {
+  for (const route of [
+    "/first-365-days",
+    "/safenest",
+    "/care-academy",
+    "/learning-map",
+    "/care-academy/lessons/sleep-space",
+  ]) {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },
       isMobile: true,

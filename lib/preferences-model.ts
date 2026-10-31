@@ -1,3 +1,9 @@
+import {
+  validLesson,
+  validLearningProgress,
+  type LessonId,
+  type LearningProgress,
+} from "./learning/model.ts";
 import { validMonth, validReadMonths } from "./first-year/content.ts";
 import {
   validRoom,
@@ -31,6 +37,8 @@ export const backgrounds = [
   "garden",
 ] as const;
 export type Preferences = {
+  activeLearningLesson: LessonId;
+  learningProgress: LearningProgress;
   safeNestRoom: RoomId;
   safeNestChecks: NestChecks;
   firstYearMonth: number;
@@ -47,6 +55,8 @@ export type Preferences = {
   textSize: "standard" | "large";
 };
 export const defaults: Preferences = {
+  activeLearningLesson: "sleep-space",
+  learningProgress: {},
   safeNestRoom: "nursery",
   safeNestChecks: {},
   firstYearMonth: 0,
@@ -68,6 +78,8 @@ export function sanitizePreferences(value: unknown): Preferences {
       ? (value as Record<string, unknown>)
       : {};
   return {
+    activeLearningLesson: validLesson(v.activeLearningLesson),
+    learningProgress: validLearningProgress(v.learningProgress),
     safeNestRoom: validRoom(v.safeNestRoom),
     safeNestChecks: validNestChecks(v.safeNestChecks),
     firstYearMonth: validMonth(v.firstYearMonth),

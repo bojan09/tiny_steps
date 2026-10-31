@@ -58,8 +58,8 @@ const cards = [
     color: "sage",
   },
   {
-    title: "AI Assistant",
-    sub: "Meet your future learning helper.",
+    title: "Learning Companion",
+    sub: "Find your next reviewed lesson.",
     href: "/ai-assistant",
     art: "potato",
     icon: "sparkles",

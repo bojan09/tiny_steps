@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.5.3: interactive SafeNest safety learning of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.6.0: Learning Studio, connected paths and companion guidance of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -47,7 +47,7 @@ Google OAuth entry/callback, Supabase schema and RLS, profile edits, account app
 
 ## Not delivered yet
 
-The structured lesson curriculum, live Groq AI and full lesson downloads remain later work. Living Home and First 365 Days are implemented; SafeNest provides sourced risk comparisons and a reference-review planner. See docs/PHASE_PROGRESS.md for the active continuation roadmap.
+The wider 64-lesson curriculum, live Groq AI and full lesson downloads remain later work. Twelve guided lessons and four learning paths are now available. Living Home and First 365 Days are implemented; SafeNest provides sourced risk comparisons and a reference-review planner. See docs/PHASE_PROGRESS.md for the active continuation roadmap.
 
 ## Configuration and privacy
 
@@ -78,3 +78,9 @@ Choose one of four rooms from the illustrated map or equivalent text list. Twelv
 ## Release verification and persistence fix — v1.5.1
 
 The save indicator now stays pending until all newer preference/progress changes have persisted. Real isolated Auth/PostgreSQL/PostgREST checks run with `npm run test:integration`, synthetic throttled mobile checks with `npm run verify:performance`, and authoritative source/deployed-version checks with `npm run verify:external`. See docs/INTEGRATION_TESTING.md. External transport failures remain failures; these commands do not claim production or source verification when blocked.
+
+## Phase 6 — Learning Studio, map and companion, v1.6.0
+
+Care Academy now contains twelve three-step lessons across four paths, using the already sourced SafeNest topics. Understand a comparison, try optional practice and carry a small action forward. The Learning Map displays Not started, In progress and Explored states; lessons resume at their saved step, and My Journey shows self-reported exploration counts. Appearance reset preserves learning choices. The existing app introduction remains available.
+
+Account progress uses the existing validated, revisioned preferences JSON and owner RLS; guest choices remain separate. No migration or AI service is added. Sprout provides contextual, dismissible inline guidance with reduced-motion support and a dedicated companion route. The 64-lesson curriculum is not claimed delivered. New lesson content is English; complete localization and personalization remain Phase 7. See docs/PHASE_6_REVIEW.md and docs/CLOUD_HANDOFF.md for validation and release evidence.

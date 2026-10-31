@@ -1,5 +1,22 @@
 # TinySteps cloud phase progress
 
+## Phase 6 — v1.6.0, 2026-10-31
+
+Implemented the visual Learning Studio (Care Academy), twelve sourced three-step lessons in four paths, a connected Learning Map with Not started/In progress/Explored states, resumable lesson steps, My Journey counts and contextual/dismissible Sprout guidance. Existing app introduction and bookmarks remain. The companion route now guides into working content without live AI calls. The wider 64-lesson curriculum is explicitly not claimed delivered; new UI is English and full localization remains Phase 7.
+
+Progress uses bounded known lesson IDs and steps 0–2 in existing revisioned owner preferences JSON. Completion is self-reported exploration, not a protected award or proficiency score. Guest/account state remains isolated, appearance reset preserves learning and revisiting a completed lesson does not erase its explored flag. No migration, new dependency or paid service. Source material reuses reviewed SafeNest guidance; see PHASE_6_REVIEW.md and PHASE_5_REVIEW.md.
+
+A failing browser regression exposed initial lesson tracking before the parent account-save subscription attached. Deferred tracking fixes that lost initial save; the failure regression passes and the authenticated runner now explicitly checks initial save/reload, completion/reload and map state.
+
+Local validation: lint/typecheck and final webpack build pass; all 24 unit tests and full 36-browser-test suite pass. After the final home companion-label copy update, all six affected home/learning browser tests passed again. Screenshots at desktop Studio, mobile lesson and dark tablet map reviewed; zero overflow, page errors or automated WCAG A/AA violations. Keyboard, 320px, large text, reduced motion, save errors, corrupt/unknown progress, account/guest separation, 404s, offline and existing features are covered. Reports/screenshots: ignored verification-results/phase6/.
+
+Throttled local mobile (390×844, 4× CPU, 150ms latency, 1.6Mbps down/750Kbps up): Studio LCP 700ms/CLS 0.0575; Map 660ms/0.0604; lesson 2396ms/0.0806; First 365 Days 852ms/0; SafeNest 616ms/0.0001. All meet preset LCP ≤2500ms/CLS ≤0.1; the lesson has limited margin. These are synthetic local observations, not production field data. The performance runner now covers all five routes.
+
+Hosted auth/RLS and deployment/version evidence are recorded after publication below. Do not infer production or real-auth success from local mocks. Existing hosted workflow runs the expanded real authenticated browser script with disposable services and generated local-only test credentials. No production user-data writes are intended.
+
+The pre-existing Supabase health workflow remains an independent maintenance item: the last inspected runs still failed; no successful execution was found after the user's promise to add its missing secret. Do not repeat credentials in chat or claim keepalive pause prevention. Phase 7 is next after Phase 6 verification.
+
+
 ## Phase 5 delivery — 2026-10-31, v1.5.3
 
 SafeNest implementation and local release checks are complete. Security and deployment observations are recorded below; the independent health-workflow setup is still awaiting a successful execution. Earlier Phase 4 and cloud blockers below are historical.

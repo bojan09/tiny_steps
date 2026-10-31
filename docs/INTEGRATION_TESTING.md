@@ -45,3 +45,7 @@ Run `npm run verify:performance` against the local production build. Fresh Chrom
 When Docker is unavailable locally, `.github/workflows/account-rls-verification.yml` runs the same disposable-service suite on ubuntu-latest with Node 22 and installed Playwright Chromium. It has read-only repository permissions, no production secrets, a 20-minute limit and a seven-day non-secret summary artifact. The existing image digests and cleanup contract remain unchanged. It runs on master runtime changes and supports manual dispatch; documentation-only updates do not restart it.
 
 First actual hosted run: https://github.com/bojan09/tiny_steps/actions/runs/41235034060 . Job 124636878045 succeeded, including actual owner/cross-account/anonymous RLS assertions and authenticated browser persistence/sign-out. Final Phase 5 release run evidence is recorded in CLOUD_HANDOFF.md. This is local-to-the-runner security testing, not certification of the managed production project's configuration or Google consent flow.
+
+## Phase 6 additions
+
+The authenticated browser runner now opens a Studio lesson directly, waits for its initial in-progress save, reloads it, advances through the steps, marks it explored, reloads again and checks the map. It exercises the same revisioned owner preferences API as the existing first-year and SafeNest checks. Initial-save ordering has a separate failed-save browser regression. Final release run evidence is recorded in CLOUD_HANDOFF.md.

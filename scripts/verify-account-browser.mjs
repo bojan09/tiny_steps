@@ -122,6 +122,39 @@ try {
     () => document.querySelector("#year-month")?.value === "6",
   );
   assert.equal(await page.locator("progress").getAttribute("value"), "1");
+  stage = "Studio lesson persistence";
+  await page.goto(base + "/care-academy/lessons/sleep-space");
+  await page
+    .locator(".lesson-panel")
+    .getByRole("status")
+    .filter({ hasText: "Saved to your account." })
+    .waitFor();
+  await page.reload();
+  await page
+    .getByRole("heading", { name: "Understand", exact: true })
+    .waitFor();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Mark lesson as explored", exact: true })
+    .click();
+  await page
+    .locator(".lesson-panel")
+    .getByRole("status")
+    .filter({ hasText: "Saved to your account." })
+    .waitFor();
+  await page.reload();
+  await page
+    .getByRole("button", { name: "Mark lesson as not explored", exact: true })
+    .waitFor();
+  assert.equal(
+    await page
+      .getByRole("button", { name: "Mark lesson as not explored", exact: true })
+      .getAttribute("aria-pressed"),
+    "true",
+  );
+  await page.goto(base + "/learning-map");
+  assert.equal(await page.locator('[data-status="Explored"]').count(), 1);
   stage = "SafeNest persistence";
   await page.goto(base + "/safenest");
   await page
@@ -178,7 +211,7 @@ try {
   );
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: real authenticated profile, preference/first-year/SafeNest/bookmark persistence, guest isolation and sign-out. Google consent is a separate user check.",
+    "PASS: real authenticated profile, preference/Studio/first-year/SafeNest/bookmark persistence, guest isolation and sign-out. Google consent is a separate user check.",
   );
 } catch (error) {
   console.error(

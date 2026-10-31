@@ -1,10 +1,13 @@
 "use client";
+import { lessonIds } from "@/lib/learning/model";
 import { useAccount } from "./account-provider";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { usePreferences } from "@/lib/preferences";
 export function Journey() {
   const { account } = useAccount();
+  const learning = usePreferences((s) => s.preferences.learningProgress);
+  const lessonCount = lessonIds.filter((id) => learning[id]?.completed).length;
   const done = usePreferences((s) => s.orientationComplete);
   const step = usePreferences((s) => s.orientationStep);
   const explored = usePreferences((s) => s.preferences.firstYearRead.length);
@@ -50,6 +53,22 @@ export function Journey() {
           ? "Your introduction progress is saved to your account."
           : "This progress belongs to this browser. Sign in to start an account journey."}
       </p>
+      <section className="paper content-panel">
+        <p className="eyebrow">YOUR STUDIO LEARNING</p>
+        <h2>
+          {lessonCount}{" "}
+          {lessonCount === 1
+            ? "Studio lesson explored"
+            : "Studio lessons explored"}
+        </h2>
+        <p>
+          Self-reported reading and reflection, not a care qualification or
+          home-safety assessment.
+        </p>
+        <Link className="text-link" href="/care-academy">
+          Return to Learning Studio <ArrowRight size={16} aria-hidden="true" />
+        </Link>
+      </section>
       <section className="paper content-panel">
         <p className="eyebrow">YOUR FIRST-YEAR READING</p>
         <h2>
