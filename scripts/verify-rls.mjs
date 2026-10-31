@@ -76,6 +76,33 @@ try {
     .single();
   assert.equal(updated.error, null);
   assert.equal(updated.data.revision, first.data.revision + 1);
+  const readingChoices = {
+    firstYearMonth: 6,
+    firstYearRead: [0, 6],
+    safeNestRoom: "bathroom",
+    safeNestChecks: { "bath-water": "follow-up" },
+  };
+  const savedChoices = await a
+    .from("user_preferences")
+    .update({ preferences: readingChoices })
+    .eq("revision", updated.data.revision)
+    .select("preferences,revision")
+    .single();
+  assert.equal(savedChoices.error, null);
+  assert.deepEqual(savedChoices.data.preferences, readingChoices);
+  const otherChoices = await b
+    .from("user_preferences")
+    .select("preferences")
+    .eq("user_id", ids[0]);
+  assert.equal(otherChoices.error, null);
+  assert.deepEqual(otherChoices.data, []);
+  const deniedChoices = await b
+    .from("user_preferences")
+    .update({ preferences: {} })
+    .eq("user_id", ids[0])
+    .select();
+  assert.equal(deniedChoices.error, null);
+  assert.deepEqual(deniedChoices.data, []);
   assert.equal(
     (
       await a

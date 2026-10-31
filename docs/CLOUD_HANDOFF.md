@@ -63,3 +63,23 @@ Runtime status still shows enforced restricted policy with zero custom domains. 
 
 ### SafeNest increment remote evidence
 Implementation commit d2c5ffb756e640bd93d86fb13d20fcaecbb5b822 was pushed successfully to origin/master. A subsequent git ls-remote independently matched the exact SHA. This documentation follow-up records the result. Production verification request to https://tiny-steps-six.vercel.app returned proxy CONNECT 403; deployment success/version is not claimed. Full Phase 5 checkpoint remains open as described above.
+
+## Phase 4–5 closure work — 2026-10-31, v1.5.1
+The user requested complete closure with nothing outstanding. Work is continuing against that scope; the full phases are **not** declared complete while source-dependent educational content and external release evidence remain blocked.
+
+Completed engineering checks:
+- Added `npm run test:integration`: immutable-image disposable PostgreSQL 17.6, Supabase Auth 2.197.0 and PostgREST 14.18; applies the committed application migration unchanged and uses generated local-only test credentials. No production admin credentials/data mutations.
+- Real RLS assertions pass: owner read/write, cross-account/anonymous denial, immutable identity, stale revision rejection, protected achievements, and first-year/SafeNest preference JSON isolation.
+- Real authenticated browser checks pass: profile, preferences, bookmarks, first-year reading, SafeNest follow-up choices, introduction progress, guest isolation and sign-out. Google consent remains user-confirmed rather than tested by this runner.
+- Reproduced an application save-status race with a failing delayed-write browser regression: an older request could emit “Saved” while newer choices were queued. Fixed pending status and queue draining; the new regression passes.
+- Final product validation: lint, typecheck, webpack production build, 15 unit tests and all 27 browser tests passed.
+- Throttled local performance: fresh 390×844 contexts, 4× CPU, 150 ms latency, 1.6 Mbps down/750 Kbps up. First 365 Days observed LCP 860 ms/CLS 0; SafeNest observed LCP 716 ms/CLS 0.0024. Both passed the preset LCP ≤2,500 ms/CLS ≤0.1 targets. These are synthetic local metrics, not production field metrics.
+- Added repeatable `npm run verify:performance` and `npm run verify:external`. Durable reports live in ignored `verification-results/`, separate from Playwright's cleaned `test-results/` folder. The external runner distinguishes proxy-blocked checks from application/content failures and never treats availability alone as source review.
+
+Still blocked (not waived, skipped as passing, or silently removed):
+- Retrieve/review authoritative developmental and infant-safety guidance, then implement the sourced developmental cards and verified safe/unsafe lessons required by Phases 4–5. Existing caregiver reflections/reference planner do not substitute for these.
+- Independently verify the deployed production version and the existing scheduled health workflow's actual successful run.
+
+The saved five domains are correct and the user supplied a confirming screenshot. The active machine still reports revision 1 with zero custom domains; requests fail at proxy CONNECT 403. No available tool applies/publishes/restarts the running environment. Do not ask for duplicate domains or a different production URL. See ENVIRONMENT_BLOCKER.md for exact evidence and recovery contract, and INTEGRATION_TESTING.md for reproducible commands.
+
+Next useful action requires actual runtime policy activation/recovery (or authoritative source files supplied through an authorized channel). After access works, substantively review source text, finish the two content deliveries, run affected/full release checks, push and independently verify production. Do not call Phases 4–5 complete before that work.

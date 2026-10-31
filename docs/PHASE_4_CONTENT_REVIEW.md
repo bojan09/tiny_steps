@@ -11,7 +11,7 @@ The current chapter text is caregiver reflection material. Month labels are brow
 - Verify source links before claiming source review. Current CDC request returned a proxy CONNECT 403.
 - Review Macedonian developmental wording alongside English. Complete app-wide localization remains Phase 7.
 - Richer sourced stage material remains outstanding; day/week/month navigation is implemented.
-- Verify real cloud account saves once Supabase access works. Browser account-save/isolation coverage currently uses a mocked account API; no live RLS verification is claimed.
+- Real authenticated persistence, cross-account RLS and sign-out are now exercised against disposable Auth/PostgreSQL/PostgREST using the unchanged committed migration. This supplements mocked UI tests; it does not inspect the remote managed project. See INTEGRATION_TESTING.md for final evidence.
 - Complete final sourced-content checks and deployment verification when source access works. The nonclinical explorer passed lint, types, build, 13 unit tests and 22 browser tests and ships as a clearly scoped Phase 4 increment. This does not complete the sourced-developmental-content requirements.
 
 ## Intended references (not retrieved/reviewed in this task)

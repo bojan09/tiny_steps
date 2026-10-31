@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.5.0: SafeNest exploration of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.5.1: SafeNest exploration of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -74,3 +74,7 @@ Browse 13 monthly caregiver-reflection chapters in English or Macedonian, or jum
 ## SafeNest — v1.5.0 explorer increment
 
 Choose one of four rooms from the illustrated map or equivalent text list. Twelve reference-review prompts support Not started, Needs follow-up and Reference reviewed states. Choices persist through the existing isolated guest/account settings, appear in My Journey, and survive an appearance reset. Collection bookmarks and the optional companion use existing controls. This is a reference-review planner, not a home inspection or verified safe/unsafe training. The complete Phase 5 source/security/deployment checkpoint remains open; see docs/PHASE_5_REVIEW.md.
+
+## Release verification and persistence fix — v1.5.1
+
+The save indicator now stays pending until all newer preference/progress changes have persisted. Real isolated Auth/PostgreSQL/PostgREST checks run with `npm run test:integration`, synthetic throttled mobile checks with `npm run verify:performance`, and authoritative source/deployed-version checks with `npm run verify:external`. See docs/INTEGRATION_TESTING.md. External transport failures remain failures; these commands do not claim production or source verification when blocked.

@@ -37,7 +37,12 @@ try {
     (await auth.auth.signInWithPassword({ email, password })).error,
     null,
   );
-  browser = await chromium.launch({ channel: "chrome", headless: true });
+  browser = await chromium.launch({
+    ...(process.env.TINYSTEPS_CHROMIUM_EXECUTABLE
+      ? { executablePath: process.env.TINYSTEPS_CHROMIUM_EXECUTABLE }
+      : { channel: "chrome" }),
+    headless: true,
+  });
   const context = await browser.newContext();
   await context.addCookies(
     cookies.map((c) => ({
@@ -58,13 +63,12 @@ try {
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  page.on("response", async (response) => {
+  page.on("response", (response) => {
     if (
       response.url() === base + "/api/account" &&
       response.request().method() === "PATCH"
     ) {
-      const b = await response.json();
-      console.log("Update status:", response.status(), b.error || "ok");
+      console.log("Update status:", response.status());
     }
   });
   stage = "load profile";
@@ -102,17 +106,67 @@ try {
   await page
     .getByRole("button", { name: "Remove Care Academy", exact: true })
     .waitFor();
+  stage = "first-year reading persistence";
+  await page.goto(base + "/first-365-days");
+  await page.getByLabel("Explore a month", { exact: true }).selectOption("6");
+  await page
+    .getByRole("button", { name: "Mark chapter as explored", exact: true })
+    .click();
+  await page
+    .locator(".first-year")
+    .getByRole("status")
+    .filter({ hasText: "Saved to your account." })
+    .waitFor();
   await page.reload();
+  await page.waitForFunction(
+    () => document.querySelector("#year-month")?.value === "6",
+  );
+  assert.equal(await page.locator("progress").getAttribute("value"), "1");
+  stage = "SafeNest persistence";
+  await page.goto(base + "/safenest");
+  await page
+    .getByRole("button", { name: "Explore Bathroom", exact: true })
+    .click();
+  await page
+    .getByLabel("Review status: Water-safety guidance", { exact: true })
+    .selectOption("follow-up");
+  await page
+    .locator("#nest-room-panel")
+    .getByRole("status")
+    .filter({ hasText: "Saved to your account." })
+    .waitFor();
+  await page.reload();
+  await page
+    .getByLabel("Review status: Water-safety guidance", { exact: true })
+    .waitFor();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#nest-status-bath-water")?.value === "follow-up",
+  );
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("tinysteps-local-v1")),
+    null,
+  );
+  await page.goto(base + "/bookmarks");
   await page
     .getByRole("button", { name: "Remove Care Academy", exact: true })
     .waitFor();
-  stage="progress";
-  await page.goto(base+"/care-academy/getting-started");
-  await page.getByText("Browser verified",{exact:true}).waitFor();
-  for(let i=0;i<4;i++)await page.getByRole("button",{name:"Next step"}).click();
-  const savedProgress=page.waitForResponse(r=>r.url()===base+"/api/account"&&r.request().method()==="PATCH"&&r.request().postDataJSON()?.kind==="progress"&&r.status()===200);
-  await page.getByRole("button",{name:"Finish introduction"}).click();await savedProgress;
-  await page.goto(base+"/my-journey");await page.getByText("1 introduction completed",{exact:true}).waitFor();
+  stage = "progress";
+  await page.goto(base + "/care-academy/getting-started");
+  await page.getByText("Browser verified", { exact: true }).waitFor();
+  for (let i = 0; i < 4; i++)
+    await page.getByRole("button", { name: "Next step" }).click();
+  const savedProgress = page.waitForResponse(
+    (r) =>
+      r.url() === base + "/api/account" &&
+      r.request().method() === "PATCH" &&
+      r.request().postDataJSON()?.kind === "progress" &&
+      r.status() === 200,
+  );
+  await page.getByRole("button", { name: "Finish introduction" }).click();
+  await savedProgress;
+  await page.goto(base + "/my-journey");
+  await page.getByText("1 introduction completed", { exact: true }).waitFor();
   await page.goto(base + "/profile");
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
   await page
@@ -124,7 +178,7 @@ try {
   );
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: real authenticated profile, preference persistence, bookmark persistence, guest isolation and sign-out. Google consent is a separate user check.",
+    "PASS: real authenticated profile, preference/first-year/SafeNest/bookmark persistence, guest isolation and sign-out. Google consent is a separate user check.",
   );
 } catch (error) {
   console.error(

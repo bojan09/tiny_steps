@@ -153,6 +153,10 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
       queued = false,
       stopped = false;
     const generation = epoch.current;
+    const hasChanges = (a: typeof previous, b: typeof previous) =>
+      JSON.stringify(a.preferences) !== JSON.stringify(b.preferences) ||
+      a.orientationStep !== b.orientationStep ||
+      a.orientationComplete !== b.orientationComplete;
     async function flush() {
       if (running) {
         queued = true;
@@ -166,7 +170,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
           JSON.stringify(snapshot.preferences) !==
           JSON.stringify(previous.preferences)
         ) {
-          setMessage("Saving your appearance…");
+          setMessage("Saving your choices…");
           const result = await update({
             kind: "preferences",
             preferences: snapshot.preferences,
@@ -184,8 +188,14 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
             step: snapshot.orientationStep,
             completed: snapshot.orientationComplete,
           });
+        if (stopped || generation !== epoch.current) return;
         previous = snapshot;
-        setMessage("Saved to your account.");
+        if (hasChanges(usePreferences.getState(), snapshot)) {
+          // A newer change can arrive before its debounce timer fires. Never
+          // report an older snapshot as the fully saved state.
+          queued = true;
+          clearTimeout(timer);
+        } else setMessage("Saved to your account.");
       } catch (error) {
         stopped = true;
         setMessage(
@@ -201,7 +211,14 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
         }
       }
     }
-    const unsubscribe = usePreferences.subscribe(() => {
+    const unsubscribe = usePreferences.subscribe((state, oldState) => {
+      if (
+        stopped ||
+        generation !== epoch.current ||
+        !hasChanges(state, oldState)
+      )
+        return;
+      setMessage("Saving your choices…");
       clearTimeout(timer);
       timer = setTimeout(() => void flush(), 600);
     });

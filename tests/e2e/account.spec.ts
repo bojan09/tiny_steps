@@ -46,3 +46,71 @@ test("custom palette and new scene persist on mobile", async ({ page }) => {
     ),
   ).toBe(true);
 });
+
+test("account never reports saved while a newer preference change is pending", async ({
+  page,
+}) => {
+  const updates: Record<string, unknown>[] = [];
+  let releaseFirst!: () => void, releaseSecond!: () => void;
+  const first = new Promise<void>((resolve) => {
+    releaseFirst = resolve;
+  });
+  const second = new Promise<void>((resolve) => {
+    releaseSecond = resolve;
+  });
+  await page.route("**/api/account", async (route) => {
+    if (route.request().method() === "GET")
+      return route.fulfill({
+        json: {
+          id: "save-race",
+          displayName: "Ana",
+          revision: 1,
+          preferences: {},
+          progress: {},
+          bookmarks: [],
+        },
+      });
+    updates.push(route.request().postDataJSON());
+    const index = updates.length;
+    await (index === 1 ? first : second);
+    await route.fulfill({ json: { revision: index + 1 } });
+  });
+  try {
+    await page.goto("/settings");
+    await page.getByRole("button", { name: "Peach Warm & cozy" }).click();
+    await expect.poll(() => updates.length).toBe(1);
+    await page.evaluate(() => {
+      const events: string[] = [];
+      (window as unknown as { savedEvents: string[] }).savedEvents = events;
+      new MutationObserver(() => {
+        for (const node of document.querySelectorAll('[role="status"]'))
+          if (node.textContent === "Saved to your account.")
+            events.push(node.textContent);
+      }).observe(document.body, {
+        subtree: true,
+        childList: true,
+        characterData: true,
+      });
+    });
+    await page.getByLabel("Text size").selectOption("large");
+    releaseFirst();
+    await expect.poll(() => updates.length).toBe(2);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { savedEvents: string[] }).savedEvents,
+      ),
+    ).toEqual([]);
+    expect(updates[1]).toMatchObject({
+      kind: "preferences",
+      revision: 2,
+      preferences: { textSize: "large" },
+    });
+    releaseSecond();
+    await expect(
+      page.getByRole("status").filter({ hasText: "Saved to your account." }),
+    ).toBeVisible();
+  } finally {
+    releaseFirst();
+    releaseSecond();
+  }
+});
