@@ -2708,3 +2708,63 @@ html[data-mode="dark"] .nest-marker[aria-pressed="true"] {
 #nest-room-title {
   scroll-margin-top: 100px;
 }
+
+/* First-year learning: calm editorial panels with no required animation. */
+.year-stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.5rem 0;
+}
+.year-stages [aria-current] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.year-development {
+  border-top: 1px solid var(--line);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+.year-reference {
+  font-weight: 600;
+}
+.year-ahead {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+}
+.year-learning-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.year-learning-cards > section,
+.year-concerns {
+  background: var(--accent-soft);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+.year-development h4 {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0.5rem 0;
+}
+.year-learning-cards ul {
+  padding-left: 1.25rem;
+}
+.year-learning-cards li + li {
+  margin-top: 0.75rem;
+}
+.year-development small {
+  display: block;
+  line-height: 1.7;
+}
+.year-source-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 767px) {
+  .year-learning-cards {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,10 +1,10 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.5.1: SafeNest exploration of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.5.2: sourced First 365 Days learning of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
-Use Node.js 20.9 or newer (verified here on Node 25.9).
+Use Node.js 20.9 or newer (verified locally on Node 26.13.0).
 
 ```sh
 npm ci
@@ -29,7 +29,7 @@ npm run build
 npm run test:e2e
 ```
 
-Browser checks use an installed Google Chrome. To use bundled Chromium instead, remove channel: 'chrome' in playwright.config.ts and install Chromium with Playwright. The app must be running before browser tests. Source can be formatted with npx prettier --write app components lib tests.
+Browser checks default to installed Google Chrome. To use another Chromium, set TINYSTEPS_CHROMIUM_EXECUTABLE to its absolute executable path; install a browser with npx playwright install chromium if needed. The app must be running before browser tests. Source can be formatted with npx prettier --write app components lib tests.
 
 ## Delivered in Phase 1
 
@@ -47,7 +47,7 @@ Google OAuth entry/callback, Supabase schema and RLS, profile edits, account app
 
 ## Not delivered yet
 
-The 64-lesson curriculum is allocated to Phase 3 (eight lessons per Care Academy collection). Monthly chapters, room simulations, live Groq AI and full lesson downloads remain later phases. No production release of these local Phase 2 changes has been performed.
+The structured lesson curriculum, complete SafeNest safety education, live Groq AI and full lesson downloads remain later work. Living Home and First 365 Days are implemented; SafeNest currently provides a reference-review planner. See docs/PHASE_PROGRESS.md for the active continuation roadmap.
 
 ## Configuration and privacy
 
@@ -57,19 +57,19 @@ See docs/PHASE_1_REVIEW.md for the architecture and Supabase/auth plan. See docs
 
 ## Deployment
 
-Repository: https://github.com/bojan09/tiny_steps.git. Work remains on master. The user has added https://tiny-steps-six.vercel.app. Confirm automatic deployment behavior before pushing Phase 2; the original roadmap permits production deployment only after Phase 5 unless the user changes that instruction. The health-check workflow does not deploy the app.
+Repository: https://github.com/bojan09/tiny_steps.git. Work remains on master. The user has added https://tiny-steps-six.vercel.app. The continuation handoff records user authorization for master auto-deployments after tested increments. Verify deployment separately from a successful Git push. The health-check workflow does not deploy the app.
 
 ## Content and artwork
 
-This release contains app orientation and collection descriptions, not reviewed medical instruction. Original generated artwork is decorative. See docs/ASSETS.md for provenance and prompts. Health and safety content needs current source review before publication.
+This release includes app orientation, collection descriptions and sourced developmental education. It provides general education, not clinical assessment or medical advice. Original generated artwork is decorative. See docs/ASSETS.md for provenance and prompts. Health and safety content needs current source review before publication.
 
 ## Cloud continuation — Phase 3
 
 Living Home now reflects account greetings, real saved collections and introduction progress, with an optional learning-stage interest (no birth date). Stage settings use the existing isolated guest/account preferences. Resetting appearance preserves the learning interest. The cold offline fallback now precaches its required static assets. See docs/CLOUD_HANDOFF.md for current verification and external blockers. In this cloud runtime use `npm run build -- --webpack`; browser checks use the saved local Chromium override.
 
-## First 365 Days — v1.4.0
+## First 365 Days — Phase 4, v1.5.2
 
-Browse 13 monthly caregiver-reflection chapters in English or Macedonian, or jump to an approximate chapter by day/week. Mark reading progress explicitly, return through My Journey, and bookmark the collection. Choices use existing isolated guest/account preferences; no birth date or health observations are collected. This release does not include a developmental checklist or reviewed age-specific clinical guidance. Those Phase 4 content requirements remain pending source review; see docs/PHASE_4_CONTENT_REVIEW.md.
+Browse 13 monthly caregiver-reflection chapters in English or Macedonian, or jump to an approximate chapter by day/week. Mark reading progress explicitly, return through My Journey, and bookmark the collection. Choices use existing isolated guest/account preferences; no birth date or health observations are collected. Five bilingual developmental stages now include CDC-based examples, gentle interaction ideas, reference ages, source links/read dates and guidance on concerns. Earlier chapters clearly distinguish looking ahead from expectations for the selected month. Stage windows are reading groups, not clinical deadlines; progress records reading, never a baby’s abilities. See docs/PHASE_4_CONTENT_REVIEW.md for the source review and boundaries.
 
 ## SafeNest — v1.5.0 explorer increment
 

@@ -1,3 +1,7 @@
+# Local continuation update — 2026-10-31
+
+The historical cloud policy problem below does not block current Phase 4 source review: the local session retrieved CDC and NHS guidance through the web tool. Node 26.13.0/npm 11.20.0 are available by sourcing `/home/stan/.nvm/nvm.sh`; dependency downloads, builds and browsers run with approved external execution when required. See CLOUD_HANDOFF.md for current release evidence. The older cloud instance is not claimed repaired.
+
 # Runtime network-policy mismatch — 2026-10-31
 
 The saved environment configuration contains the correct five domains:

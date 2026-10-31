@@ -1,10 +1,17 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Bookmark, Check, Leaf } from "lucide-react";
 import { useAccount } from "./account-provider";
 import { usePreferences } from "@/lib/preferences";
+import { FirstYearDevelopment } from "./first-year-development";
+import {
+  developmentStages,
+  developmentCopy,
+  developmentForMonth,
+  firstYearStatus,
+} from "@/lib/first-year/development";
 import { chapters, copy, chapterForPosition } from "@/lib/first-year/content";
 
 export function FirstYear() {
@@ -19,6 +26,7 @@ export function FirstYear() {
   const saved = bookmarks.includes("first-365-days");
   const [unit, setUnit] = useState<"day" | "week">("week");
   const [position, setPosition] = useState("1");
+  const chapterTitle = useRef<HTMLHeadingElement>(null);
   const monthLabel = (n: number) =>
     n === 0 ? t.beginning : `${t.monthName} ${n}`;
   return (
@@ -58,6 +66,29 @@ export function FirstYear() {
         </div>
       </header>
       <p className="year-context">{t.note}</p>
+      <nav
+        className="year-stages"
+        aria-label={developmentCopy[language].stageNavigation}
+      >
+        {developmentStages.map((stage) => (
+          <button
+            key={stage.referenceAge}
+            className="button secondary"
+            disabled={loading}
+            aria-current={
+              developmentForMonth(month) === stage ? "step" : undefined
+            }
+            onClick={() => {
+              set({ firstYearMonth: stage.from });
+              requestAnimationFrame(() => chapterTitle.current?.focus());
+            }}
+          >
+            {stage.from === 0
+              ? developmentCopy[language].firstWeeks
+              : `${stage.from}–${stage.to} ${developmentCopy[language].months}`}
+          </button>
+        ))}
+      </nav>
       <form
         className="year-jump paper"
         onSubmit={(e) => {
@@ -172,11 +203,17 @@ export function FirstYear() {
               <span className="eyebrow">{monthLabel(month)}</span>
               <Leaf size={24} aria-hidden="true" />
             </div>
-            <h2 id="year-chapter-title" aria-live="polite">
+            <h2
+              id="year-chapter-title"
+              ref={chapterTitle}
+              tabIndex={-1}
+              aria-live="polite"
+            >
               {chapter[0]}
             </h2>
             <h3>{chapter[1]}</h3>
             <p>{chapter[2]}</p>
+            <FirstYearDevelopment language={language} month={month} />
             <aside className="year-reflection">
               <p className="eyebrow">{t.reflection}</p>
               <p>{chapter[3]}</p>
@@ -219,7 +256,9 @@ export function FirstYear() {
             <p className="field-help">
               {t.progressNote} {account ? t.account : t.guest}
             </p>
-            {message && <p role="status">{message}</p>}
+            {message && (
+              <p role="status">{firstYearStatus(message, language)}</p>
+            )}
           </article>
           <nav
             className="year-pagination"

@@ -172,3 +172,106 @@ test("account reading state stays separate from guest state and uses revisioned 
   );
   expect(guest.firstYearRead).toEqual([9]);
 });
+
+test("every monthly chapter shows the correct sourced age and distinguishes reading ahead", async ({
+  page,
+}) => {
+  await page.goto("/first-365-days");
+  const monthSelect = page.getByLabel("Explore a month", { exact: true });
+  const refs = [2, 2, 2, 4, 4, 6, 6, 9, 9, 9, 12, 12, 12];
+  for (let month = 0; month <= 12; month++) {
+    await monthSelect.selectOption(String(month));
+    const age = refs[month];
+    await expect(page.locator(".year-reference")).toHaveText(
+      `CDC reference age: ${age} months`,
+    );
+    await expect(page.locator(".year-source-link")).toHaveAttribute(
+      "href",
+      `https://www.cdc.gov/act-early/milestones/${age === 12 ? "1-year" : `${age}-months`}.html`,
+    );
+    await expect(page.locator(".year-learning-cards li")).toHaveCount(3);
+    await expect(page.locator(".year-ahead")).toHaveCount(month < age ? 1 : 0);
+    await expect(page.locator("progress")).toHaveAttribute("value", "0");
+  }
+  await expect(page.locator(".year-learning-cards")).toContainText(
+    "independent walking is not required",
+  );
+  await expect(page.locator(".year-concerns")).toContainText(
+    "previously learned skill is lost",
+  );
+});
+
+test("stage shortcuts and sourced Macedonian cards are accessible on small screens", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/first-365-days");
+  await page.getByLabel("Chapter language").selectOption("mk");
+  const stages = page.getByRole("navigation", { name: "Истражете период" });
+  await stages.getByRole("button", { name: "7–9 месеци", exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await expect(
+    page.getByLabel("Истражете еден месец", { exact: true }),
+  ).toHaveValue("7");
+  await expect(
+    stages.getByRole("button", { name: "7–9 месеци", exact: true }),
+  ).toHaveAttribute("aria-current", "step");
+  await expect(
+    page.getByRole("heading", { name: "Заеднички игри и откритија" }),
+  ).toBeVisible();
+  await expect(page.locator(".year-reference")).toContainText("9 месеци");
+  await expect(page.locator(".year-concerns")).toContainText(
+    "развоен скрининг",
+  );
+  await page.reload();
+  await expect(page.locator(".first-year")).toHaveAttribute("lang", "mk");
+  await expect(
+    page.getByLabel("Истражете еден месец", { exact: true }),
+  ).toHaveValue("7");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  const result = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(result.violations).toEqual([]);
+});
+
+test("Macedonian reading save failures remain visible and do not claim cloud persistence", async ({
+  page,
+}) => {
+  await page.route("**/api/account", async (route) => {
+    if (route.request().method() === "PATCH")
+      return route.fulfill({
+        status: 503,
+        json: { error: "Your changes could not be saved." },
+      });
+    return route.fulfill({
+      json: {
+        id: "year-failure",
+        displayName: "Ana",
+        revision: 1,
+        preferences: { firstYearLanguage: "mk", firstYearMonth: 6 },
+        progress: {},
+        bookmarks: [],
+      },
+    });
+  });
+  await page.goto("/first-365-days");
+  await page
+    .getByRole("button", {
+      name: "Означи го поглавјето како истражено",
+      exact: true,
+    })
+    .click();
+  await expect(
+    page
+      .getByRole("status")
+      .filter({ hasText: "Измените не можеа да се зачуваат" }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(page.locator("progress")).toHaveAttribute("value", "0");
+});

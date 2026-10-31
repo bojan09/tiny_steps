@@ -42,3 +42,39 @@ test("all 13 chapters have complete English and Macedonian reading content", () 
     }
   assert.deepEqual(Object.keys(copy.en).sort(), Object.keys(copy.mk).sort());
 });
+
+test("every chapter resolves to a sourced reference without inventing monthly deadlines", async () => {
+  const { developmentStages, developmentForMonth, developmentCopy } =
+    await import("../lib/first-year/development.ts");
+  assert.deepEqual(
+    developmentStages.map((s) => s.referenceAge),
+    [2, 4, 6, 9, 12],
+  );
+  for (let month = 0; month <= 12; month++) {
+    const matches = developmentStages.filter(
+      (s) => month >= s.from && month <= s.to,
+    );
+    assert.equal(
+      matches.length,
+      1,
+      `chapter ${month} has exactly one reference`,
+    );
+    const stage = developmentForMonth(month);
+    assert.equal(stage, matches[0]);
+    assert.ok(
+      stage.referenceAge >= month,
+      "younger chapters must label content as looking ahead",
+    );
+    assert.equal(new URL(stage.source).hostname, "www.cdc.gov");
+    for (const lang of ["en", "mk"] as const) {
+      assert.equal(stage[lang].examples.length, 3);
+      assert.ok(stage[lang].activity.length > 30);
+      for (const example of stage[lang].examples)
+        assert.ok(example.length > 20);
+    }
+  }
+  assert.deepEqual(
+    Object.keys(developmentCopy.en).sort(),
+    Object.keys(developmentCopy.mk).sort(),
+  );
+});

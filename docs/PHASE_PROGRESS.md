@@ -1,5 +1,34 @@
 # TinySteps cloud phase progress
 
+## Current local release — 2026-10-31, v1.5.2
+
+**Phase 4 First 365 Days is complete.** The earlier cloud source-access blocker and incomplete-content notes below are historical. Phase 5 remains open for its own sourced safety lessons and production checkpoint; no Phase 5 completion is claimed.
+
+- Added CDC-based bilingual developmental cards for reference ages 2, 4, 6, 9 and 12 months, covering all 13 chapters. Each includes selected developmental examples, a gentle interaction idea, variation/screening context, source jurisdiction/link/date and concern/lost-skill guidance. Reading groups are not clinical acquisition ranges; earlier chapters explicitly label content as looking ahead.
+- Added five stage shortcuts with current-stage semantics and chapter-heading focus. Preserved day/week/month navigation, previous/next boundaries, collection bookmarks, reading progress and My Journey. Added Macedonian save/error states. No birth date/ability tracking, new schema, dependencies or paid services.
+- Source review is complete for the educational scope. See PHASE_4_CONTENT_REVIEW.md for the source-to-claim mapping, dates and translation boundaries. This is not an independently clinically reviewed curriculum or CDC endorsement. Whole-app localization remains Phase 7.
+- Preserved pre-existing missing-Supabase-config fixes, verified them in the merged app and committed them separately as 0c1caf9. Account configuration is optional for guest exploration; unavailable sign-in is explained. Original stash backup remains; .codex-attachments is left untracked. Repository-local commit identity was restored from the existing commit history because this new machine had none configured; no global Git identity was changed.
+
+### Final validation
+
+- npm run lint and npm run typecheck: passed.
+- npm test: all 18 individual unit tests passed.
+- npm run build -- --webpack: final production build passed.
+- npm run test:e2e with configured Chromium executable: all 30 browser tests passed, including all 13 chapter/source mappings, stage keyboard focus, 320px Macedonian accessibility, guest reading/bookmark persistence, account revision/isolation and localized failed-save behavior.
+- Missing-configuration production build/mobile/API smoke test: passed. Normal configured production build restored afterward.
+- Desktop 1440px, Macedonian mobile 390px and dark tablet 768px screenshots reviewed; no horizontal overflow, no automated WCAG A/AA violations, chapter focus passed. Additional browser coverage checks large text and reduced motion. Reports/screenshots: ignored verification-results/phase4/.
+- Throttled local mobile check (390×844, 4× CPU, 150ms latency, 1.6Mbps down/750Kbps up): First 365 Days LCP 852ms, CLS 0; SafeNest LCP 644ms, CLS 0.0024. Both passed preset LCP ≤2500ms/CLS ≤0.1. These are synthetic local observations, not production field metrics. Report: ignored verification-results/performance/report.json.
+- Existing real isolated Auth/RLS evidence is retained in INTEGRATION_TESTING.md. No schema/RLS changes were made; mocked account tests are not a fresh inspection of the managed Supabase project. Docker is absent locally, so the isolated integration runner was not rerun. No production account/data mutations were performed.
+- Installation reported 16 moderate dependency advisories in the existing locked dependency tree; no dependency versions changed or force-upgrades applied in this phase.
+
+### Reproduce locally
+
+Checkout: /home/stan/projects/tiny_steps. Load the installed runtime with `source /home/stan/.nvm/nvm.sh` (Node 26.13.0/npm 11.20.0). Use npm ci, npm run lint, npm run typecheck, npm test and npm run build -- --webpack. Start the preview with npm run start. The browser executable for this machine is /home/stan/projects/tiny_steps/node_modules/.cache/phase4-browsers/chromium-1248/chrome-linux64/chrome; set TINYSTEPS_CHROMIUM_EXECUTABLE to that path for npm run test:e2e and npm run verify:performance. To recreate it, set PLAYWRIGHT_BROWSERS_PATH=/home/stan/projects/tiny_steps/node_modules/.cache/phase4-browsers when running npx playwright install chromium. Browser binaries and .env files remain ignored.
+
+Delivery SHA, remote verification and production observations are recorded below after push. The pre-push production endpoint returned HTTP 200 with version 1.5.1; that is not proof of the new deployment.
+
+## Earlier cloud history
+
 ## Baseline audit — 2026-10-30
 - Repository bojan09/tiny_steps; fetched origin/master at 648054d36cc64183122dc864a7e9ddd610d78310. Initial checkout had no tracked changes and matched the remote. Switched the environment's `work` branch to local `master` tracking origin/master without resetting files.
 - Phase 1 foundation: Next.js App Router, editorial home, responsive navigation, accessibility/motion controls, manifest and service worker present. Baseline lint/types/build and 9 unit tests passed; 15/16 browser tests passed. Cold offline navigation failed because the offline route's JS chunk was absent from precache.
@@ -47,3 +76,12 @@ Real isolated auth/RLS and authenticated browser persistence checks now pass usi
 Full phase completion remains blocked by current-source access and external deployment/workflow verification. Correct saved domains are not active in the running revision-1 instance. The implementation still needs the sourced developmental/safe-versus-unsafe education; no completion claim is made for those requirements. ENVIRONMENT_BLOCKER.md documents the required platform recovery without requesting duplicate domains.
 
 v1.5.1 implementation push verified: eea07a6c24f7585a97daa36fc30249ae6a3ac885. Final local real-auth/RLS integration, product build/types/lint, 15 unit tests, 27 browser tests and throttled performance passed. Post-push external verifier reports five BLOCKED checks (proxy CONNECT 403). Source-dependent content and external release evidence remain incomplete, not waived. See ENVIRONMENT_BLOCKER.md.
+
+
+## Local continuation — 2026-10-31
+- Fetched and fast-forwarded local master from 648054d to 2cacdbbd9dbf3da5a3b2de14fae24302cc72af15.
+- Preserved pre-existing Supabase missing-config fixes and untracked files in a named git stash, then reapplied them. Resolved package version-only conflicts in favor of remote 1.5.1. Stash retained; local work remains uncommitted.
+- Phase 4 is already partly implemented remotely. Began remaining sourced-content work with a bilingual early-month educational card, displayed in chapters 0–2. No ability tracking or schema changes.
+- Retrieved and read CDC milestone index and 2-month source through the web tool on 2026-10-31. Source access is available by this route despite older cloud restrictions. Reviewed population threshold, examples, caregiver interaction tips and concern/screening guidance. Source URLs: https://www.cdc.gov/act-early/milestones/index.html and https://www.cdc.gov/act-early/milestones/2-months.html . CDC detail page displays May 15, 2026, with metadata review/update May 16, 2026.
+- This is an initial increment, not complete Phase 4. Remaining: reviewed later-stage cards, full content/localization review and browser verification. Macedonian copy is authored translation without independent reviewer sign-off.
+- Validation blocked: this local execution shell has neither node nor npm on PATH; npm run lint did not execute (command not found). No lint/types/unit/browser/build success claimed for merged local work. No commit, push or deployment performed. Resume by making a Node runtime available, verifying local Supabase fixes together with the pulled account queue fixes, then running project checks before publishing.
