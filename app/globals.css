@@ -2768,3 +2768,60 @@ html[data-mode="dark"] .nest-marker[aria-pressed="true"] {
     grid-template-columns: 1fr;
   }
 }
+
+/* SafeNest comparisons remain readable and usable without motion or colour cues. */
+.nest-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.nest-comparison > div {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+}
+.nest-comparison h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin: 0 0 0.6rem;
+}
+.nest-safer {
+  background: var(--accent-soft);
+}
+.nest-avoid {
+  border-inline-start: 3px solid var(--accent) !important;
+}
+.nest-action {
+  margin: 1rem 0;
+}
+.nest-practice-options {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.nest-practice-options button {
+  white-space: normal;
+  text-align: start;
+  line-height: 1.6;
+  justify-content: start;
+}
+.nest-practice-options [aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.nest-practice-feedback {
+  margin-top: 1rem;
+}
+.nest-lesson > .text-link {
+  margin: 0.75rem 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .nest-comparison {
+    grid-template-columns: 1fr;
+  }
+}

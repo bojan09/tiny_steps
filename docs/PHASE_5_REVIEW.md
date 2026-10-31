@@ -1,27 +1,35 @@
-# Phase 5 SafeNest checkpoint — 2026-10-30
+# Phase 5 — Interactive SafeNest and production checkpoint
 
-## Delivered increment: v1.5.0 room explorer and reference-review planner
-- Four rooms: nursery/bedroom, kitchen, bathroom, living room/entryway.
-- Decorative house map with equivalent keyboard-operable text navigation; no room layout is presented as a safe/unsafe demonstration.
-- Twelve bounded planning prompts. Checklist states are Not started, Needs follow-up, Reference reviewed. No safety percentage, pass/fail, streak, rewards or home certification.
-- Review choices use existing validated revisioned account preferences or isolated guest storage. Appearance reset preserves the room and checks; My Journey shows reference-review counts.
-- Existing collection bookmark flow and optional companion, respecting reduced motion and user motion settings.
-- No home observations, private notes, birth dates, new dependency, paid service or database migration.
+## Delivered scope — 2026-10-31, v1.5.3
 
-## Required full-checkpoint scope still open
-- Source review: NHS retrieval returned proxy CONNECT 403 on this task. Saved custom-domain configuration is visible to the user, but runtime status still reports zero custom domains. Do not ask for duplicate domain entries.
-- Verified safe/unsafe educational distinctions and reviewed actionable hazard guidance are not delivered by this planner. The generic planning prompts do not substitute for that content. Current NHS further-reading link is not claimed as retrieved or verified.
-- Real auth/RLS and browser persistence checks now run in an isolated Auth/PostgreSQL/PostgREST stack against the unchanged application migration. Generated local-only credentials and disposable identities are cleaned up. No production admin credentials or production data mutations are needed. This verifies the committed implementation, not the managed project’s deployed configuration.
-- The user confirms existing Google sign-in and Vercel work; that does not prove the current cloud auth/RLS suite ran or a new deployment succeeded.
-- Phase 4 sourced developmental cards remain open from the previous increment.
-- Production deployment/version verification requires working runtime Vercel access. Git push and automatic deployment authorization do not prove deployment success.
+SafeNest now has twelve sourced safety comparisons across nursery/bedroom, kitchen, bathroom and living room/entryway. Each presents an explicitly labelled **Avoid** routine, a **Reduce risk** alternative, one next action, and its source's jurisdiction, source date (when stated) and TinySteps read date. This replaces the previous planner-only boundary; the original room map, text navigation, reference-review choices, bookmarks and guest/account isolation remain.
 
-## Validation
-Final build, lint, typecheck, browser regression/accessibility, synthetic local performance and remote commit evidence are recorded in CLOUD_HANDOFF.md. Unit suite: 15 passed. Final lint, types and webpack build passed. Full browser suite: 26 passed; all 5 affected checks passed again after final focus/navigation and release-copy changes. Mobile/desktop visual review passed. Account browser tests use mocked API state to verify revisioned writes, isolation and visible save failures; they do not prove live RLS.
+Optional keyboard-operable practice lets a caregiver compare the same routines and read explanatory feedback. It has no scores, rewards, saved answers or automatic review completion. The essential comparison/action/source is always visible without opening practice, playing animation or using the map. Review progress still means references read, never a home certified or a hazard resolved. No observations, notes or child health data are collected.
 
-## Next
-After runtime policy refresh, retrieve and review authoritative current guidance with source metadata and jurisdiction. Add verified safe/unsafe lessons and accessible equivalents, review content, rerun the isolated real auth/RLS checks and regression/performance, and verify the deployed version. Do not call the entire Phase 5 production checkpoint complete before these checks.
+## Source review
 
-## Closure validation — 2026-10-31
+All sources below were retrieved and read on 31 October 2026. The former NHS safety URL returns 404; both the product link and external verifier now use its current first-aid-and-safety path. Current source content, rather than the old cloud network restriction, informed this delivery.
 
-The real isolated security/persistence suite passes against the committed migration. The v1.5.1 save-status race fix has a passing delayed-write regression. Final product checks: lint/types/build, 15 unit tests, 27 browser tests. Throttled synthetic mobile targets also pass; exact results and remaining source/deployment/workflow blockers are in CLOUD_HANDOFF.md. No production admin credentials are required for the isolated test route. The complete safety-content/production checkpoint is not declared complete.
+| Topics | Reviewed source | Source metadata |
+| --- | --- | --- |
+| Clear cot, back sleeping, firm flat mattress, room sharing for at least six months | [NHS: SIDS — UK](https://www.nhs.uk/baby/caring-for-a-newborn/sudden-infant-death-syndrome-sids/) | Reviewed 25 November 2025 |
+| Changing surfaces, adult presence at meals, bath-water check | [NHS: Baby and toddler safety — UK](https://www.nhs.uk/baby/first-aid-and-safety/safety/baby-and-toddler-safety/) | Reviewed 19 February 2026 |
+| Hot drinks, uninterrupted bath supervision, taking the child along when leaving, draining the bath | [HSE: Water safety in the home — Ireland](https://www2.hse.ie/babies-children/child-safety/water-safety/water-safety-home/) | Reviewed 24 June 2026 |
+| Anchoring furniture and televisions; removing tempting objects | [CPSC: Anchor It! — US](https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/AnchorItgov) | No review date stated on the retrieved page |
+| Keeping furniture away from blinds; fitted cord safety devices | [OPSS: Blind cord safety — UK](https://www.gov.uk/guidance/child-safety-blind-cords) | Updated 25 January 2024 |
+| Original-container medicine/cleaner storage, visitors' bags, infant seats and stair gates | [Canadian Paediatric Society: Home safety — Canada](https://caringforkids.cps.ca/handouts/safety-and-injury-prevention/keep_your_young_child_safe) | Updated May 2023 |
+
+Wording was checked against these sources. The app avoids universalising local installation standards, offers manufacturer/local-guidance context, and does not introduce emergency treatment, medicine dosing or feeding-preparation instructions. Sources do not endorse TinySteps; no external clinician approval is claimed. Education cannot replace supervision, professional advice or emergency services. Complete app localization remains the dedicated Phase 7 scope; the Phase 5 SafeNest lessons are English.
+
+## Engineering and quality
+
+- Existing twelve topic IDs and bounded Not started / Needs follow-up / Reference reviewed states remain unchanged. No database migration, RLS change, dependency upgrade or paid service.
+- Companion cues now reflect the selected room. Existing reduced-motion/user-motion preferences and equivalent text controls remain.
+- Final lint/types/webpack build passed; all 19 unit tests and all 32 browser tests passed. New tests cover lesson/source coverage, every room's two-routine interaction without automatic progress, 320px static guidance and accessibility. Existing tests cover persistence, isolation, save failures, account revision queues, bookmarks, offline fallback, large text and reduced motion.
+- Desktop 1440px, mobile bathroom 375px and dark tablet 768px screenshots reviewed. No overflow or automated WCAG A/AA violations. Evidence: ignored verification-results/phase5/.
+- Throttled local mobile (390×844, 4× CPU, 150ms latency, 1.6Mbps down/750Kbps up): SafeNest observed LCP 668ms, CLS 0.0001; First 365 Days LCP 864ms, CLS 0. Both pass preset LCP ≤2500ms/CLS ≤0.1. Synthetic local data, not field Core Web Vitals.
+- Docker is unavailable locally and sudo requires the user's password. Added a read-only-permission GitHub Actions workflow using disposable services, generated test credentials and the existing pinned integration images. No production credentials/data are used. Its first actual run passed auth, owner/cross-account/anonymous RLS, revision/identity protections, real browser persistence/isolation/sign-out, and cleanup: https://github.com/bojan09/tiny_steps/actions/runs/41235034060 . It reruns on runtime changes to master, with a non-secret summary artifact. Final-release run evidence is recorded after publication.
+
+## Release checkpoint
+
+Implementation tests pass. Commit/remote publication, final hosted security-run result, production version/browser verification and the existing health workflow's actual outcome are recorded in CLOUD_HANDOFF.md and PHASE_PROGRESS.md after verification. The health workflow's first inspected run failed because its repository secret was missing; the user is adding it. A credential setup promise is not a successful workflow execution, and a successful health read never guarantees Supabase will not pause a free-tier project.

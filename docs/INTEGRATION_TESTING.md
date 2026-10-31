@@ -39,3 +39,9 @@ If the running cloud policy blocks these destinations despite correct saved sett
 # Throttled local mobile performance
 
 Run `npm run verify:performance` against the local production build. Fresh Chromium contexts use a 390×844 mobile viewport, 4× CPU slowdown, 150 ms latency and 1.6 Mbps download/750 Kbps upload. The runner records observed LCP, CLS, overflow, load time and the target version in ignored `verification-results/performance/report.json`. Targets are LCP ≤2,500 ms and CLS ≤0.1. These are synthetic local observations, not production field metrics or a physical-device benchmark.
+
+## GitHub-hosted verification — 2026-10-31
+
+When Docker is unavailable locally, `.github/workflows/account-rls-verification.yml` runs the same disposable-service suite on ubuntu-latest with Node 22 and installed Playwright Chromium. It has read-only repository permissions, no production secrets, a 20-minute limit and a seven-day non-secret summary artifact. The existing image digests and cleanup contract remain unchanged. It runs on master runtime changes and supports manual dispatch; documentation-only updates do not restart it.
+
+First actual hosted run: https://github.com/bojan09/tiny_steps/actions/runs/41235034060 . Job 124636878045 succeeded, including actual owner/cross-account/anonymous RLS assertions and authenticated browser persistence/sign-out. Final Phase 5 release run evidence is recorded in CLOUD_HANDOFF.md. This is local-to-the-runner security testing, not certification of the managed production project's configuration or Google consent flow.

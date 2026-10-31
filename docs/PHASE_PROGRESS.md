@@ -1,5 +1,21 @@
 # TinySteps cloud phase progress
 
+## Phase 5 release candidate — 2026-10-31, v1.5.3
+
+SafeNest implementation and local release checks are complete. Final remote security/deployment/health-workflow observations are recorded after publication; do not infer those results from this candidate status. Earlier Phase 4 and cloud blockers below are historical.
+
+- Twelve source-reviewed Avoid / Reduce risk comparisons, next actions and optional two-routine practice across all four rooms. Essential text remains visible without animation, map interaction or practice. Practice has no score, rewards, saved answers or automatic completion. Existing review states, bookmarks, isolated guest/account persistence, My Journey and appearance-reset preservation remain.
+- Contextual companion cues retain reduced-motion/user controls. Source links identify country, source date and read date. The moved NHS safety URL was corrected in product and external verification. Full source-to-topic review: PHASE_5_REVIEW.md. SafeNest localization remains Phase 7; Phase 4's bilingual explorer is preserved.
+- No migration, RLS changes, new dependencies, paid service or production user-data mutations.
+- Final lint/typecheck/webpack build passed; 19 unit tests and all 32 browser tests passed. New coverage includes all room comparisons, explanatory choices without false progress, source metadata, static bath supervision guidance, 320px accessibility. Existing persistence/account isolation, failed-save, revision queue, offline, large-text and reduced-motion regressions pass.
+- Desktop 1440px, mobile 375px and dark tablet 768px screenshots reviewed, with no overflow or automated WCAG A/AA violations. Evidence in ignored verification-results/phase5/.
+- Synthetic throttled local mobile: SafeNest LCP 668ms/CLS 0.0001; First 365 Days LCP 864ms/CLS 0. Both pass the preset LCP ≤2500ms/CLS ≤0.1 targets. These are local synthetic observations, not field data.
+- Local Docker is absent; sudo needs a user password. Added `.github/workflows/account-rls-verification.yml` in 52c186a, using GitHub's disposable runner and the existing immutable Auth/PostgreSQL/PostgREST images, generated test credentials and unchanged migration. The first actual hosted run passed full auth/RLS and real browser persistence/isolation/sign-out/cleanup: https://github.com/bojan09/tiny_steps/actions/runs/41235034060 . Final runtime commit triggers the same checks again. Reports contain no production credentials. See INTEGRATION_TESTING.md.
+- Inspected actual existing Supabase health run 41210761688: failed because repository secret SUPABASE_KEEPALIVE_DATABASE_URL was missing. The user explicitly chose to add the secret and run the workflow. Do not claim success before a real passing result. Health activity never guarantees the free project will avoid pausing.
+
+Commands: source /home/stan/.nvm/nvm.sh; npm run lint; npm run typecheck; npm test; npm run build -- --webpack; npm run start; run npm run test:e2e and npm run verify:performance with TINYSTEPS_CHROMIUM_EXECUTABLE=/home/stan/projects/tiny_steps/node_modules/.cache/phase4-browsers/chromium-1248/chrome-linux64/chrome. Do not kill a server started by the user; only the previews from this task were stopped/restarted. .codex-attachments remains untracked and the original local-work stash is retained.
+
+
 ## Current local release — 2026-10-31, v1.5.2
 
 **Phase 4 First 365 Days is complete.** The earlier cloud source-access blocker and incomplete-content notes below are historical. Phase 5 remains open for its own sourced safety lessons and production checkpoint; no Phase 5 completion is claimed.

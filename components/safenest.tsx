@@ -4,6 +4,8 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { Bookmark, Check, ArrowRight, BookOpen } from "lucide-react";
+import { safetyLessons } from "@/lib/safenest/lessons";
+import { SafeNestLesson } from "./safenest-lesson";
 import { rooms, safetyReference } from "@/lib/safenest/content";
 import {
   type TopicId,
@@ -52,8 +54,8 @@ export function SafeNest() {
           <p className="eyebrow">A HOME FOR THOUGHTFUL LEARNING</p>
           <h1>SafeNest</h1>
           <p>
-            Explore one room, find the guidance you need, and make space for
-            your questions.
+            Explore everyday hazards, compare routines, and choose a small
+            action to reduce risk.
           </p>
         </div>
         <button
@@ -70,9 +72,9 @@ export function SafeNest() {
         <div>
           <h2>Start with a room.</h2>
           <p>
-            This is a reference-review planner. It does not inspect your home or
-            certify it as safe. Check current guidance and product instructions;
-            ask a qualified professional when you need help applying them.
+            Learn from sourced safety comparisons and keep track of references
+            you review. These examples do not inspect or certify your home.
+            Follow local guidance and product instructions when applying them.
           </p>
           <p className="field-help">
             Reviewed means you read a reference—not that a hazard has been
@@ -92,7 +94,13 @@ export function SafeNest() {
               height={88}
             />
             <p>
-              One question at a time. There is room to pause and ask for help.
+              {room.id === "bathroom"
+                ? "Stay close throughout bath time. Prepare what you need before you begin."
+                : room.id === "kitchen"
+                  ? "A shared routine helps everyone know who is staying beside your child."
+                  : room.id === "nursery"
+                    ? "A clear sleep space and a shared routine are thoughtful places to begin."
+                    : "Think about what a child could reach now, and what they may reach next."}
             </p>
           </motion.aside>
         )}
@@ -179,7 +187,11 @@ export function SafeNest() {
                   <BookOpen size={20} aria-hidden="true" />
                   {topic.title}
                 </h3>
-                <p>{topic.prompt}</p>
+                <SafeNestLesson
+                  lesson={safetyLessons[topic.id]}
+                  id={topic.id}
+                  title={topic.title}
+                />
                 <details>
                   <summary>A question to take with you</summary>
                   <p>{topic.question}</p>
@@ -188,10 +200,6 @@ export function SafeNest() {
                   </p>
                 </details>
                 <div className="nest-topic-controls">
-                  <a className="text-link" href={safetyReference.url}>
-                    Read NHS safety guidance{" "}
-                    <ArrowRight size={15} aria-hidden="true" />
-                  </a>
                   <div>
                     <label htmlFor={"nest-status-" + topic.id}>
                       Review status: {topic.title}
@@ -221,10 +229,11 @@ export function SafeNest() {
           <aside className="nest-guidance paper">
             <h3>Use guidance that fits your home</h3>
             <p>
-              The external NHS resource provides general UK information. Local
-              guidance, product instructions and individual circumstances may
-              differ. This planner does not replace professional advice,
-              supervision or emergency services.
+              Sources identify their country and review date where available.
+              Local requirements and individual circumstances may differ. This
+              is general education, not medical advice or a complete home
+              inspection. For an emergency, contact local emergency services; do
+              not rely on this learning page.
             </p>
             <a className="text-link" href={safetyReference.url}>
               {safetyReference.title}

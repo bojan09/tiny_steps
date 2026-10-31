@@ -37,3 +37,24 @@ test("SafeNest supports only bounded learning states for its known topics", () =
   for (const value of ["done", "safe", "unsafe", true, 1, {}])
     assert.deepEqual(validNestChecks({ "sleep-space": value }), {});
 });
+
+test("all persisted topics have distinct actionable comparisons and attributable sources", async () => {
+  const { safetyLessons, safetySources } =
+    await import("../lib/safenest/lessons.ts");
+  assert.deepEqual(Object.keys(safetyLessons).sort(), [...topicIds].sort());
+  for (const lesson of Object.values(safetyLessons)) {
+    assert.notEqual(lesson.avoid, lesson.safer);
+    for (const value of [lesson.avoid, lesson.safer, lesson.action])
+      assert.ok(value.trim().length > 20);
+    assert.equal(new URL(lesson.source.url).protocol, "https:");
+    assert.ok(lesson.source.jurisdiction.length > 2);
+    assert.ok(lesson.source.sourceDate.length > 10);
+    assert.ok(Object.values(safetySources).includes(lesson.source));
+    assert.ok(!lesson.source.url.includes("safety-and-accidents"));
+  }
+  assert.match(safetyLessons["bath-water"].safer, /take your child with you/);
+  assert.match(
+    safetyLessons["living-entry"].safer,
+    /pressure-mounted gates are not suitable at the top/,
+  );
+});

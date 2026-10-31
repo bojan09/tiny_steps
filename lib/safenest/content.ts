@@ -1,5 +1,5 @@
 import type { RoomId, TopicId } from "./model";
-// Planning prompts only. These are not verified safe/unsafe demonstrations.
+// Reflection prompts accompany the sourced comparisons in lessons.ts.
 export type NestTopic = {
   id: TopicId;
   title: string;
@@ -129,5 +129,5 @@ export const rooms: NestRoom[] = [
 ];
 export const safetyReference = {
   title: "NHS: Baby and toddler safety (UK)",
-  url: "https://www.nhs.uk/baby/safety-and-accidents/baby-and-toddler-safety/",
+  url: "https://www.nhs.uk/baby/first-aid-and-safety/safety/baby-and-toddler-safety/",
 };

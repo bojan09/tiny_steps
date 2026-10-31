@@ -19,7 +19,7 @@ const checks = [
   },
   {
     id: "nhs-home-safety",
-    url: "https://www.nhs.uk/baby/safety-and-accidents/baby-and-toddler-safety/",
+    url: "https://www.nhs.uk/baby/first-aid-and-safety/safety/baby-and-toddler-safety/",
     expected: /safety/i,
   },
   {

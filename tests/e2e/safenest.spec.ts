@@ -197,3 +197,84 @@ test("failed account saves show the error and do not claim successful persistenc
     page.getByText("Saved to your account.", { exact: true }),
   ).toHaveCount(0);
 });
+
+test("all rooms offer sourced risk comparisons without turning learning answers into safety progress", async ({
+  page,
+}) => {
+  await page.goto("/safenest");
+  for (const room of [
+    "Nursery & bedroom",
+    "Kitchen",
+    "Bathroom",
+    "Living room & entryway",
+  ]) {
+    await page
+      .getByRole("button", { name: "Explore " + room, exact: true })
+      .click();
+    await expect(page.locator(".nest-comparison")).toHaveCount(3);
+    await expect(page.locator(".nest-avoid h4")).toHaveText([
+      "Avoid",
+      "Avoid",
+      "Avoid",
+    ]);
+    await expect(page.locator(".nest-safer h4")).toHaveText([
+      "Reduce risk",
+      "Reduce risk",
+      "Reduce risk",
+    ]);
+    const links = page.locator(".nest-lesson > a");
+    await expect(links).toHaveCount(3);
+    for (const link of await links.all())
+      expect(await link.getAttribute("href")).toMatch(/^https:\/\//);
+    const lesson = page.locator(".nest-lesson").first();
+    await lesson.locator("summary").click();
+    const options = lesson.locator(".nest-practice-options button");
+    await options.first().focus();
+    await page.keyboard.press("Enter");
+    await expect(lesson.getByRole("status")).toContainText(
+      "retains the hazard",
+    );
+    await options.last().click();
+    await expect(lesson.getByRole("status")).toContainText(
+      "risk-reducing approach",
+    );
+    await expect(
+      page.getByText("0 / 12 references reviewed", { exact: true }),
+    ).toBeVisible();
+    for (const select of await page
+      .locator(".nest-topic-controls select")
+      .all())
+      await expect(select).toHaveValue("");
+  }
+});
+
+test("bath supervision lesson and its non-animated alternative remain usable on a small screen", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/safenest");
+  await page
+    .getByRole("button", { name: "Explore Bathroom", exact: true })
+    .click();
+  const lesson = page.getByRole("region", {
+    name: "Water-safety guidance learning example",
+    exact: true,
+  });
+  await expect(lesson.locator(".nest-safer")).toContainText(
+    "take your child with you",
+  );
+  await expect(lesson.getByRole("link")).toHaveAttribute(
+    "href",
+    "https://www2.hse.ie/babies-children/child-safety/water-safety/water-safety-home/",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  const result = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(result.violations).toEqual([]);
+});

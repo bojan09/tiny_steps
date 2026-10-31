@@ -1,5 +1,5 @@
 # Supabase health workflow
-Prepared 2026-10-29. A local run of the exact health script passed. GitHub scheduling is **not yet active or verified**: the workflow has not been pushed and its repository secret has not been configured.
+Prepared 2026-10-29; inspected again 2026-10-31. The workflow is published and real GitHub runs exist, but the inspected run failed because SUPABASE_KEEPALIVE_DATABASE_URL is missing. The user is adding it. Successful execution is recorded only after an actual passing run is verified.
 
 The workflow runs one bounded database SELECT daily at 08:23 UTC and supports manual dispatch. It retries at most three times with short backoff, has a five-minute job limit, read-only GitHub permissions, and concurrency control. It never deploys the application or writes user activity.
 
@@ -9,8 +9,8 @@ Its value is the connection URL after the equals sign in the ignored local file 
 
 The dedicated database login `tinysteps_healthcheck` has CONNECT, public schema USAGE and EXECUTE on `public.tinysteps_healthcheck()`. The function reads one non-sensitive private health record. Tests confirmed the login cannot read profiles, preferences or the underlying private health table. The login has a two-connection limit and ten-second statement timeout. Neither a service-role key nor the general database password belongs in Actions.
 
-## Activate after publishing is approved
-1. Push the workflow to master. Since Vercel now exists, first establish whether this push also deploys the app.
+## Configure the existing workflow
+1. The workflow is already on master; no additional workflow publication is needed.
 2. In GitHub repository Settings → Secrets and variables → Actions, add the named secret using the restricted URL.
 3. Open Actions → Supabase health check → Run workflow.
 4. Confirm the run succeeds and reports “Database health read passed.” Record the run URL in Phase 2 status.

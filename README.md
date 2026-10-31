@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.5.2: sourced First 365 Days learning of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.5.3: interactive SafeNest safety learning of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -47,7 +47,7 @@ Google OAuth entry/callback, Supabase schema and RLS, profile edits, account app
 
 ## Not delivered yet
 
-The structured lesson curriculum, complete SafeNest safety education, live Groq AI and full lesson downloads remain later work. Living Home and First 365 Days are implemented; SafeNest currently provides a reference-review planner. See docs/PHASE_PROGRESS.md for the active continuation roadmap.
+The structured lesson curriculum, live Groq AI and full lesson downloads remain later work. Living Home and First 365 Days are implemented; SafeNest provides sourced risk comparisons and a reference-review planner. See docs/PHASE_PROGRESS.md for the active continuation roadmap.
 
 ## Configuration and privacy
 
@@ -71,9 +71,9 @@ Living Home now reflects account greetings, real saved collections and introduct
 
 Browse 13 monthly caregiver-reflection chapters in English or Macedonian, or jump to an approximate chapter by day/week. Mark reading progress explicitly, return through My Journey, and bookmark the collection. Choices use existing isolated guest/account preferences; no birth date or health observations are collected. Five bilingual developmental stages now include CDC-based examples, gentle interaction ideas, reference ages, source links/read dates and guidance on concerns. Earlier chapters clearly distinguish looking ahead from expectations for the selected month. Stage windows are reading groups, not clinical deadlines; progress records reading, never a baby’s abilities. See docs/PHASE_4_CONTENT_REVIEW.md for the source review and boundaries.
 
-## SafeNest — v1.5.0 explorer increment
+## SafeNest — Phase 5, v1.5.3
 
-Choose one of four rooms from the illustrated map or equivalent text list. Twelve reference-review prompts support Not started, Needs follow-up and Reference reviewed states. Choices persist through the existing isolated guest/account settings, appear in My Journey, and survive an appearance reset. Collection bookmarks and the optional companion use existing controls. This is a reference-review planner, not a home inspection or verified safe/unsafe training. The complete Phase 5 source/security/deployment checkpoint remains open; see docs/PHASE_5_REVIEW.md.
+Choose one of four rooms from the illustrated map or equivalent text list. Twelve reference-review prompts support Not started, Needs follow-up and Reference reviewed states. Choices persist through the existing isolated guest/account settings, appear in My Journey, and survive an appearance reset. Collection bookmarks and the optional companion use existing controls. Twelve source-reviewed Avoid / Reduce risk comparisons add actionable guidance for sleep, furniture, meals, storage, hot drinks, bathing, cords and stairs. Optional two-routine practice has explanatory feedback without scores or saved answers; every lesson also has a static text alternative. Sources identify their jurisdiction, dates and links. This is educational learning, not a home inspection or safety certification. See docs/PHASE_5_REVIEW.md and docs/CLOUD_HANDOFF.md for checkpoint evidence.
 
 ## Release verification and persistence fix — v1.5.1
 
