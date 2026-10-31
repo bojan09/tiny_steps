@@ -1,8 +1,19 @@
 # TinySteps cloud phase progress
 
-## Phase 5 release candidate — 2026-10-31, v1.5.3
+## Phase 5 delivery — 2026-10-31, v1.5.3
 
-SafeNest implementation and local release checks are complete. Final remote security/deployment/health-workflow observations are recorded after publication; do not infer those results from this candidate status. Earlier Phase 4 and cloud blockers below are historical.
+SafeNest implementation and local release checks are complete. Security and deployment observations are recorded below; the independent health-workflow setup is still awaiting a successful execution. Earlier Phase 4 and cloud blockers below are historical.
+
+### Verified Phase 5 implementation and deployment — 2026-10-31
+
+- Implementation commit `03772320bc3800b2e228f830bea2f0d8c2cc10b7` was published to master through the authenticated GitHub connector (command-line HTTPS credentials remain unavailable). The uploaded tree `23fd2b7957a3fec17cf9224edbdf93100837f679` exactly matched tested local content. The ref update used an expected-head check and no force; fetch/rebase synchronized local master, and git ls-remote independently confirmed the SHA.
+- The actual final-release hosted security job passed: https://github.com/bojan09/tiny_steps/actions/runs/41235577916 . Job 124638538796 logs confirm owner/cross-account/anonymous RLS, immutable identity, stale revisions, protected awards and real authenticated profile/preferences/First 365 Days/SafeNest/bookmark persistence, guest isolation and sign-out. Cleanup passed. These are real disposable services against the committed migration, not a managed-production security certification or Google consent test.
+- Vercel reports success for the implementation: https://vercel.com/bojanstanimirovski097hotmailcoms-projects/tiny-steps/7tMVi5XSW58ASBnmhWWSWgBx58ur . A fresh mobile guest browser independently verified https://tiny-steps-six.vercel.app/help and /safenest return 200, version 1.5.3, room navigation, source links, static bath guidance and practice feedback without changing review progress. No page errors, overflow or account writes. Evidence: ignored verification-results/phase5/production-check.json.
+- Release-checker fix published as `cef234249e604e22886df50677a7500d98c4ecb2`. Fixed a proven false negative in the old external version checker: React's markup/comment separators between “Version” and the number defeated its raw-HTML regex. The checker now normalizes rendered text and excludes scripts/styles/comments. Two regression tests verify markup handling, stale versions and script-only matches. Final lint/types and all 21 unit tests pass; runtime product code is unchanged by this checker follow-up.
+- Corrected external check now passes CDC, NHS development, current NHS safety and deployed version. The only failing external check remains the existing health workflow, with no actual successful run found yet. The user is adding its missing repository secret. Do not report the entire maintenance/checkpoint evidence as all passing until that run succeeds. Do not expose the credential or infer it was entered from a promise to do so.
+- Phase 5 safety content, app regression/security checks and production verification are complete. The remaining common maintenance item is health-workflow activation/verification. Phase 6 has not been started. Complete SafeNest localization remains Phase 7 as planned.
+
+
 
 - Twelve source-reviewed Avoid / Reduce risk comparisons, next actions and optional two-routine practice across all four rooms. Essential text remains visible without animation, map interaction or practice. Practice has no score, rewards, saved answers or automatic completion. Existing review states, bookmarks, isolated guest/account persistence, My Journey and appearance-reset preservation remain.
 - Contextual companion cues retain reduced-motion/user controls. Source links identify country, source date and read date. The moved NHS safety URL was corrected in product and external verification. Full source-to-topic review: PHASE_5_REVIEW.md. SafeNest localization remains Phase 7; Phase 4's bilingual explorer is preserved.
