@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { matchesReleaseVersion } from "./release-markers.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const pkg = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
@@ -25,7 +26,7 @@ const checks = [
   {
     id: "production-version",
     url: "https://tiny-steps-six.vercel.app/help",
-    expected: new RegExp("Version\\s+" + pkg.version.replaceAll(".", "\\.")),
+    expected: (body) => matchesReleaseVersion(body, pkg.version),
   },
   {
     id: "health-workflow-run",
