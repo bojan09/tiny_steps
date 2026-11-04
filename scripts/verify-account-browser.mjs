@@ -153,7 +153,9 @@ try {
       .getAttribute("aria-pressed"),
     "true",
   );
+  stage = "Studio map reload";
   await page.goto(base + "/learning-map");
+  await page.locator('[data-status="Explored"]').waitFor();
   assert.equal(await page.locator('[data-status="Explored"]').count(), 1);
   stage = "SafeNest persistence";
   await page.goto(base + "/safenest");
