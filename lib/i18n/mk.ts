@@ -44,6 +44,7 @@ export const mk: Record<string, string> = {
   "A little care for you, too": "Малку грижа и за вас",
   "A little conversation": "Мал разговор",
   "A little help, right here.": "Малку помош, токму тука.",
+  "A little interruption.": "Мал прекин.",
   "A little knowledge. A little reassurance.":
     "Малку знаење. Малку охрабрување.",
   "A little more confidence, every day": "Малку повеќе самодоверба, секој ден",
@@ -103,6 +104,8 @@ export const mk: Record<string, string> = {
     "Неприцврстен телевизор со привлечни играчки врз него.",
   "An unsecured dresser that a child can pull or climb on.":
     "Неприцврстена комода што детето може да ја повлече или да се искачи на неа.",
+  "An update is ready. Finish saving your work, then close all TinySteps tabs and reopen the app to use it.":
+    "Достапно е ажурирање. Завршете со зачувување на работата, потоа затворете ги сите јазичиња на TinySteps и повторно отворете ја апликацијата за да го користите.",
   "Anchor top-heavy furniture using the manufacturer’s instructions and appropriate anti-tip fittings.":
     "Прицврстете го мебелот што е потежок во горниот дел според упатствата на производителот и со соодветни елементи против превртување.",
   "Any stage": "Кој било период",
@@ -319,6 +322,8 @@ export const mk: Record<string, string> = {
   "Further reading": "Дополнително читање",
   "GROWING TOGETHER": "РАСТЕМЕ ЗАЕДНО",
   "Garden retreat": "Градинско засолниште",
+  "General education, not medical advice or a complete home safety assessment. Sign-in and account saves need a connection. Nothing on this page marks a lesson explored.":
+    "Општа едукација, а не медицински совет или целосна процена на безбедноста во домот. За најава и зачувување во сметката е потребна интернет-врска. Ништо на оваа страница не означува лекција како истражена.",
   "Gentle guidance through your reviewed lessons":
     "Нежни насоки низ лекциите со проверени извори",
   "Getting ready": "Подготовка",
@@ -513,6 +518,7 @@ export const mk: Record<string, string> = {
   "Open & breezy": "Отворено и лесно",
   "Open account menu": "Отвори мени за сметката",
   "Open navigation": "Отвори навигација",
+  "Open offline guide": "Отвори го водичот без интернет",
   "Opening Google…": "Се отвора Google…",
   "Opening your learning space…": "Се отвора вашиот простор за учење…",
   "Opening your little corner…": "Се отвора вашето катче…",
@@ -534,6 +540,8 @@ export const mk: Record<string, string> = {
   Practice: "Вежбајте",
   "Preferences stay in this browser. Sign in from your profile to save an account appearance.":
     "Поставките остануваат во овој прелистувач. Најавете се преку профилот за да го зачувате изгледот во сметката.",
+  "Prepared 4 November 2026. Content reviewed 31 October 2026. A saved copy can become outdated. Reconnect to check current source guidance. Source websites need a connection.":
+    "Подготвено на 4 ноември 2026. Содржината е прегледана на 31 октомври 2026. Зачуваната копија може да застари. Поврзете се повторно за да ги проверите тековните насоки од изворите. За веб-страниците на изворите е потребна интернет-врска.",
   "Presence, storage and preparing the water.":
     "Присуство, чување предмети и подготовка на водата.",
   "Preview the offline page": "Прегледај ја офлајн страницата",
@@ -752,8 +760,12 @@ export const mk: Record<string, string> = {
     "Ова е постапката што го намалува ризикот во примерот. Не го сертифицира домот и не ја отстранува потребата од надзор.",
   "This lesson’s progress records your reading and reflection. It does not record a child’s abilities or certify that a hazard has been resolved.":
     "Напредокот во лекцијата го бележи вашето читање и размислување. Не ги бележи способностите на детето и не потврдува дека опасноста е отстранета.",
+  "This page could not open. Your saved account data has not been reset. Try again when your connection is available.":
+    "Оваа страница не можеше да се отвори. Зачуваните податоци во сметката не се ресетирани. Обидете се повторно кога ќе имате интернет-врска.",
   "This progress belongs to this browser. Sign in to start an account journey.":
     "Овој напредок припаѓа на овој прелистувач. Најавете се за да започнете патување со сметка.",
+  "This read-only guide is prepared for offline use after your first connected visit. It contains the twelve released safety references, without account details or saved learning progress.":
+    "Овој водич само за читање се подготвува за користење без интернет по првата посета со интернет-врска. Ги содржи дванаесетте објавени референци за безбедност, без податоци за сметката или зачуван напредок во учењето.",
   "This records chapters you chose to mark as explored. It is not a record of your baby’s abilities or a care qualification.":
     "Ова ги бележи поглавјата што ги означивте како истражени. Не ги бележи способностите на бебето и не е квалификација за нега.",
   "This records your reading, never your baby’s abilities.":
@@ -960,6 +972,8 @@ export const mk: Record<string, string> = {
   "You’re doing this together.": "Ова го правите заедно.",
   "You’re finding your feet": "Го наоѓате својот сигурен почеток",
   "You’re learning.": "Вие учите.",
+  "You’re offline. Account changes cannot be saved. Open the read-only safety guide for prepared content.":
+    "Немате интернет-врска. Промените во сметката не можат да се зачуваат. Отворете го водичот за безбедност само за читање за подготвената содржина.",
   "You’re on step": "На чекор",
   "You’ve taken your first step.": "Го направивте првиот чекор.",
   "a brighter tomorrow.": "посветло утре.",

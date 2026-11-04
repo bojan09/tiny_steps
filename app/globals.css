@@ -3054,3 +3054,17 @@ html[data-mode="dark"] .nest-marker[aria-pressed="true"] {
     white-space: normal;
   }
 }
+
+.connection-notice {
+  padding: 0.85rem 1.25rem;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.connection-notice a { margin-left: 0.6rem; text-decoration: underline; font-weight: 600; }
+.offline-reference { margin-top: 1.5rem; }
+.offline-reference summary { cursor: pointer; padding: 1rem 0; font-weight: 600; }
+.offline-reference details { border-top: 1px solid var(--line); }
+.offline-reference details > div { padding-bottom: 1.25rem; }
+.offline-reference p { margin: 0.6rem 0; }

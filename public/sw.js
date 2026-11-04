@@ -1,9 +1,10 @@
-const CACHE = "tinysteps-public-v2";
+const CACHE = "tinysteps-public-1.8.0";
 const PUBLIC = [
   "/offline",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   "/icons/icon.svg",
+  "/icons/maskable-512.png",
 ];
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -35,6 +36,7 @@ self.addEventListener("install", (event) => {
     })(),
   );
 });
+// Updates wait for existing tabs to close; never force reload unsaved work.
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
@@ -65,29 +67,41 @@ self.addEventListener("fetch", (event) => {
   if (req.mode === "navigate") {
     event.respondWith(
       fetch(req).catch(() =>
-        caches.match("/offline").then((hit) => hit || Response.error()),
+        caches
+          .open(CACHE)
+          .then((cache) => cache.match("/offline"))
+          .then((hit) => hit || Response.error()),
       ),
     );
     return;
   }
   if (
-    url.pathname.startsWith("/_next/static/") ||
-    url.pathname.startsWith("/icons/")
+    !url.search &&
+    (url.pathname.startsWith("/_next/static/") || PUBLIC.includes(url.pathname))
   ) {
     event.respondWith(
-      caches.match(req).then(
-        (hit) =>
-          hit ||
-          fetch(req).then((response) => {
-            if (response.ok) {
-              const clone = response.clone();
-              event.waitUntil(
-                caches.open(CACHE).then((cache) => cache.put(req, clone)),
-              );
-            }
-            return response;
-          }),
-      ),
+      caches
+        .open(CACHE)
+        .then((cache) => cache.match(req))
+        .then(
+          (hit) =>
+            hit ||
+            fetch(req).then((response) => {
+              if (
+                response.ok &&
+                response.type === "basic" &&
+                !/private|no-store/i.test(
+                  response.headers.get("cache-control") || "",
+                )
+              ) {
+                const clone = response.clone();
+                event.waitUntil(
+                  caches.open(CACHE).then((cache) => cache.put(req, clone)),
+                );
+              }
+              return response;
+            }),
+        ),
     );
   }
 });

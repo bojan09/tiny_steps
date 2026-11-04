@@ -1,6 +1,7 @@
 "use client";
 import { Localize, useTranslate } from "@/components/localize";
 import Link from "next/link";
+import { PwaStatus } from "./pwa-status";
 import { usePreferences } from "@/lib/preferences";
 import { useAccount } from "./account-provider";
 import { version } from "@/lib/version";
@@ -297,6 +298,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <main id="main" tabIndex={-1}>
+          <PwaStatus />
           {children}
         </main>
         <footer className="footer">

@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.7.0: English/Macedonian learning and durable personalization in a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.8.0: read-only offline guidance and release hardening in a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -89,4 +89,10 @@ Account progress uses the existing validated, revisioned preferences JSON and ow
 
 Settings switches the whole app between English and Macedonian, including search, accessible labels, save/error states, twelve Studio lessons and SafeNest comparisons. Global language also sets First 365 Days reading language; its separate reading selector remains available. Names, email addresses and source destinations stay unchanged. Profile and Settings remain separate. Thirteen palettes (including Custom), eight backgrounds, display mode, intensity, text size, motion and companion choices remain available. Notification support is described honestly; this release does not request permission or offer push scheduling.
 
-Language uses the existing revisioned account settings and isolated guest storage. No new dependency, schema or paid service. Edit lib/i18n/mk.tsv and run npm run i18n:build; npm run i18n:check verifies the checked-in catalog. Existing bilingual first-year content is reused. See docs/PHASE_7_REVIEW.md for scope and evidence. Phase 8 is next.
+Language uses the existing revisioned account settings and isolated guest storage. No new dependency, schema or paid service. Edit lib/i18n/mk.tsv and run npm run i18n:build; npm run i18n:check verifies the checked-in catalog. Existing bilingual first-year content is reused. See docs/PHASE_7_REVIEW.md for scope and evidence. Phase 8 completes the supplied implementation roadmap.
+
+## Phase 8 — Offline and release hardening, v1.8.0
+
+After successful online preparation, failed document navigation opens a bilingual read-only copy of the twelve safety references. No account details, progress edits or full lesson pages are cached. Connection and waiting-update notices are explicit; updates wait until all tabs close. Added security headers and a page retry boundary. Expanded browser coverage checks first offline use, cache exclusions, install metadata and multi-tab updates.
+
+Production deployment is deliberately held: vercel.json disables Git auto-deployments. The live site remains v1.7.0 until a separately authorized release. See docs/PHASE_8_REVIEW.md for the vision audit, limitations and final verification.

@@ -10,7 +10,11 @@ import {
 import { supabaseConfig } from "@/lib/supabase/config";
 import { browserSupabase } from "@/lib/supabase/browser";
 import { usePreferences, setAccountScope } from "@/lib/preferences";
-import { defaults, sanitizePreferences } from "@/lib/preferences-model";
+import {
+  defaults,
+  sanitizePreferences,
+  interfacePreferences,
+} from "@/lib/preferences-model";
 type Account = {
   id: string;
   email?: string;
@@ -53,7 +57,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     usePreferences.setState({
       preferences: {
         ...defaults,
-        language: usePreferences.getState().preferences.language,
+        ...interfacePreferences(usePreferences.getState().preferences),
       },
       orientationStep: 0,
       orientationComplete: false,
@@ -265,7 +269,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     usePreferences.setState({
       preferences: {
         ...defaults,
-        language: usePreferences.getState().preferences.language,
+        ...interfacePreferences(usePreferences.getState().preferences),
       },
       orientationStep: 0,
       orientationComplete: false,

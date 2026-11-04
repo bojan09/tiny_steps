@@ -49,3 +49,9 @@ First actual hosted run: https://github.com/bojan09/tiny_steps/actions/runs/4123
 ## Phase 6 additions
 
 The authenticated browser runner now opens a Studio lesson directly, waits for its initial in-progress save, reloads it, advances through the steps, marks it explored, reloads again and checks the map. It exercises the same revisioned owner preferences API as the existing first-year and SafeNest checks. Initial-save ordering has a separate failed-save browser regression. Final release run evidence is recorded in CLOUD_HANDOFF.md.
+
+## Phase 8 release coverage
+
+After real authenticated persistence/isolation, the disposable-service runner now runs the complete Playwright browser suite against the same isolated production build. The final report requires RLS, build, authenticated browser, full regression and cleanup success. Private attachments and local agent/cloud-credential directories are excluded from the temporary app copy. Source .env files remain excluded; no production credentials or data are used.
+
+Browser regressions include bilingual read-only offline content at 320px/large text, cache allowlist/no account writes, manifest and real icon dimensions, security headers and request origins, and a separate real service-worker HTTP fixture proving that updates wait for open tabs, old offline content stays available and old caches disappear only after activation. Unit worker tests also cover failed installation and private/auth/cross-origin/non-GET exclusions. The eight-route throttled local performance audit is documented in PHASE_8_REVIEW.md and the final handoff.

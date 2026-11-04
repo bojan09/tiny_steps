@@ -124,3 +124,29 @@ export function sanitizePreferences(value: unknown): Preferences {
     textSize: v.textSize === "large" ? "large" : "standard",
   };
 }
+
+// Keep accessibility and visual choices while identity is unknown; never carry learning state across accounts.
+export function interfacePreferences(p: Preferences) {
+  const {
+    language,
+    theme,
+    customColor,
+    mode,
+    background,
+    intensity,
+    motion,
+    companion,
+    textSize,
+  } = p;
+  return {
+    language,
+    theme,
+    customColor,
+    mode,
+    background,
+    intensity,
+    motion,
+    companion,
+    textSize,
+  };
+}

@@ -28,6 +28,9 @@ const report = {
 };
 try {
   for (const route of [
+    "/",
+    "/settings",
+    "/offline",
     "/first-365-days",
     "/safenest",
     "/care-academy",

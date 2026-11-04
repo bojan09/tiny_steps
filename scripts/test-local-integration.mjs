@@ -355,6 +355,10 @@ try {
     filter: (source) =>
       ![
         ".git",
+        ".codex-attachments",
+        ".codex",
+        ".agents",
+        ".aws",
         ".next",
         "node_modules",
         "test-results",
@@ -408,6 +412,20 @@ try {
   report.browser = "failed";
   await runNode(["scripts/verify-account-browser.mjs"], localEnv, appRoot);
   report.browser = "passed";
+  console.log(
+    "Running the full browser regression suite against disposable services.",
+  );
+  report.regression = "failed";
+  await runNode(
+    [
+      join(root, "node_modules/@playwright/test/cli.js"),
+      "test",
+      "--reporter=line",
+    ],
+    localEnv,
+    appRoot,
+  );
+  report.regression = "passed";
   console.log(
     "PASS: isolated real Auth/PostgreSQL/PostgREST RLS and browser integration. No production verification is implied.",
   );
@@ -472,6 +490,7 @@ try {
     report.rls === "passed" &&
     report.build === "passed" &&
     report.browser === "passed" &&
+    report.regression === "passed" &&
     cleanupOk;
   if (!cleanupOk) process.exitCode = 1;
   const output = join(root, "verification-results", "local-integration");

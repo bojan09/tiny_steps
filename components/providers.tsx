@@ -16,8 +16,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     Promise.resolve(usePreferences.persist.rehydrate()).finally(() =>
       setReady(true),
     );
-    if ("serviceWorker" in navigator && process.env.NODE_ENV === "production")
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
     return () =>
       window.removeEventListener("tinysteps-storage-unavailable", warn);
   }, []);
