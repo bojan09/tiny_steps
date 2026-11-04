@@ -24,3 +24,9 @@ Performance results and final hosted auth/RLS, commit/remote and production evid
 ## Next
 
 Phase 7: finish app-wide English/Macedonian localization, personalization and the remaining Profile/Settings scope. The independent Supabase health-workflow secret/run setup from Phase 5 is still unverified; do not imply that lesson delivery fixes it or guarantees free-tier pause prevention.
+
+## Final release evidence — 2026-11-04
+
+Phase 6 verification is complete. Hosted run https://github.com/bojan09/tiny_steps/actions/runs/41803515940 passed the expanded real authenticated Studio save/reload/completion/map checks, all existing integration flows, RLS and cleanup. Initial run 41237092556 exposed a map-test loading race after persisted completion had already been checked; the count assertion now waits for account-loaded explored state. It remains an exact assertion. Fix commit: 33638f94cc41bc26b7976e006d9175448ba67474; application implementation: 88b88b2388766abbf501847190dcfae459aac979.
+
+Vercel reports success and an independent fresh mobile guest browser verified version 1.6.0, Studio, lesson resume/practice, explicit completion, persisted map state and companion dismissal on production on 4 November. No page errors or production account writes. Current external source/version markers pass; only the independent pre-existing health-workflow setup remains unverified. See CLOUD_HANDOFF.md for exact evidence and safe recovery of local Git corruption discovered when resuming.

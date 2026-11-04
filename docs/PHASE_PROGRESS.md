@@ -1,5 +1,21 @@
 # TinySteps cloud phase progress
 
+## Phase 6 verified complete — 2026-11-04
+
+Release v1.6.0 is live. Implementation: `88b88b2388766abbf501847190dcfae459aac979`; authenticated map-wait correction: `33638f94cc41bc26b7976e006d9175448ba67474`. Both were published on master without force updates. The twelve sourced lessons, four paths, resumable steps, explicit exploration status, Learning Map, My Journey integration and optional companion guidance are implemented. The 64-lesson expansion and full localization remain separately scoped; Phase 7 is next.
+
+Final hosted verification **passed**: https://github.com/bojan09/tiny_steps/actions/runs/41803515940 (job 126484808193). Logs confirm actual owner/cross-account/anonymous RLS, immutable identity, revision conflicts, protected awards and real authenticated profile/Studio/first-year/SafeNest/bookmark persistence, guest isolation and sign-out. The runner explicitly saves/reloads initial Studio progress and completed state. Cleanup passed. No production user data was mutated. These disposable-service checks do not re-certify Google consent or the managed project's live configuration.
+
+The earlier hosted run 41237092556 passed RLS but failed the Studio map assertion because it counted nodes before account data loaded. The two-line fix waits for the explored state before retaining the exact count assertion. The passing rerun verifies the correction; no security assertion was removed or skipped. Lint/typecheck and all 24 unit tests passed again on 4 November. The unchanged application previously passed all 36 browser tests, plus all six affected home/learning tests after final copy refinement, its production build and the performance/accessibility checks below.
+
+Vercel reports success for 33638f9: https://vercel.com/bojanstanimirovski097hotmailcoms-projects/tiny-steps/WFKNdSyww2qbwrHNWqvvBqNRtZgq . A fresh mobile guest browser on 4 November independently verified https://tiny-steps-six.vercel.app/help version 1.6.0 and the live Studio → lesson resume → practice → explicit exploration → persisted map state → companion dismissal flow. No page errors, overflow or account writes. Evidence: ignored verification-results/phase6/production-check.json.
+
+The external verifier passes CDC, NHS development, current NHS safety and production version. Its only remaining failing check is the pre-existing Supabase health workflow: no passing execution found after the missing-secret setup request. This is a separate maintenance item, not an unimplemented Phase 6 feature. Do not claim health-workflow activation or guaranteed pause prevention.
+
+### Local repository recovery
+On resuming 4 November, four loose Git objects were empty, including the pending local test commit. Before repair, `.git` and the source directories were archived privately in ignored `verification-results/recovery/local-before-repair.tar.gz`. Clean remote objects were obtained in `verification-results/recovery/remote.git`, empty objects quarantined, and branch/index metadata rebuilt without overwriting working files. The resulting diff was exactly the pending two-line runner fix; it was revalidated and published as 33638f9. Reachable-object connectivity passed, prior stash and attachments were preserved, and local master was synchronized with remote. Recovery archives must remain untracked. Handoff publication is documentation-only.
+
+
 ## Phase 6 — v1.6.0, 2026-10-31
 
 Implemented the visual Learning Studio (Care Academy), twelve sourced three-step lessons in four paths, a connected Learning Map with Not started/In progress/Explored states, resumable lesson steps, My Journey counts and contextual/dismissible Sprout guidance. Existing app introduction and bookmarks remain. The companion route now guides into working content without live AI calls. The wider 64-lesson curriculum is explicitly not claimed delivered; new UI is English and full localization remains Phase 7.
