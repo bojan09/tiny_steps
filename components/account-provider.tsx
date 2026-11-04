@@ -51,7 +51,10 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setMessage("");
     setAccountScope(true);
     usePreferences.setState({
-      preferences: { ...defaults },
+      preferences: {
+        ...defaults,
+        language: usePreferences.getState().preferences.language,
+      },
       orientationStep: 0,
       orientationComplete: false,
     });
@@ -260,7 +263,10 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setAccount(null);
     setAccountScope(true);
     usePreferences.setState({
-      preferences: { ...defaults },
+      preferences: {
+        ...defaults,
+        language: usePreferences.getState().preferences.language,
+      },
       orientationStep: 0,
       orientationComplete: false,
     });

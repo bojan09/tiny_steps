@@ -1,5 +1,16 @@
 # TinySteps cloud phase progress
 
+## Phase 7 implemented — v1.7.0, 2026-11-04
+
+Global English/Macedonian localization now covers all released pages, accessible/search labels, account states, twelve Studio lessons and SafeNest. Settings language also sets First 365 Days reading language; the independent reading selector remains. Separate Profile/Settings, thirteen palettes including Custom, eight backgrounds, display mode, intensity, text, motion and companion settings remain. Language uses existing revisioned cloud settings or isolated guest storage and survives appearance reset. User names and emails remain verbatim. Notifications are informational because push is unsupported. No new dependency, migration, RLS policy, paid service or medical claim. Authored translations are not independently clinically/native-language certified. See PHASE_7_REVIEW.md.
+
+Local lint/typecheck, 27 unit tests and production webpack build pass. The initial 40-browser-test run passed. Runtime coverage across 29 published pages/lesson routes and every lesson step/room found zero missing messages, errors or horizontal overflow. Mobile large-text Settings/lesson and dark tablet Studio screenshots were reviewed; the final review corrected a CSS-generated mobile English hint. A new regression checks public guidance while account progress is delayed; progress controls still wait for account readiness. The final full browser suite passes all 41 tests. Publication and real hosted/production verification are pending at this implementation checkpoint.
+
+Final throttled local mobile performance: First 365 Days LCP 784ms/CLS 0; SafeNest 632ms/0.0001; Studio 672ms/0.0575; Map 624ms/0.0604; lesson 616ms/0.0146. All meet preset LCP ≤2500ms/CLS ≤0.1 with no overflow. The initial lesson failed at 2596ms; showing public guidance during account loading fixed the late reveal. Synthetic local results are not production field metrics.
+
+Phase 8 is the only remaining planned phase: offline/PWA, performance, accessibility/security and release readiness. Do not start it implicitly. The independent Supabase health workflow still has no verified passing run; do not claim activation or pause prevention. Existing recovery archives, original stash, and untracked .codex-attachments must remain private/untracked.
+
+
 ## Phase 6 verified complete — 2026-11-04
 
 Release v1.6.0 is live. Implementation: `88b88b2388766abbf501847190dcfae459aac979`; authenticated map-wait correction: `33638f94cc41bc26b7976e006d9175448ba67474`. Both were published on master without force updates. The twelve sourced lessons, four paths, resumable steps, explicit exploration status, Learning Map, My Journey integration and optional companion guidance are implemented. The 64-lesson expansion and full localization remain separately scoped; Phase 7 is next.

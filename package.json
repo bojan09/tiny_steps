@@ -1,6 +1,6 @@
 {
   "name": "tiny-steps",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "test:e2e": "playwright test",
+    "i18n:build": "node --experimental-strip-types scripts/localization/build.mjs",
+    "i18n:check": "node --experimental-strip-types scripts/localization/build.mjs --check",
     "test:integration": "node scripts/test-local-integration.mjs",
     "verify:external": "node scripts/verify-external-release.mjs",
     "verify:performance": "node scripts/verify-performance.mjs"

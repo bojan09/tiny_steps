@@ -1,4 +1,5 @@
 "use client";
+import { Localize } from "@/components/localize";
 import { useState, useSyncExternalStore } from "react";
 import { useAccount } from "./account-provider";
 import { browserSupabase } from "@/lib/supabase/browser";
@@ -37,10 +38,15 @@ export function ProfilePanel() {
   return (
     <section className="paper profile-panel">
       {loading ? (
-        <p role="status">Opening your little corner…</p>
+        <p role="status">
+          <Localize>{"Opening your little corner\u2026"}</Localize>
+        </p>
       ) : account ? (
         <>
-          <h2>Welcome, {account.displayName || "caregiver"}.</h2>
+          <h2>
+            <Localize>{"Welcome, "}</Localize>
+            {account.displayName || <Localize>caregiver</Localize>}.
+          </h2>
           <p>{account.email}</p>
           <form
             onSubmit={(e) => {
@@ -49,7 +55,9 @@ export function ProfilePanel() {
               setEditing(false);
             }}
           >
-            <label htmlFor="display-name">What should we call you?</label>
+            <label htmlFor="display-name">
+              <Localize>{"What should we call you?"}</Localize>
+            </label>
             <input
               id="display-name"
               maxLength={80}
@@ -61,43 +69,60 @@ export function ProfilePanel() {
               autoComplete="nickname"
             />
             <button className="button primary" disabled={!editing}>
-              Save name
+              <Localize>{"Save name"}</Localize>
             </button>
           </form>
           <p>
-            Your appearance, bookmarks and introduction progress are saved to
-            your account. Guest choices stay separate on this device.
+            <Localize>
+              {
+                "Your appearance, bookmarks and introduction progress are saved to your account. Guest choices stay separate on this device."
+              }
+            </Localize>
           </p>
           <button className="button secondary" onClick={() => void signOut()}>
-            Sign out
+            <Localize>{"Sign out"}</Localize>
           </button>
         </>
       ) : (
         <>
-          <h2>Welcome, caregiver.</h2>
+          <h2>
+            <Localize>{"Welcome, caregiver."}</Localize>
+          </h2>
           <p>
-            Explore freely, or sign in to bring your appearance, bookmarks and
-            progress with you.
+            <Localize>
+              {
+                "Explore freely, or sign in to bring your appearance, bookmarks and progress with you."
+              }
+            </Localize>
           </p>
           <button
             className="button primary"
             disabled={busy || !authAvailable}
             onClick={() => void signIn()}
           >
-            {busy ? "Opening Google…" : "Continue with Google"}
+            <Localize>
+              {busy ? "Opening Google…" : "Continue with Google"}
+            </Localize>
           </button>
           <p>
-            Your guest choices stay on this device. Signing in opens your
-            account’s own settings.
+            <Localize>
+              {
+                "Your guest choices stay on this device. Signing in opens your account\u2019s own settings."
+              }
+            </Localize>
           </p>
         </>
       )}
-      <p role="status">{error || message}</p>
-      {message && (
-        <button className="text-link" onClick={() => void reload()}>
-          Reload account
-        </button>
-      )}
+      <p role="status">
+        <Localize>{error || message}</Localize>
+      </p>
+      <Localize>
+        {message && (
+          <button className="text-link" onClick={() => void reload()}>
+            <Localize>{"Reload account"}</Localize>
+          </button>
+        )}
+      </Localize>
       <CallbackNotice />
     </section>
   );
@@ -110,7 +135,9 @@ function CallbackNotice() {
   );
   return failed ? (
     <p role="alert">
-      Sign-in was not completed. Please try Continue with Google again.
+      <Localize>
+        {"Sign-in was not completed. Please try Continue with Google again."}
+      </Localize>
     </p>
   ) : null;
 }

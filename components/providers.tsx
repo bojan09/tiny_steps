@@ -1,5 +1,7 @@
 "use client";
+import { Localize } from "@/components/localize";
 import { useEffect, useState } from "react";
+import { LanguageContext } from "@/lib/i18n/context";
 import { AccountProvider } from "./account-provider";
 import { MotionConfig } from "motion/react";
 import { appearanceTokens } from "@/lib/appearance";
@@ -24,6 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     const html = document.documentElement;
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const update = () => {
+      html.lang = p.language;
       html.dataset.theme = p.theme;
       html.dataset.mode =
         p.mode === "system" ? (media.matches ? "dark" : "light") : p.mode;
@@ -44,17 +47,21 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return () => media.removeEventListener("change", update);
   }, [p, ready]);
   return (
-    <MotionConfig
-      reducedMotion={
-        p.motion === "off" || p.motion === "minimal" ? "always" : "user"
-      }
-    >
-      <AccountProvider>{children}</AccountProvider>
-      {storageWarning && (
-        <div role="status" className="storage-notice">
-          Changes work for this visit, but your browser could not save them.
-        </div>
-      )}
-    </MotionConfig>
+    <LanguageContext.Provider value={p.language}>
+      <MotionConfig
+        reducedMotion={
+          p.motion === "off" || p.motion === "minimal" ? "always" : "user"
+        }
+      >
+        <AccountProvider>{children}</AccountProvider>
+        {storageWarning && (
+          <div role="status" className="storage-notice">
+            <Localize>
+              Changes work for this visit, but your browser could not save them.
+            </Localize>
+          </div>
+        )}
+      </MotionConfig>
+    </LanguageContext.Provider>
   );
 }

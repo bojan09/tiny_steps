@@ -1,3 +1,4 @@
+import { Localize } from "@/components/localize";
 import { LearningStudio } from "@/components/learning-studio";
 import { version } from "@/lib/version";
 import Image from "next/image";
@@ -19,7 +20,9 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ section: string }>;
+  params: Promise<{
+    section: string;
+  }>;
 }) {
   const { section } = await params;
   return {
@@ -111,7 +114,9 @@ const topics: Record<string, [string, string][]> = {
 export default async function Section({
   params,
 }: {
-  params: Promise<{ section: string }>;
+  params: Promise<{
+    section: string;
+  }>;
 }) {
   const { section } = await params;
   const d = destinations.find((v) => v.id === section);
@@ -126,9 +131,15 @@ export default async function Section({
     return (
       <div className="page-content">
         <header className="page-heading">
-          <span className="eyebrow">ONE SMALL STEP AT A TIME</span>
-          <h1>My Journey</h1>
-          <p>A little progress, without pressure.</p>
+          <span className="eyebrow">
+            <Localize>{"ONE SMALL STEP AT A TIME"}</Localize>
+          </span>
+          <h1>
+            <Localize>{"My Journey"}</Localize>
+          </h1>
+          <p>
+            <Localize>{"A little progress, without pressure."}</Localize>
+          </p>
         </header>
         <Journey />
       </div>
@@ -137,8 +148,12 @@ export default async function Section({
     return (
       <div className="page-content narrow">
         <header className="page-heading">
-          <span className="eyebrow">KEEP THE GOOD THINGS CLOSE</span>
-          <h1>Your saved places</h1>
+          <span className="eyebrow">
+            <Localize>{"KEEP THE GOOD THINGS CLOSE"}</Localize>
+          </span>
+          <h1>
+            <Localize>{"Your saved places"}</Localize>
+          </h1>
         </header>
         <Bookmarks />
       </div>
@@ -147,40 +162,62 @@ export default async function Section({
     return (
       <div className="page-content narrow">
         <header className="page-heading">
-          <span className="eyebrow">THOUGHTFULLY, FROM THE START</span>
-          <h1>A little help, right here.</h1>
-          <p>TinySteps is taking its first steps, too.</p>
+          <span className="eyebrow">
+            <Localize>{"THOUGHTFULLY, FROM THE START"}</Localize>
+          </span>
+          <h1>
+            <Localize>{"A little help, right here."}</Localize>
+          </h1>
+          <p>
+            <Localize>{"TinySteps is taking its first steps, too."}</Localize>
+          </p>
         </header>
         <section className="paper content-panel">
-          <h2>About this early release</h2>
+          <h2>
+            <Localize>{"About this early release"}</Localize>
+          </h2>
           <p>
-            Version {version} includes Google sign-in, account preferences,
-            bookmarks, introduction progress, expanded appearance and your
-            companion guidance, sourced first-year developmental cards and
-            SafeNest comparisons, plus twelve guided Studio lessons with a
-            Learning Map and saved learning progress. The wider 64-lesson
-            curriculum and live AI responses are not released.
+            <Localize>{"Version "}</Localize>
+            <Localize>{version}</Localize>
+            <Localize>
+              {
+                " includes Google sign-in, account preferences, bookmarks, introduction progress, expanded appearance and your companion guidance, sourced first-year developmental cards and SafeNest comparisons, plus twelve guided Studio lessons with a Learning Map and saved learning progress. The wider 64-lesson curriculum and live AI responses are not released."
+              }
+            </Localize>
           </p>
-          <h2>Your information</h2>
+          <h2>
+            <Localize>{"Your information"}</Localize>
+          </h2>
           <p>
-            Guest preferences, bookmarks, lesson and introduction progress stay
-            in this browser. When signed in, these choices are stored in your
-            account in Supabase. Guest choices are kept separate. This release
-            does not send questions or family information to an AI provider.
+            <Localize>
+              {
+                "Guest preferences, bookmarks, lesson and introduction progress stay in this browser. When signed in, these choices are stored in your account in Supabase. Guest choices are kept separate. This release does not send questions or family information to an AI provider."
+              }
+            </Localize>
           </p>
-          <h2>Learning with care</h2>
+          <h2>
+            <Localize>{"Learning with care"}</Localize>
+          </h2>
           <p>
-            TinySteps is for education, not diagnosis, treatment, or emergency
-            assessment. Illustrations set a welcoming tone; they are not safety
-            instructions. Published educational cards and lessons link to their
-            reviewed sources and identify the source jurisdiction.
+            <Localize>
+              {
+                "TinySteps is for education, not diagnosis, treatment, or emergency assessment. Illustrations set a welcoming tone; they are not safety instructions. Published educational cards and lessons link to their reviewed sources and identify the source jurisdiction."
+              }
+            </Localize>
           </p>
-          <h2>Make the app comfortable</h2>
+          <h2>
+            <Localize>{"Make the app comfortable"}</Localize>
+          </h2>
           <p>
-            Use <Link href="/settings">Appearance & settings</Link> to change
-            the palette, text size, background, motion, and companion. You can
-            navigate with a keyboard; a skip link appears when you press Tab at
-            the start of a page.
+            <Localize>{"Use "}</Localize>
+            <Link href="/settings">
+              <Localize>{"Appearance & settings"}</Localize>
+            </Link>
+            <Localize>
+              {
+                " to change the palette, text size, background, motion, and companion. You can navigate with a keyboard; a skip link appears when you press Tab at the start of a page."
+              }
+            </Localize>
           </p>
         </section>
       </div>
@@ -189,24 +226,39 @@ export default async function Section({
     return (
       <div className="page-content narrow">
         <header className="page-heading">
-          <span className="eyebrow">A LITTLE SUPPORT, EVEN OFFLINE</span>
-          <h1>Take a little calm with you.</h1>
-          <p>Offline support starts with a simple, dependable fallback.</p>
+          <span className="eyebrow">
+            <Localize>{"A LITTLE SUPPORT, EVEN OFFLINE"}</Localize>
+          </span>
+          <h1>
+            <Localize>{"Take a little calm with you."}</Localize>
+          </h1>
+          <p>
+            <Localize>
+              {"Offline support starts with a simple, dependable fallback."}
+            </Localize>
+          </p>
         </header>
         <section className="paper content-panel">
-          <h2>Available in this release</h2>
+          <h2>
+            <Localize>{"Available in this release"}</Localize>
+          </h2>
           <p>
-            After your first online visit to the production build, TinySteps
-            saves a small offline page. If your connection drops, it explains
-            what is available. Appearance settings and introduction progress
-            remain in this browser.
+            <Localize>
+              {
+                "After your first online visit to the production build, TinySteps saves a small offline page. If your connection drops, it explains what is available. Appearance settings and introduction progress remain in this browser."
+              }
+            </Localize>
           </p>
           <p>
-            Full lesson downloads and background account synchronization are
-            planned for later phases. Sign-in and AI will require a connection.
+            <Localize>
+              {
+                "Full lesson downloads and background account synchronization are planned for later phases. Sign-in and AI will require a connection."
+              }
+            </Localize>
           </p>
           <Link className="button primary" href="/offline">
-            Preview the offline page <ArrowRight size={16} />
+            <Localize>{"Preview the offline page "}</Localize>
+            <ArrowRight size={16} />
           </Link>
         </section>
       </div>
@@ -216,21 +268,30 @@ export default async function Section({
       <section className="section-hero">
         <div className="section-hero-copy">
           <span className="eyebrow">
-            YOUR LITTLE WORLD ·{" "}
-            {section === "care-academy"
-              ? "LEARN"
-              : section === "parent-academy"
-                ? "FEEL SUPPORTED"
-                : "EXPLORE"}
+            <Localize>{"YOUR LITTLE WORLD \u00B7"}</Localize>
+            <Localize> </Localize>
+            <Localize>
+              {section === "care-academy"
+                ? "LEARN"
+                : section === "parent-academy"
+                  ? "FEEL SUPPORTED"
+                  : "EXPLORE"}
+            </Localize>
           </span>
-          <h1>{d.title}</h1>
-          <p>{d.description}.</p>
+          <h1>
+            <Localize>{d.title}</Localize>
+          </h1>
           <p>
-            {section === "care-academy"
-              ? "A thoughtful home for practical learning. Begin with a short introduction, then get to know the eight collections."
-              : section === "ai-assistant"
-                ? "A future guide to reviewed TinySteps content. This foundation release does not provide AI answers or send your information to Groq."
-                : "A first look at the collection. Explore its focus below while the full, reviewed learning experiences are being prepared."}
+            <Localize>{d.description}</Localize>.
+          </p>
+          <p>
+            <Localize>
+              {section === "care-academy"
+                ? "A thoughtful home for practical learning. Begin with a short introduction, then get to know the eight collections."
+                : section === "ai-assistant"
+                  ? "A future guide to reviewed TinySteps content. This foundation release does not provide AI answers or send your information to Groq."
+                  : "A first look at the collection. Explore its focus below while the full, reviewed learning experiences are being prepared."}
+            </Localize>
           </p>
           <Link
             href={
@@ -240,75 +301,106 @@ export default async function Section({
             }
             className="button primary"
           >
-            {section === "care-academy"
-              ? "Begin your introduction"
-              : "Save your favorite collections"}{" "}
+            <Localize>
+              {section === "care-academy"
+                ? "Begin your introduction"
+                : "Save your favorite collections"}
+            </Localize>
+            <Localize> </Localize>
             <ArrowRight size={16} />
           </Link>
         </div>
         <div className="section-hero-art">
-          {art ? (
-            <Image
-              src={"/images/" + art + ".webp"}
-              alt={
-                art === "house"
-                  ? "Decorative illustration of a warm family home"
-                  : art === "baby"
-                    ? "An awake baby on a play mat, surrounded by botanical artwork"
-                    : "The friendly TinySteps potato companion"
-              }
-              fill
-              sizes="(max-width:767px) 100vw, 45vw"
-              style={
-                art === "potato"
-                  ? { objectFit: "contain", padding: 35 }
-                  : undefined
-              }
-            />
-          ) : (
-            <StillLife kind={section === "care-academy" ? "care" : "guide"} />
-          )}
+          <Localize>
+            {art ? (
+              <Image
+                src={"/images/" + art + ".webp"}
+                alt={
+                  art === "house"
+                    ? "Decorative illustration of a warm family home"
+                    : art === "baby"
+                      ? "An awake baby on a play mat, surrounded by botanical artwork"
+                      : "The friendly TinySteps potato companion"
+                }
+                fill
+                sizes="(max-width:767px) 100vw, 45vw"
+                style={
+                  art === "potato"
+                    ? { objectFit: "contain", padding: 35 }
+                    : undefined
+                }
+              />
+            ) : (
+              <StillLife kind={section === "care-academy" ? "care" : "guide"} />
+            )}
+          </Localize>
         </div>
       </section>
       {section === "care-academy" ? (
         <>
           <div className="section-heading">
             <div>
-              <span className="eyebrow">A HOME FOR EVERYDAY LEARNING</span>
-              <h2>Eight collections. One growing confidence.</h2>
+              <span className="eyebrow">
+                <Localize>{"A HOME FOR EVERYDAY LEARNING"}</Localize>
+              </span>
+              <h2>
+                <Localize>
+                  {"Eight collections. One growing confidence."}
+                </Localize>
+              </h2>
             </div>
           </div>
           <div className="collection-grid">
             {collections.map((title, i) => (
               <details className="collection" key={title}>
                 <summary>
-                  <span>0{i + 1}</span>
-                  {title}
+                  <span>
+                    0<Localize>{i + 1}</Localize>
+                  </span>
+                  <Localize>{title}</Localize>
                   <Plus size={17} />
                 </summary>
-                <p>{collectionNotes[i]}</p>
+                <p>
+                  <Localize>{collectionNotes[i]}</Localize>
+                </p>
               </details>
             ))}
           </div>
           <p className="release-note">
-            The app introduction is available now. The 64 reviewed care lessons
-            are a separate upcoming delivery, not completed content in this
-            release.
+            <Localize>
+              {
+                "The app introduction is available now. The 64 reviewed care lessons are a separate upcoming delivery, not completed content in this release."
+              }
+            </Localize>
           </p>
         </>
       ) : section === "ai-assistant" ? (
         <section className="paper content-panel">
           <Leaf size={26} />
-          <h2>A helper with thoughtful boundaries.</h2>
+          <h2>
+            <Localize>{"A helper with thoughtful boundaries."}</Localize>
+          </h2>
           <p>
-            The assistant will help explain educational terms and point to
-            reviewed lessons. It will cite the content it uses, acknowledge
-            uncertainty, and stay within its educational role.
+            <Localize>
+              {
+                "The assistant will help explain educational terms and point to reviewed lessons. It will cite the content it uses, acknowledge uncertainty, and stay within its educational role."
+              }
+            </Localize>
           </p>
           <p>
-            There is no active chat in Phase 1. You can explore{" "}
-            <Link href="/care-academy">Care Academy</Link> or read{" "}
-            <Link href="/help">how TinySteps approaches learning</Link>.
+            <Localize>
+              {"There is no active chat in Phase 1. You can explore"}
+            </Localize>
+            <Localize> </Localize>
+            <Link href="/care-academy">
+              <Localize>{"Care Academy"}</Localize>
+            </Link>
+            <Localize>{" or read"}</Localize>
+            <Localize> </Localize>
+            <Link href="/help">
+              <Localize>{"how TinySteps approaches learning"}</Localize>
+            </Link>
+            .
           </p>
         </section>
       ) : (
@@ -317,11 +409,15 @@ export default async function Section({
             {(topics[section] || []).map(([title, body], i) => (
               <details className="collection" key={title}>
                 <summary>
-                  <span>0{i + 1}</span>
-                  {title}
+                  <span>
+                    0<Localize>{i + 1}</Localize>
+                  </span>
+                  <Localize>{title}</Localize>
                   <Plus size={17} />
                 </summary>
-                <p>{body}</p>
+                <p>
+                  <Localize>{body}</Localize>
+                </p>
               </details>
             ))}
           </div>
@@ -331,7 +427,7 @@ export default async function Section({
               .filter((v) => v.id !== section)
               .map((v) => (
                 <Link key={v.id} href={v.href}>
-                  {v.title} ↗
+                  <Localize>{v.title}</Localize> ↗
                 </Link>
               ))}
           </div>

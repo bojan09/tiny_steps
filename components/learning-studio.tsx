@@ -1,4 +1,5 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import Link from "next/link";
 import { ArrowRight, Check, Circle, BookOpen } from "lucide-react";
 import { usePreferences } from "@/lib/preferences";
@@ -12,7 +13,6 @@ import {
 import { lessonIds, lessonStatus } from "@/lib/learning/model";
 import { LearningCompanion } from "./learning-companion";
 import { StillLife } from "./art";
-
 export function LearningStudio({
   map = false,
   companion = false,
@@ -20,6 +20,7 @@ export function LearningStudio({
   map?: boolean;
   companion?: boolean;
 }) {
+  const localeText = useTranslate();
   const p = usePreferences((s) => s.preferences);
   const { loading, account, message } = useAccount();
   const next = nextLearningLesson(p.learningProgress, p.activeLearningLesson);
@@ -30,63 +31,95 @@ export function LearningStudio({
     <div className="page-content learning-studio">
       <header className="studio-hero paper">
         <div>
-          <p className="eyebrow">LEARN, NOTICE, RETURN</p>
+          <p className="eyebrow">
+            <Localize>{"LEARN, NOTICE, RETURN"}</Localize>
+          </p>
           <h1>
-            {map
-              ? "Your Learning Map"
-              : companion
-                ? "Your learning companion"
-                : "Care Academy"}
+            <Localize>
+              {map
+                ? "Your Learning Map"
+                : companion
+                  ? "Your learning companion"
+                  : "Care Academy"}
+            </Localize>
           </h1>
           <p>
-            {map
-              ? "Four connected paths. Follow an order or choose the question that matters today."
-              : companion
-                ? "Sprout helps you find your place in reviewed learning. Guidance is built into the lessons; no questions are sent to an AI service."
-                : "Welcome to the Learning Studio. Twelve guided lessons turn reviewed safety topics into small moments of learning."}
+            <Localize>
+              {map
+                ? "Four connected paths. Follow an order or choose the question that matters today."
+                : companion
+                  ? "Sprout helps you find your place in reviewed learning. Guidance is built into the lessons; no questions are sent to an AI service."
+                  : "Welcome to the Learning Studio. Twelve guided lessons turn reviewed safety topics into small moments of learning."}
+            </Localize>
           </p>
-          {loading ? (
-            <p role="status">Loading your learning choices…</p>
-          ) : (
-            <>
-              <Link className="button primary" href={lessonHref(next)}>
-                {p.learningProgress[next]
-                  ? "Return to your lesson"
-                  : "Start a lesson"}
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
-              <p className="field-help">
-                {explored} / 12 lessons explored ·{" "}
-                {account
-                  ? "Uses your account settings"
-                  : "Choices stay in this browser"}
+          <Localize>
+            {loading ? (
+              <p role="status">
+                <Localize>{"Loading your learning choices\u2026"}</Localize>
               </p>
-            </>
-          )}
+            ) : (
+              <>
+                <Link className="button primary" href={lessonHref(next)}>
+                  <Localize>
+                    {p.learningProgress[next]
+                      ? "Return to your lesson"
+                      : "Start a lesson"}
+                  </Localize>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+                <p className="field-help">
+                  <Localize>{explored}</Localize>
+                  <Localize>{" / 12 lessons explored \u00B7"}</Localize>
+                  <Localize> </Localize>
+                  <Localize>
+                    {account
+                      ? "Uses your account settings"
+                      : "Choices stay in this browser"}
+                  </Localize>
+                </p>
+              </>
+            )}
+          </Localize>
           <p className="field-help">
-            Explored records your learning, never care proficiency or a home’s
-            safety.
+            <Localize>
+              {
+                "Explored records your learning, never care proficiency or a home\u2019s safety."
+              }
+            </Localize>
           </p>
           <Link className="text-link" href="/care-academy/getting-started">
-            {map
-              ? "Revisit the app introduction"
-              : "New here? Begin your introduction"}
+            <Localize>
+              {map
+                ? "Revisit the app introduction"
+                : "New here? Begin your introduction"}
+            </Localize>
           </Link>
         </div>
         <div className="studio-art" aria-hidden="true">
           <StillLife kind="care" />
         </div>
       </header>
-      {message && (
-        <p className="release-note" role="status">
-          {message}
-        </p>
-      )}
+      <Localize>
+        {message && (
+          <p className="release-note" role="status">
+            <Localize>{message}</Localize>
+          </p>
+        )}
+      </Localize>
       <LearningCompanion />
-      <nav className="studio-view-links" aria-label="Learning views">
-        <Link href="/care-academy">Learning Studio</Link>
-        <Link href="/learning-map">Learning Map</Link>
-        <Link href="/ai-assistant">Companion guidance</Link>
+      <nav
+        className="studio-view-links"
+        aria-label={localeText("Learning views")}
+      >
+        <Link href="/care-academy">
+          <Localize>{"Learning Studio"}</Localize>
+        </Link>
+        <Link href="/learning-map">
+          <Localize>{"Learning Map"}</Localize>
+        </Link>
+        <Link href="/ai-assistant">
+          <Localize>{"Companion guidance"}</Localize>
+        </Link>
       </nav>
       <div
         className={map ? "learning-paths learning-paths-map" : "learning-paths"}
@@ -99,11 +132,15 @@ export function LearningStudio({
           >
             <div className="learning-path-heading">
               <span className="studio-path-number" aria-hidden="true">
-                0{i + 1}
+                0<Localize>{i + 1}</Localize>
               </span>
               <div>
-                <h2 id={"path-" + path.id}>{path.title}</h2>
-                <p>{path.note}</p>
+                <h2 id={"path-" + path.id}>
+                  <Localize>{path.title}</Localize>
+                </h2>
+                <p>
+                  <Localize>{path.note}</Localize>
+                </p>
               </div>
             </div>
             <ol>
@@ -112,34 +149,51 @@ export function LearningStudio({
                 return (
                   <li key={id} data-status={lessonStatus(state)}>
                     <span className="path-node" aria-hidden="true">
-                      {state?.completed ? (
-                        <Check size={18} />
-                      ) : state ? (
-                        <BookOpen size={18} />
-                      ) : (
-                        <Circle size={18} />
-                      )}
+                      <Localize>
+                        {state?.completed ? (
+                          <Check size={18} />
+                        ) : state ? (
+                          <BookOpen size={18} />
+                        ) : (
+                          <Circle size={18} />
+                        )}
+                      </Localize>
                     </span>
                     <Link href={lessonHref(id)}>
-                      <strong>{lessonById(id)?.title}</strong>
-                      <span>{loading ? "Loading…" : lessonStatus(state)}</span>
+                      <strong>
+                        <Localize>{lessonById(id)?.title}</Localize>
+                      </strong>
+                      <span>
+                        <Localize>
+                          {loading ? "Loading…" : lessonStatus(state)}
+                        </Localize>
+                      </span>
                     </Link>
                   </li>
                 );
               })}
             </ol>
             <p className="field-help">
-              {loading
-                ? "Loading…"
-                : `${path.ids.filter((id) => p.learningProgress[id]?.completed).length} of 3 explored`}
+              <Localize>
+                {loading
+                  ? "Loading…"
+                  : `${path.ids.filter((id) => p.learningProgress[id]?.completed).length} of 3 explored`}
+              </Localize>
             </p>
           </section>
         ))}
       </div>
       <p className="release-note">
-        These twelve lessons use the sourced SafeNest material. The broader
-        eight-collection, 64-lesson curriculum is a separate content delivery.{" "}
-        <Link href="/safenest">Explore the room-by-room references</Link>.
+        <Localize>
+          {
+            "These twelve lessons use the sourced SafeNest material. The broader eight-collection, 64-lesson curriculum is a separate content delivery."
+          }
+        </Localize>
+        <Localize> </Localize>
+        <Link href="/safenest">
+          <Localize>{"Explore the room-by-room references"}</Localize>
+        </Link>
+        .
       </p>
     </div>
   );

@@ -1,4 +1,5 @@
 "use client";
+import { Localize } from "@/components/localize";
 import { lessonIds } from "@/lib/learning/model";
 import { useAccount } from "./account-provider";
 import Link from "next/link";
@@ -21,81 +22,122 @@ export function Journey() {
     <>
       <section className="paper progress-summary">
         <div className="progress-ring">
-          <strong>{done ? "1" : "0"}</strong>
-          <small>completed</small>
+          <strong>
+            <Localize>{done ? "1" : "0"}</Localize>
+          </strong>
+          <small>
+            <Localize>{"completed"}</Localize>
+          </small>
         </div>
         <div>
           <h2>
-            {done
-              ? "You’ve taken your first step."
-              : "Every journey has a beginning."}
+            <Localize>
+              {done
+                ? "You’ve taken your first step."
+                : "Every journey has a beginning."}
+            </Localize>
           </h2>
           <p>
-            {done
-              ? "1 introduction completed"
-              : "Your introduction is ready whenever you are."}
+            <Localize>
+              {done
+                ? "1 introduction completed"
+                : "Your introduction is ready whenever you are."}
+            </Localize>
           </p>
           <p>
-            {done
-              ? "This is an app orientation, not a care certification."
-              : step
-                ? "You’re on step " + (step + 1) + " of 5."
-                : "No lessons completed yet. No rush."}
+            <Localize>
+              {done
+                ? "This is an app orientation, not a care certification."
+                : step
+                  ? "You’re on step " + (step + 1) + " of 5."
+                  : "No lessons completed yet. No rush."}
+            </Localize>
           </p>
           <Link className="text-link" href="/care-academy/getting-started">
-            {done ? "Revisit your introduction" : "Begin your introduction"}{" "}
+            <Localize>
+              {done ? "Revisit your introduction" : "Begin your introduction"}
+            </Localize>
+            <Localize> </Localize>
             <ArrowRight size={16} />
           </Link>
         </div>
       </section>
       <p className="release-note">
-        {account
-          ? "Your introduction progress is saved to your account."
-          : "This progress belongs to this browser. Sign in to start an account journey."}
+        <Localize>
+          {account
+            ? "Your introduction progress is saved to your account."
+            : "This progress belongs to this browser. Sign in to start an account journey."}
+        </Localize>
       </p>
       <section className="paper content-panel">
-        <p className="eyebrow">YOUR STUDIO LEARNING</p>
+        <p className="eyebrow">
+          <Localize>{"YOUR STUDIO LEARNING"}</Localize>
+        </p>
         <h2>
-          {lessonCount}{" "}
-          {lessonCount === 1
-            ? "Studio lesson explored"
-            : "Studio lessons explored"}
+          <Localize>{lessonCount}</Localize>
+          <Localize> </Localize>
+          <Localize>
+            {lessonCount === 1
+              ? "Studio lesson explored"
+              : "Studio lessons explored"}
+          </Localize>
         </h2>
         <p>
-          Self-reported reading and reflection, not a care qualification or
-          home-safety assessment.
+          <Localize>
+            {
+              "Self-reported reading and reflection, not a care qualification or home-safety assessment."
+            }
+          </Localize>
         </p>
         <Link className="text-link" href="/care-academy">
-          Return to Learning Studio <ArrowRight size={16} aria-hidden="true" />
+          <Localize>{"Return to Learning Studio "}</Localize>
+          <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </section>
       <section className="paper content-panel">
-        <p className="eyebrow">YOUR FIRST-YEAR READING</p>
+        <p className="eyebrow">
+          <Localize>{"YOUR FIRST-YEAR READING"}</Localize>
+        </p>
         <h2>
-          {explored
-            ? `${explored} first-year ${explored === 1 ? "chapter" : "chapters"} explored`
-            : "A year to explore, at your own pace"}
+          <Localize>
+            {explored
+              ? `${explored} first-year ${explored === 1 ? "chapter" : "chapters"} explored`
+              : "A year to explore, at your own pace"}
+          </Localize>
         </h2>
         <p>
-          This records chapters you chose to mark as explored. It is not a
-          record of your baby’s abilities or a care qualification.
+          <Localize>
+            {
+              "This records chapters you chose to mark as explored. It is not a record of your baby\u2019s abilities or a care qualification."
+            }
+          </Localize>
         </p>
         <Link className="text-link" href="/first-365-days">
-          Return to First 365 Days <ArrowRight size={16} />
+          <Localize>{"Return to First 365 Days "}</Localize>
+          <ArrowRight size={16} />
         </Link>
       </section>
       <section className="paper content-panel">
-        <p className="eyebrow">YOUR SAFENEST REFERENCE REVIEWS</p>
+        <p className="eyebrow">
+          <Localize>{"YOUR SAFENEST REFERENCE REVIEWS"}</Localize>
+        </p>
         <h2>
-          {nestReviewed}{" "}
-          {nestReviewed === 1 ? "reference reviewed" : "references reviewed"}
+          <Localize>{nestReviewed}</Localize>
+          <Localize> </Localize>
+          <Localize>
+            {nestReviewed === 1 ? "reference reviewed" : "references reviewed"}
+          </Localize>
         </h2>
         <p>
-          These are reading choices, not a home inspection or confirmation that
-          a room is safe.
+          <Localize>
+            {
+              "These are reading choices, not a home inspection or confirmation that a room is safe."
+            }
+          </Localize>
         </p>
         <Link className="text-link" href="/safenest">
-          Return to SafeNest <ArrowRight size={16} />
+          <Localize>{"Return to SafeNest "}</Localize>
+          <ArrowRight size={16} />
         </Link>
       </section>
     </>

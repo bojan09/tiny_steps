@@ -1,4 +1,5 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -10,8 +11,8 @@ import {
   lessonHref,
   nextLearningLesson,
 } from "@/lib/learning/content";
-
 export function LearningCompanion({ message }: { message?: string }) {
+  const localeText = useTranslate();
   const p = usePreferences((s) => s.preferences);
   const reduced = useReducedMotion();
   const [dismissed, dismiss] = useState(false);
@@ -21,7 +22,7 @@ export function LearningCompanion({ message }: { message?: string }) {
   return (
     <aside
       className="learning-companion paper"
-      aria-label="Sprout’s learning guidance"
+      aria-label={localeText("Sprout\u2019s learning guidance")}
     >
       <motion.div
         animate={animate ? { y: [0, -3, 0] } : undefined}
@@ -29,25 +30,30 @@ export function LearningCompanion({ message }: { message?: string }) {
       >
         <Image
           src="/images/potato.webp"
-          alt="Sprout, your learning companion"
+          alt={localeText("Sprout, your learning companion")}
           width={62}
           height={75}
         />
       </motion.div>
       <div>
-        <p className="eyebrow">A LITTLE GUIDANCE FROM SPROUT</p>
+        <p className="eyebrow">
+          <Localize>{"A LITTLE GUIDANCE FROM SPROUT"}</Localize>
+        </p>
         <p>
-          {message ||
-            "You can pause, revisit a step, or choose another path. There is no daily target."}
+          <Localize>
+            {message ||
+              "You can pause, revisit a step, or choose another path. There is no daily target."}
+          </Localize>
         </p>
         <Link className="text-link" href={lessonHref(next)}>
-          Your next lesson: {lessonById(next)?.title}
+          <Localize>{"Your next lesson: "}</Localize>
+          <Localize>{lessonById(next)?.title}</Localize>
           <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
       <button
         className="icon-button"
-        aria-label="Dismiss this companion tip"
+        aria-label={localeText("Dismiss this companion tip")}
         onClick={() => dismiss(true)}
       >
         <X size={16} aria-hidden="true" />

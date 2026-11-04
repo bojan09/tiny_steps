@@ -1,4 +1,5 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { usePreferences } from "@/lib/preferences";
@@ -14,28 +15,29 @@ const steps = [
     title: "Explore",
     label: "Follow your curiosity",
     heading: "Start wherever you are.",
-    body: "Care Academy brings practical learning together. First 365 Days is your home for age-stage exploration. SafeNest focuses on spaces at home, and Parent Academy makes room for you. These collections are taking shape; this release introduces the space before reviewed lessons arrive.",
+    body: "Care Academy offers twelve guided lessons and four learning paths. First 365 Days supports age-stage exploration. SafeNest brings sourced comparisons into everyday spaces, and Parent Academy makes room for caregiver reflection.",
   },
   {
     title: "Practice",
     label: "Make it yours",
     heading: "Find a calmer way to learn.",
-    body: "Try the appearance settings: choose a palette, adjust your background, increase text size, or turn motion off. These choices are saved on this device. Your device’s reduced-motion preference always takes priority.",
+    body: "Try the appearance settings: choose a palette, adjust your background, increase text size, or turn motion off. Guest choices stay on this device; signed-in choices use your account settings. Your device’s reduced-motion preference always takes priority.",
   },
   {
     title: "Understand",
     label: "Know the boundaries",
     heading: "Support for learning, not diagnosis.",
-    body: "TinySteps is an educational space. It cannot diagnose a condition, certify a practical care skill, or replace your healthcare team. Future health and safety lessons must include source references and a review date before publication. Bring personal care questions to a qualified professional.",
+    body: "TinySteps is an educational space. It cannot diagnose a condition, certify a practical care skill, or replace your healthcare team. Published health and safety lessons link to reviewed sources and show their source dates. Bring personal care questions to a qualified professional.",
   },
   {
     title: "Remember",
     label: "Your next small step",
     heading: "You get to set the pace.",
-    body: "You don’t need to do everything today. Choose one area that interests you, personalize your space, or simply come back when you have a moment. Finishing this introduction records a small piece of progress in this browser only.",
+    body: "You don’t need to do everything today. Choose one area that interests you, personalize your space, or simply come back when you have a moment. Finishing this introduction records app learning, not a care qualification.",
   },
 ];
 export function Orientation() {
+  const localeText = useTranslate();
   const step = usePreferences((s) => s.orientationStep);
   const setStep = usePreferences((s) => s.setStep);
   const finish = usePreferences((s) => s.finish);
@@ -43,7 +45,10 @@ export function Orientation() {
   const item = steps[step];
   return (
     <div className="orientation">
-      <nav className="orientation-steps" aria-label="Introduction steps">
+      <nav
+        className="orientation-steps"
+        aria-label={localeText("Introduction steps")}
+      >
         {steps.map((s, i) => (
           <button
             key={s.title}
@@ -52,36 +57,57 @@ export function Orientation() {
             aria-current={step === i ? "step" : undefined}
           >
             <span className="step-number">
-              {done ? <Check size={14} /> : i + 1}
+              <Localize>{done ? <Check size={14} /> : i + 1}</Localize>
             </span>
             <span>
-              {s.title}
-              <small>{s.label}</small>
+              <Localize>{s.title}</Localize>
+              <small>
+                <Localize>{s.label}</Localize>
+              </small>
             </span>
           </button>
         ))}
       </nav>
       <section className="orientation-main paper">
         <div className="orientation-art">
-          {step === 2 ? (
-            <Botanical />
-          ) : (
-            <StillLife kind={step === 4 ? "guide" : "care"} />
-          )}
+          <Localize>
+            {step === 2 ? (
+              <Botanical />
+            ) : (
+              <StillLife kind={step === 4 ? "guide" : "care"} />
+            )}
+          </Localize>
         </div>
-        <span className="eyebrow">YOUR INTRODUCTION · {step + 1} OF 5</span>
-        <h2>{item.heading}</h2>
-        <p>{item.body}</p>
-        {step === 2 && (
-          <Link className="text-link" href="/settings">
-            Try appearance settings <ArrowRight size={16} />
-          </Link>
-        )}
-        {done && (
-          <p className="completion-note" role="status">
-            Introduction complete. Your progress is saved on this device.
-          </p>
-        )}
+        <span className="eyebrow">
+          <Localize>{"YOUR INTRODUCTION \u00B7 "}</Localize>
+          <Localize>{step + 1}</Localize>
+          <Localize>{" OF 5"}</Localize>
+        </span>
+        <h2>
+          <Localize>{item.heading}</Localize>
+        </h2>
+        <p>
+          <Localize>{item.body}</Localize>
+        </p>
+        <Localize>
+          {step === 2 && (
+            <Link className="text-link" href="/settings">
+              <Localize>{"Try appearance settings "}</Localize>
+              <ArrowRight size={16} />
+            </Link>
+          )}
+        </Localize>
+        <Localize>
+          {done && (
+            <p className="completion-note" role="status">
+              <Localize>
+                {
+                  "Introduction complete. Your progress is saved on this device."
+                }
+              </Localize>
+            </p>
+          )}
+        </Localize>
         <div className="orientation-actions">
           <button
             className="button secondary"
@@ -89,24 +115,29 @@ export function Orientation() {
             onClick={() => setStep(step - 1)}
           >
             <ArrowLeft size={16} />
-            Back
+            <Localize>{"Back"}</Localize>
           </button>
-          {step < 4 ? (
-            <button
-              className="button primary"
-              onClick={() => setStep(step + 1)}
-            >
-              Next step <ArrowRight size={16} />
-            </button>
-          ) : done ? (
-            <Link className="button primary" href="/my-journey">
-              View your journey <ArrowRight size={16} />
-            </Link>
-          ) : (
-            <button className="button primary" onClick={finish}>
-              Finish introduction <Check size={16} />
-            </button>
-          )}
+          <Localize>
+            {step < 4 ? (
+              <button
+                className="button primary"
+                onClick={() => setStep(step + 1)}
+              >
+                <Localize>{"Next step "}</Localize>
+                <ArrowRight size={16} />
+              </button>
+            ) : done ? (
+              <Link className="button primary" href="/my-journey">
+                <Localize>{"View your journey "}</Localize>
+                <ArrowRight size={16} />
+              </Link>
+            ) : (
+              <button className="button primary" onClick={finish}>
+                <Localize>{"Finish introduction "}</Localize>
+                <Check size={16} />
+              </button>
+            )}
+          </Localize>
         </div>
       </section>
     </div>

@@ -1,5 +1,7 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import Link from "next/link";
+import { usePreferences } from "@/lib/preferences";
 import { useAccount } from "./account-provider";
 import { version } from "@/lib/version";
 import { usePathname } from "next/navigation";
@@ -16,7 +18,18 @@ function isMobileViewport() {
   return window.matchMedia("(max-width: 767px)").matches;
 }
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const localeText = useTranslate();
   const pathname = usePathname();
+  const language = usePreferences((s) => s.preferences.language);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const heading = document.querySelector<HTMLElement>("main h1");
+      if (heading?.textContent)
+        document.title =
+          heading.innerText.replace(/\s+/g, " ") + " · TinySteps";
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [language, pathname]);
   const auth = useAccount();
   const isMobile = useSyncExternalStore(
     subscribeMobile,
@@ -31,7 +44,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const searchRef = useRef<HTMLDivElement>(null);
   const results = query.trim()
     ? destinations.filter((d) =>
-        (d.title + " " + d.description)
+        (
+          d.title +
+          " " +
+          d.description +
+          " " +
+          localeText(d.title) +
+          " " +
+          localeText(d.description)
+        )
           .toLowerCase()
           .includes(query.trim().toLowerCase()),
       )
@@ -95,65 +116,76 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           : "")
       }
       aria-current={pathname === d.href ? "page" : undefined}
-      title={d.title}
+      title={localeText(d.title)}
     >
       <Icon name={d.icon} />
-      <span>{d.title}</span>
+      <span>
+        <Localize>{d.title}</Localize>
+      </span>
     </Link>
   );
   return (
     <>
       <a className="skip-link" href="#main">
-        Skip to content
+        <Localize>{"Skip to content"}</Localize>
       </a>
       <aside
         ref={sidebarRef}
         inert={isMobile && !menu}
         role={isMobile && menu ? "dialog" : undefined}
         aria-modal={isMobile && menu ? true : undefined}
-        aria-label={isMobile && menu ? "Site navigation" : undefined}
+        aria-label={localeText(
+          isMobile && menu ? "Site navigation" : undefined,
+        )}
         className={"sidebar " + (menu ? "is-open" : "")}
       >
         <Link
           href="/"
           className="brand"
-          aria-label="TinySteps home"
+          aria-label={localeText("TinySteps home")}
           onClick={close}
         >
           <BrandMark />
           <span>
-            TinySteps<small>A gentler beginning</small>
+            <Localize>{"TinySteps"}</Localize>
+            <small>
+              <Localize>{"A gentler beginning"}</Localize>
+            </small>
           </span>
         </Link>
         <button
           className="icon-button close-menu"
-          aria-label="Close navigation"
+          aria-label={localeText("Close navigation")}
           onClick={() => setMenu(false)}
         >
           <X />
         </button>
-        <nav aria-label="Main navigation">
-          <p className="nav-label">YOUR LITTLE WORLD</p>
+        <nav aria-label={localeText("Main navigation")}>
+          <p className="nav-label">
+            <Localize>{"YOUR LITTLE WORLD"}</Localize>
+          </p>
           {destinations.slice(0, 8).map(navLink)}
-          <p className="nav-label tools-label">HERE TO HELP</p>
+          <p className="nav-label tools-label">
+            <Localize>{"HERE TO HELP"}</Localize>
+          </p>
           {destinations.slice(8, 11).map(navLink)}
         </nav>
         <div className="sidebar-bottom">
           <div className="sidebar-note">
             <Leaf size={18} />
             <p>
-              There’s no perfect parent.
+              <Localize>{"There\u2019s no perfect parent."}</Localize>
               <br />
-              Just your next small step.
+              <Localize>{"Just your next small step."}</Localize>
             </p>
           </div>
-          {navLink(destinations[11])}
+          <Localize>{navLink(destinations[11])}</Localize>
         </div>
       </aside>
       {menu && (
         <button
           className="menu-backdrop"
-          aria-label="Close navigation overlay"
+          aria-label={localeText("Close navigation overlay")}
           onClick={() => setMenu(false)}
         />
       )}
@@ -163,17 +195,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             ref={menuButtonRef}
             className="icon-button mobile-menu"
             onClick={() => setMenu(true)}
-            aria-label="Open navigation"
+            aria-label={localeText("Open navigation")}
             aria-expanded={menu}
           >
             <Menu />
           </button>
-          <div className="search-wrap" ref={searchRef}>
+          <div
+            className="search-wrap"
+            ref={searchRef}
+            data-mobile-placeholder={localeText("Find a little support…")}
+          >
             <Search size={18} aria-hidden="true" />
             <input
               type="search"
-              aria-label="Search TinySteps"
-              placeholder="Search lessons, topics, or a little reassurance…"
+              aria-label={localeText("Search TinySteps")}
+              placeholder={localeText(
+                "Search lessons, topics, or a little reassurance\u2026",
+              )}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => {
@@ -181,40 +219,54 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               }}
             />
             {query && (
-              <div className="search-results" aria-label="Search results">
-                <p className="eyebrow">EXPLORE TINYSTEPS</p>
+              <div
+                className="search-results"
+                aria-label={localeText("Search results")}
+              >
+                <p className="eyebrow">
+                  <Localize>{"EXPLORE TINYSTEPS"}</Localize>
+                </p>
                 {results.length ? (
                   results.map((d) => (
                     <Link href={d.href} key={d.id} onClick={close}>
                       <Icon name={d.icon} />
                       <span>
-                        {d.title}
-                        <small>{d.description}</small>
+                        <Localize>{d.title}</Localize>
+                        <small>
+                          <Localize>{d.description}</Localize>
+                        </small>
                       </span>
                       <ArrowUpRight size={16} />
                     </Link>
                   ))
                 ) : (
-                  <p>No destinations found. Try “care” or “settings”.</p>
+                  <p>
+                    <Localize>
+                      {
+                        "No destinations found. Try \u201Ccare\u201D or \u201Csettings\u201D."
+                      }
+                    </Localize>
+                  </p>
                 )}
               </div>
             )}
           </div>
           <span className="topbar-message">
-            <span className="status-dot" />A little more confidence, every day
+            <span className="status-dot" />
+            <Localize>{"A little more confidence, every day"}</Localize>
           </span>
           <div className="account-wrap">
             <button
               className="account-button"
               onClick={() => setAccount(!account)}
               aria-expanded={account}
-              aria-label="Open account menu"
+              aria-label={localeText("Open account menu")}
             >
               <span className="avatar">
                 <Icon name="user" />
               </span>
               <span className="account-text">
-                {auth.account?.displayName || "Your space"}
+                {auth.account?.displayName || <Localize>Your space</Localize>}
               </span>
               <ChevronDown size={14} />
             </button>
@@ -229,14 +281,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   (d) => (
                     <Link key={d.id} href={d.href} onClick={close}>
                       <Icon name={d.icon} />
-                      {d.title}
+                      <Localize>{d.title}</Localize>
                     </Link>
                   ),
                 )}
                 <p>
-                  {auth.account
-                    ? "Signed in · Your account"
-                    : "Browsing on this device"}
+                  <Localize>
+                    {auth.account
+                      ? "Signed in · Your account"
+                      : "Browsing on this device"}
+                  </Localize>
                 </p>
               </div>
             )}
@@ -248,15 +302,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <footer className="footer">
           <span>
             <BrandMark />
-            Little steps. Lasting confidence. · v{version}
+            <Localize>{"Little steps. Lasting confidence. \u00B7 v"}</Localize>
+            <Localize>{version}</Localize>
           </span>
-          <Link href="/help">Made with care · About TinySteps</Link>
+          <Link href="/help">
+            <Localize>{"Made with care \u00B7 About TinySteps"}</Localize>
+          </Link>
         </footer>
       </div>
       <nav
         inert={isMobile && menu}
         className="bottom-nav"
-        aria-label="Mobile navigation"
+        aria-label={localeText("Mobile navigation")}
       >
         {[
           destinations[0],
@@ -274,13 +331,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           >
             <Icon name={d.icon} />
             <span>
-              {d.id === "care-academy"
-                ? "Learn"
-                : d.id === "first-365-days"
-                  ? "Explore"
-                  : d.id === "my-journey"
-                    ? "Journey"
-                    : d.title}
+              <Localize>
+                {d.id === "care-academy"
+                  ? "Learn"
+                  : d.id === "first-365-days"
+                    ? "Explore"
+                    : d.id === "my-journey"
+                      ? "Journey"
+                      : d.title}
+              </Localize>
             </span>
           </Link>
         ))}

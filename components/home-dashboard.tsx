@@ -1,4 +1,5 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
@@ -67,6 +68,7 @@ const cards = [
   },
 ];
 export function HomeDashboard() {
+  const localeText = useTranslate();
   const { account } = useAccount();
   const p = usePreferences((s) => s.preferences);
   const step = usePreferences((s) => s.orientationStep);
@@ -78,7 +80,9 @@ export function HomeDashboard() {
       <section className="hero">
         <Image
           src="/images/living-room.webp"
-          alt="A parent sharing a quiet moment with their newborn in a sunlit room"
+          alt={localeText(
+            "A parent sharing a quiet moment with their newborn in a sunlit room",
+          )}
           fill
           priority
           sizes="(max-width: 767px) 100vw, 85vw"
@@ -87,34 +91,41 @@ export function HomeDashboard() {
         <div className="hero-wash" />
         <div className="hero-copy">
           <span className="eyebrow">
-            <span className="tiny-line" /> A GENTLER BEGINNING TO PARENTHOOD
+            <span className="tiny-line" />
+            <Localize>{" A GENTLER BEGINNING TO PARENTHOOD"}</Localize>
           </span>
           <p className="welcome">
             {account?.displayName
-              ? `Welcome back, ${account.displayName}`
-              : "Welcome to your little village"}
+              ? `${localeText("Welcome back,")} ${account.displayName}`
+              : localeText("Welcome to your little village")}
           </p>
           <h1>
-            Small steps,
-            <br />a brighter tomorrow.
+            <Localize>{"Small steps,"}</Localize>
+            <br />
+            <Localize>{"a brighter tomorrow."}</Localize>
           </h1>
           <p className="hero-description">
-            A little knowledge. A little reassurance.
-            <br />A whole lot of growing together.
+            <Localize>{"A little knowledge. A little reassurance."}</Localize>
+            <br />
+            <Localize>{"A whole lot of growing together."}</Localize>
           </p>
           <Link
             className="button primary"
             href={done ? "/care-academy" : "/care-academy/getting-started"}
           >
-            {done
-              ? "Explore your collections"
-              : step
-                ? "Continue your introduction"
-                : "Find your first step"}{" "}
+            <Localize>
+              {done
+                ? "Explore your collections"
+                : step
+                  ? "Continue your introduction"
+                  : "Find your first step"}
+            </Localize>
+            <Localize> </Localize>
             <ArrowRight size={17} />
           </Link>
           <span className="hero-footnote">
-            <Heart size={14} /> Made for every kind of family
+            <Heart size={14} />
+            <Localize>{" Made for every kind of family"}</Localize>
           </span>
         </div>
         {p.companion && (
@@ -124,23 +135,27 @@ export function HomeDashboard() {
             transition={{ duration: 5, repeat: 2, ease: "easeInOut" }}
           >
             <div className="speech-bubble">
-              You don’t have to know it all.
+              <Localize>{"You don\u2019t have to know it all."}</Localize>
               <br />
-              We’ll take it one step at a time.
+              <Localize>{"We\u2019ll take it one step at a time."}</Localize>
             </div>
             <Image
               src="/images/potato.webp"
-              alt="Sprout, your friendly TinySteps companion"
+              alt={localeText("Sprout, your friendly TinySteps companion")}
               width={130}
               height={150}
             />
           </motion.div>
         )}
         <div className="hero-caption">
-          <span /> A MOMENT TO CONNECT
+          <span />
+          <Localize>{" A MOMENT TO CONNECT"}</Localize>
         </div>
       </section>
-      <section className="dashboard-overlap" aria-label="Your next steps">
+      <section
+        className="dashboard-overlap"
+        aria-label={localeText("Your next steps")}
+      >
         <Link
           className="continue-card paper"
           href="/care-academy/getting-started"
@@ -150,21 +165,31 @@ export function HomeDashboard() {
           </div>
           <div>
             <p className="eyebrow">
-              {done
-                ? "A LOVELY FIRST STEP"
-                : step
-                  ? "CONTINUE YOUR INTRODUCTION"
-                  : "START SOMETHING SMALL"}
+              <Localize>
+                {done
+                  ? "A LOVELY FIRST STEP"
+                  : step
+                    ? "CONTINUE YOUR INTRODUCTION"
+                    : "START SOMETHING SMALL"}
+              </Localize>
             </p>
             <h2>
-              {done ? "You’re finding your feet" : "A gentle place to begin"}
+              <Localize>
+                {done ? "You’re finding your feet" : "A gentle place to begin"}
+              </Localize>
             </h2>
-            <p>Meet your TinySteps learning space</p>
+            <p>
+              <Localize>{"Meet your TinySteps learning space"}</Localize>
+            </p>
             <div className="small-progress">
               <span>
                 <i style={{ width: done ? "100%" : step * 25 + "%" }} />
               </span>
-              <small>{done ? "Complete" : "5 small steps · 3 min"}</small>
+              <small>
+                <Localize>
+                  {done ? "Complete" : "5 small steps · 3 min"}
+                </Localize>
+              </small>
             </div>
           </div>
           <span className="play-button">
@@ -176,12 +201,18 @@ export function HomeDashboard() {
             <Icon name="journey" size={24} />
           </span>
           <div>
-            <p className="eyebrow">YOUR JOURNEY</p>
-            <h2>Your pace is the right pace.</h2>
+            <p className="eyebrow">
+              <Localize>{"YOUR JOURNEY"}</Localize>
+            </p>
+            <h2>
+              <Localize>{"Your pace is the right pace."}</Localize>
+            </h2>
             <p>
-              {done
-                ? "1 introduction completed"
-                : "Every beginning counts. Yours starts here."}
+              <Localize>
+                {done
+                  ? "1 introduction completed"
+                  : "Every beginning counts. Yours starts here."}
+              </Localize>
             </p>
           </div>
           <ArrowUpRight size={21} />
@@ -191,11 +222,16 @@ export function HomeDashboard() {
       <section className="explore-section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">A LITTLE SUPPORT, ALL AROUND</p>
-            <h2>Grow into parenthood, your way.</h2>
+            <p className="eyebrow">
+              <Localize>{"A LITTLE SUPPORT, ALL AROUND"}</Localize>
+            </p>
+            <h2>
+              <Localize>{"Grow into parenthood, your way."}</Localize>
+            </h2>
           </div>
           <Link className="text-link" href="/learning-map">
-            See your learning map <ArrowRight size={16} />
+            <Localize>{"See your learning map "}</Localize>
+            <ArrowRight size={16} />
           </Link>
         </div>
         <div className="destination-grid">
@@ -211,33 +247,41 @@ export function HomeDashboard() {
                 className={"destination-card tone-" + c.color}
               >
                 <div className="destination-art">
-                  {["baby", "house", "potato"].includes(c.art) ? (
-                    <Image
-                      src={"/images/" + c.art + ".webp"}
-                      alt=""
-                      fill
-                      sizes="(max-width: 767px) 45vw, 16vw"
-                      className={c.art === "potato" ? "contain" : ""}
-                    />
-                  ) : c.art === "parent" ? (
-                    <Image
-                      src="/images/living-room.webp"
-                      alt=""
-                      fill
-                      sizes="(max-width: 767px) 45vw, 16vw"
-                      className="parent-crop"
-                    />
-                  ) : (
-                    <StillLife kind={c.art} />
-                  )}
-                  <span className="card-number">0{i + 1}</span>
+                  <Localize>
+                    {["baby", "house", "potato"].includes(c.art) ? (
+                      <Image
+                        src={"/images/" + c.art + ".webp"}
+                        alt=""
+                        fill
+                        sizes="(max-width: 767px) 45vw, 16vw"
+                        className={c.art === "potato" ? "contain" : ""}
+                      />
+                    ) : c.art === "parent" ? (
+                      <Image
+                        src="/images/living-room.webp"
+                        alt=""
+                        fill
+                        sizes="(max-width: 767px) 45vw, 16vw"
+                        className="parent-crop"
+                      />
+                    ) : (
+                      <StillLife kind={c.art} />
+                    )}
+                  </Localize>
+                  <span className="card-number">
+                    0<Localize>{i + 1}</Localize>
+                  </span>
                 </div>
                 <div className="destination-copy">
                   <span className="destination-title">
-                    <h3>{c.title}</h3>
+                    <h3>
+                      <Localize>{c.title}</Localize>
+                    </h3>
                     <ArrowUpRight size={16} />
                   </span>
-                  <p>{c.sub}</p>
+                  <p>
+                    <Localize>{c.sub}</Localize>
+                  </p>
                 </div>
               </Link>
             </motion.div>
@@ -247,25 +291,41 @@ export function HomeDashboard() {
       <section className="gentle-row">
         <div className="gentle-note">
           <Botanical className="note-botanical" />
-          <span className="eyebrow">A LITTLE REMINDER</span>
+          <span className="eyebrow">
+            <Localize>{"A LITTLE REMINDER"}</Localize>
+          </span>
           <h2>
-            You’re learning.
+            <Localize>{"You\u2019re learning."}</Localize>
             <br />
-            They’re growing.
+            <Localize>{"They\u2019re growing."}</Localize>
             <br />
-            <em>You’re doing this together.</em>
+            <em>
+              <Localize>{"You\u2019re doing this together."}</Localize>
+            </em>
           </h2>
-          <p>There’s room for questions, pauses, and starting again.</p>
+          <p>
+            <Localize>
+              {"There\u2019s room for questions, pauses, and starting again."}
+            </Localize>
+          </p>
           <span className="small-signature">
-            <Leaf size={16} /> With you, one step at a time
+            <Leaf size={16} />
+            <Localize>{" With you, one step at a time"}</Localize>
           </span>
         </div>
         <div className="today-card paper">
-          <span className="eyebrow">MAKE YOURSELF AT HOME</span>
-          <h2>A space that feels like you.</h2>
+          <span className="eyebrow">
+            <Localize>{"MAKE YOURSELF AT HOME"}</Localize>
+          </span>
+          <h2>
+            <Localize>{"A space that feels like you."}</Localize>
+          </h2>
           <p>
-            A softer palette, a quieter background, a little less motion. Make
-            room for what feels good today.
+            <Localize>
+              {
+                "A softer palette, a quieter background, a little less motion. Make room for what feels good today."
+              }
+            </Localize>
           </p>
           <div className="palette-dots" aria-hidden="true">
             <i />
@@ -275,29 +335,37 @@ export function HomeDashboard() {
             <i />
           </div>
           <Link className="text-link" href="/settings">
-            Find your calm <ArrowRight size={16} />
+            <Localize>{"Find your calm "}</Localize>
+            <ArrowRight size={16} />
           </Link>
         </div>
         <div className="values-card">
           <div>
             <Check size={18} />
-            <span>Learn at your own pace</span>
+            <span>
+              <Localize>{"Learn at your own pace"}</Localize>
+            </span>
           </div>
           <div>
             <Heart size={18} />
-            <span>All families belong here</span>
+            <span>
+              <Localize>{"All families belong here"}</Localize>
+            </span>
           </div>
           <div>
             <Clock3 size={18} />
-            <span>Small moments count</span>
+            <span>
+              <Localize>{"Small moments count"}</Localize>
+            </span>
           </div>
           <p>
-            Thoughtfully built for the beautifully
+            <Localize>{"Thoughtfully built for the beautifully"}</Localize>
             <br />
-            imperfect days of parenthood.
+            <Localize>{"imperfect days of parenthood."}</Localize>
           </p>
           <Link href="/help">
-            Our approach <ArrowUpRight size={15} />
+            <Localize>{"Our approach "}</Localize>
+            <ArrowUpRight size={15} />
           </Link>
         </div>
       </section>

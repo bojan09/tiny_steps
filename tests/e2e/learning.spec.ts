@@ -177,3 +177,28 @@ test("lesson save failures stay visible and unknown lessons return 404", async (
   const response = await page.goto("/care-academy/lessons/not-a-lesson");
   expect(response?.status()).toBe(404);
 });
+
+test("public guidance stays readable while account progress is loading", async ({
+  page,
+}) => {
+  let release: () => void = () => {};
+  const pending = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/api/account", async (route) => {
+    await pending;
+    await route.fulfill({ json: { guest: true } });
+  });
+  await page.goto("/care-academy/lessons/sleep-space");
+  await expect(
+    page.getByText("Loading your lesson…", { exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".nest-safer")).toContainText("back");
+  await expect(
+    page.getByRole("button", { name: "Continue", exact: true }),
+  ).toBeDisabled();
+  release();
+  await expect(
+    page.getByRole("button", { name: "Continue", exact: true }),
+  ).toBeEnabled();
+});

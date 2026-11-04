@@ -1,4 +1,5 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import Image from "next/image";
 import { useRef } from "react";
 import Link from "next/link";
@@ -15,8 +16,8 @@ import {
 } from "@/lib/safenest/model";
 import { usePreferences } from "@/lib/preferences";
 import { useAccount } from "./account-provider";
-
 export function SafeNest() {
+  const localeText = useTranslate();
   const { account, loading, bookmarks, toggleBookmark, message } = useAccount();
   const p = usePreferences((s) => s.preferences);
   const set = usePreferences((s) => s.setPreferences);
@@ -51,11 +52,18 @@ export function SafeNest() {
     <div className="page-content nest-page">
       <header className="nest-header">
         <div>
-          <p className="eyebrow">A HOME FOR THOUGHTFUL LEARNING</p>
-          <h1>SafeNest</h1>
+          <p className="eyebrow">
+            <Localize>{"A HOME FOR THOUGHTFUL LEARNING"}</Localize>
+          </p>
+          <h1>
+            <Localize>{"SafeNest"}</Localize>
+          </h1>
           <p>
-            Explore everyday hazards, compare routines, and choose a small
-            action to reduce risk.
+            <Localize>
+              {
+                "Explore everyday hazards, compare routines, and choose a small action to reduce risk."
+              }
+            </Localize>
           </p>
         </div>
         <button
@@ -65,20 +73,27 @@ export function SafeNest() {
           onClick={() => toggleBookmark("safenest")}
         >
           <Bookmark size={16} aria-hidden="true" />
-          {saved ? "Remove SafeNest" : "Save SafeNest"}
+          <Localize>{saved ? "Remove SafeNest" : "Save SafeNest"}</Localize>
         </button>
       </header>
       <div className="nest-intro paper">
         <div>
-          <h2>Start with a room.</h2>
+          <h2>
+            <Localize>{"Start with a room."}</Localize>
+          </h2>
           <p>
-            Learn from sourced safety comparisons and keep track of references
-            you review. These examples do not inspect or certify your home.
-            Follow local guidance and product instructions when applying them.
+            <Localize>
+              {
+                "Learn from sourced safety comparisons and keep track of references you review. These examples do not inspect or certify your home. Follow local guidance and product instructions when applying them."
+              }
+            </Localize>
           </p>
           <p className="field-help">
-            Reviewed means you read a reference—not that a hazard has been
-            resolved. This is not a complete home-safety checklist.
+            <Localize>
+              {
+                "Reviewed means you read a reference\u2014not that a hazard has been resolved. This is not a complete home-safety checklist."
+              }
+            </Localize>
           </p>
         </div>
         {p.companion && (
@@ -89,18 +104,20 @@ export function SafeNest() {
           >
             <Image
               src="/images/potato.webp"
-              alt="Sprout, your learning companion"
+              alt={localeText("Sprout, your learning companion")}
               width={75}
               height={88}
             />
             <p>
-              {room.id === "bathroom"
-                ? "Stay close throughout bath time. Prepare what you need before you begin."
-                : room.id === "kitchen"
-                  ? "A shared routine helps everyone know who is staying beside your child."
-                  : room.id === "nursery"
-                    ? "A clear sleep space and a shared routine are thoughtful places to begin."
-                    : "Think about what a child could reach now, and what they may reach next."}
+              <Localize>
+                {room.id === "bathroom"
+                  ? "Stay close throughout bath time. Prepare what you need before you begin."
+                  : room.id === "kitchen"
+                    ? "A shared routine helps everyone know who is staying beside your child."
+                    : room.id === "nursery"
+                      ? "A clear sleep space and a shared routine are thoughtful places to begin."
+                      : "Think about what a child could reach now, and what they may reach next."}
+              </Localize>
             </p>
           </motion.aside>
         )}
@@ -110,7 +127,9 @@ export function SafeNest() {
           className="nest-map-panel paper"
           aria-labelledby="nest-map-title"
         >
-          <h2 id="nest-map-title">Your learning map</h2>
+          <h2 id="nest-map-title">
+            <Localize>{"Your learning map"}</Localize>
+          </h2>
           <div className="nest-map">
             <Image
               src="/images/house.webp"
@@ -123,20 +142,23 @@ export function SafeNest() {
                 key={r.id}
                 className={"nest-marker nest-marker-" + i}
                 disabled={loading}
-                aria-label={"Explore " + r.title}
+                aria-label={localeText("Explore " + r.title)}
                 aria-pressed={room.id === r.id}
                 aria-controls="nest-room-panel"
                 onClick={() => selectRoom(r.id)}
               >
-                {i + 1}
+                <Localize>{i + 1}</Localize>
               </button>
             ))}
           </div>
           <p className="field-help">
-            Decorative map for navigation, not a safety demonstration. The same
-            rooms are listed below.
+            <Localize>
+              {
+                "Decorative map for navigation, not a safety demonstration. The same rooms are listed below."
+              }
+            </Localize>
           </p>
-          <nav className="nest-room-list" aria-label="Rooms">
+          <nav className="nest-room-list" aria-label={localeText("Rooms")}>
             {rooms.map((r, i) => (
               <button
                 key={r.id}
@@ -145,22 +167,31 @@ export function SafeNest() {
                 aria-controls="nest-room-panel"
                 onClick={() => selectRoom(r.id)}
               >
-                <span aria-hidden="true">0{i + 1}</span>
-                {r.title}
+                <span aria-hidden="true">
+                  0<Localize>{i + 1}</Localize>
+                </span>
+                <Localize>{r.title}</Localize>
                 <ArrowRight size={16} aria-hidden="true" />
               </button>
             ))}
           </nav>
           <div className="nest-summary" role="status">
             <strong>
-              {reviewed} / {topicIds.length} references reviewed
+              <Localize>{reviewed}</Localize> /{" "}
+              <Localize>{topicIds.length}</Localize>
+              <Localize>{" references reviewed"}</Localize>
             </strong>
-            <p>{followUp} marked for follow-up</p>
+            <p>
+              <Localize>{followUp}</Localize>
+              <Localize>{" marked for follow-up"}</Localize>
+            </p>
           </div>
           <p className="field-help">
-            {account
-              ? "Review choices use your account settings."
-              : "Guest review choices stay in this browser."}
+            <Localize>
+              {account
+                ? "Review choices use your account settings."
+                : "Guest review choices stay in this browser."}
+            </Localize>
           </p>
         </section>
         <section
@@ -169,40 +200,53 @@ export function SafeNest() {
           aria-labelledby="nest-room-title"
         >
           <header>
-            <p className="eyebrow">ROOM BY ROOM, AT YOUR OWN PACE</p>
+            <p className="eyebrow">
+              <Localize>{"ROOM BY ROOM, AT YOUR OWN PACE"}</Localize>
+            </p>
             <h2
               id="nest-room-title"
               aria-live="polite"
               tabIndex={-1}
               ref={roomHeading}
             >
-              {room.title}
+              <Localize>{room.title}</Localize>
             </h2>
-            <p>{room.subtitle}</p>
+            <p>
+              <Localize>{room.subtitle}</Localize>
+            </p>
           </header>
           <div className="nest-topics">
             {room.topics.map((topic) => (
               <article className="nest-topic paper" key={topic.id}>
                 <h3>
                   <BookOpen size={20} aria-hidden="true" />
-                  {topic.title}
+                  <Localize>{topic.title}</Localize>
                 </h3>
                 <SafeNestLesson
                   lesson={safetyLessons[topic.id]}
                   id={topic.id}
-                  title={topic.title}
+                  title={localeText(topic.title)}
                 />
                 <details>
-                  <summary>A question to take with you</summary>
-                  <p>{topic.question}</p>
+                  <summary>
+                    <Localize>{"A question to take with you"}</Localize>
+                  </summary>
+                  <p>
+                    <Localize>{topic.question}</Localize>
+                  </p>
                   <p className="field-help">
-                    No private notes or home details need to be entered here.
+                    <Localize>
+                      {
+                        "No private notes or home details need to be entered here."
+                      }
+                    </Localize>
                   </p>
                 </details>
                 <div className="nest-topic-controls">
                   <div>
                     <label htmlFor={"nest-status-" + topic.id}>
-                      Review status: {topic.title}
+                      <Localize>{"Review status: "}</Localize>
+                      <Localize>{topic.title}</Localize>
                     </label>
                     <select
                       id={"nest-status-" + topic.id}
@@ -210,37 +254,57 @@ export function SafeNest() {
                       disabled={loading}
                       onChange={(e) => setStatus(topic.id, e.target.value)}
                     >
-                      <option value="">Not started</option>
-                      <option value="follow-up">Needs follow-up</option>
-                      <option value="reviewed">Reference reviewed</option>
+                      <option value="">
+                        <Localize>{"Not started"}</Localize>
+                      </option>
+                      <option value="follow-up">
+                        <Localize>{"Needs follow-up"}</Localize>
+                      </option>
+                      <option value="reviewed">
+                        <Localize>{"Reference reviewed"}</Localize>
+                      </option>
                     </select>
                   </div>
                 </div>
-                {p.safeNestChecks[topic.id] === "reviewed" && (
-                  <p className="field-help">
-                    <Check size={14} aria-hidden="true" /> Reference review
-                    recorded. This does not verify the room’s safety.
-                  </p>
-                )}
+                <Localize>
+                  {p.safeNestChecks[topic.id] === "reviewed" && (
+                    <p className="field-help">
+                      <Check size={14} aria-hidden="true" />
+                      <Localize>
+                        {
+                          " Reference review recorded. This does not verify the room\u2019s safety."
+                        }
+                      </Localize>
+                    </p>
+                  )}
+                </Localize>
               </article>
             ))}
           </div>
-          {message && <p role="status">{message}</p>}
+          <Localize>
+            {message && (
+              <p role="status">
+                <Localize>{message}</Localize>
+              </p>
+            )}
+          </Localize>
           <aside className="nest-guidance paper">
-            <h3>Use guidance that fits your home</h3>
+            <h3>
+              <Localize>{"Use guidance that fits your home"}</Localize>
+            </h3>
             <p>
-              Sources identify their country and review date where available.
-              Local requirements and individual circumstances may differ. This
-              is general education, not medical advice or a complete home
-              inspection. For an emergency, contact local emergency services; do
-              not rely on this learning page.
+              <Localize>
+                {
+                  "Sources identify their country and review date where available. Local requirements and individual circumstances may differ. This is general education, not medical advice or a complete home inspection. For an emergency, contact local emergency services; do not rely on this learning page."
+                }
+              </Localize>
             </p>
             <a className="text-link" href={safetyReference.url}>
-              {safetyReference.title}
+              <Localize>{safetyReference.title}</Localize>
               <ArrowRight size={16} aria-hidden="true" />
             </a>
             <Link className="text-link" href="/my-journey">
-              Your learning journey
+              <Localize>{"Your learning journey"}</Localize>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </aside>

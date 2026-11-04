@@ -104,6 +104,7 @@ export function FirstYear() {
           </label>
           <select
             id="year-unit"
+            disabled={loading}
             value={unit}
             onChange={(e) => {
               setUnit(e.target.value as "day" | "week");
@@ -128,6 +129,7 @@ export function FirstYear() {
           </label>
           <input
             id="year-position"
+            disabled={loading}
             type="number"
             min={1}
             max={unit === "week" ? 53 : 365}

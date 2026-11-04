@@ -37,6 +37,7 @@ export const backgrounds = [
   "garden",
 ] as const;
 export type Preferences = {
+  language: "en" | "mk";
   activeLearningLesson: LessonId;
   learningProgress: LearningProgress;
   safeNestRoom: RoomId;
@@ -55,6 +56,7 @@ export type Preferences = {
   textSize: "standard" | "large";
 };
 export const defaults: Preferences = {
+  language: "en",
   activeLearningLesson: "sleep-space",
   learningProgress: {},
   safeNestRoom: "nursery",
@@ -78,6 +80,7 @@ export function sanitizePreferences(value: unknown): Preferences {
       ? (value as Record<string, unknown>)
       : {};
   return {
+    language: v.language === "mk" ? "mk" : "en",
     activeLearningLesson: validLesson(v.activeLearningLesson),
     learningProgress: validLearningProgress(v.learningProgress),
     safeNestRoom: validRoom(v.safeNestRoom),

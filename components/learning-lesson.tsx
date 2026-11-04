@@ -1,4 +1,5 @@
 "use client";
+import { Localize, useTranslate } from "@/components/localize";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
@@ -7,9 +8,9 @@ import { useAccount } from "./account-provider";
 import { lessonById, learningPaths, lessonHref } from "@/lib/learning/content";
 import { lessonIds, type LessonId } from "@/lib/learning/model";
 import { LearningCompanion } from "./learning-companion";
-
 const steps = ["Understand", "Compare", "Carry it forward"];
 export function LearningLesson({ id }: { id: LessonId }) {
+  const localeText = useTranslate();
   const lesson = lessonById(id)!;
   const p = usePreferences((s) => s.preferences),
     set = usePreferences((s) => s.setPreferences);
@@ -51,14 +52,22 @@ export function LearningLesson({ id }: { id: LessonId }) {
     <div className="page-content lesson-page">
       <Link className="text-link" href="/care-academy">
         <ArrowLeft size={16} aria-hidden="true" />
-        Learning Studio
+        <Localize>{"Learning Studio"}</Localize>
       </Link>
       <header className="page-heading">
-        <p className="eyebrow">{path.title}</p>
-        <h1>{lesson.title}</h1>
-        <p>One topic, three small steps. Pause whenever you need.</p>
+        <p className="eyebrow">
+          <Localize>{path.title}</Localize>
+        </p>
+        <h1>
+          <Localize>{lesson.title}</Localize>
+        </h1>
+        <p>
+          <Localize>
+            {"One topic, three small steps. Pause whenever you need."}
+          </Localize>
+        </p>
       </header>
-      <nav className="lesson-step-nav" aria-label="Lesson steps">
+      <nav className="lesson-step-nav" aria-label={localeText("Lesson steps")}>
         {steps.map((title, i) => (
           <button
             className="button secondary"
@@ -67,43 +76,66 @@ export function LearningLesson({ id }: { id: LessonId }) {
             aria-current={step === i ? "step" : undefined}
             onClick={() => save(i)}
           >
-            {i + 1}. {title}
+            <Localize>{i + 1}</Localize>. <Localize>{title}</Localize>
           </button>
         ))}
       </nav>
       <article className="lesson-panel paper" aria-busy={loading}>
-        <p className="eyebrow">STEP {step + 1} OF 3</p>
+        <p className="eyebrow">
+          <Localize>{"STEP "}</Localize>
+          <Localize>{step + 1}</Localize>
+          <Localize>{" OF 3"}</Localize>
+        </p>
         <h2 ref={heading} tabIndex={-1}>
-          {steps[step]}
+          <Localize>{steps[step]}</Localize>
         </h2>
-        {loading ? (
-          <p role="status">Loading your lesson…</p>
-        ) : step === 0 ? (
+        {loading && (
+          <p role="status">
+            <Localize>{"Loading your lesson\u2026"}</Localize>
+          </p>
+        )}
+        {loading || step === 0 ? (
           <>
             <p className="lesson-objective">
-              <strong>Your focus: </strong>
-              {lesson.action}
+              <strong>
+                <Localize>{"Your focus: "}</Localize>
+              </strong>
+              <Localize>{lesson.action}</Localize>
             </p>
             <div className="nest-comparison">
               <div className="nest-avoid">
-                <h3>Avoid</h3>
-                <p>{lesson.avoid}</p>
+                <h3>
+                  <Localize>{"Avoid"}</Localize>
+                </h3>
+                <p>
+                  <Localize>{lesson.avoid}</Localize>
+                </p>
               </div>
               <div className="nest-safer">
-                <h3>Reduce risk</h3>
-                <p>{lesson.safer}</p>
+                <h3>
+                  <Localize>{"Reduce risk"}</Localize>
+                </h3>
+                <p>
+                  <Localize>{lesson.safer}</Localize>
+                </p>
               </div>
             </div>
             <p>
-              Read the source in context. These examples are general education,
-              not a full safety assessment or medical advice.
+              <Localize>
+                {
+                  "Read the source in context. These examples are general education, not a full safety assessment or medical advice."
+                }
+              </Localize>
             </p>
           </>
         ) : step === 1 ? (
           <>
             <p id="lesson-practice-question">
-              Which routine reduces the risk in this example? You can compare
-              both responses or continue without answering. There is no score.
+              <Localize>
+                {
+                  "Which routine reduces the risk in this example? You can compare both responses or continue without answering. There is no score."
+                }
+              </Localize>
             </p>
             <div
               className="nest-practice-options"
@@ -117,105 +149,142 @@ export function LearningLesson({ id }: { id: LessonId }) {
                   aria-pressed={choice === value}
                   onClick={() => setChoice(value)}
                 >
-                  {lesson[value]}
+                  <Localize>{lesson[value]}</Localize>
                 </button>
               ))}
             </div>
             <p className="lesson-feedback" role="status">
-              {choice === "safer"
-                ? "This is the risk-reducing approach in the example. Keep the source and your local guidance in mind."
-                : choice === "avoid"
-                  ? "This routine retains the hazard. Compare it with this alternative: " +
-                    lesson.safer
-                  : ""}
+              <Localize>
+                {choice === "safer"
+                  ? "This is the risk-reducing approach in the example. Keep the source and your local guidance in mind."
+                  : choice === "avoid"
+                    ? "This routine retains the hazard. Compare it with this alternative: " +
+                      lesson.safer
+                    : ""}
+              </Localize>
             </p>
             <details>
-              <summary>Read the comparison without choosing</summary>
+              <summary>
+                <Localize>{"Read the comparison without choosing"}</Localize>
+              </summary>
               <p>
-                <strong>Avoid: </strong>
-                {lesson.avoid}
+                <strong>
+                  <Localize>{"Avoid: "}</Localize>
+                </strong>
+                <Localize>{lesson.avoid}</Localize>
               </p>
               <p>
-                <strong>Reduce risk: </strong>
-                {lesson.safer}
+                <strong>
+                  <Localize>{"Reduce risk: "}</Localize>
+                </strong>
+                <Localize>{lesson.safer}</Localize>
               </p>
             </details>
           </>
         ) : (
           <>
-            <p className="lesson-objective">{lesson.action}</p>
-            <p>
-              Think about what you would like to discuss with another caregiver
-              or qualified professional. No private notes need to be entered
-              here.
+            <p className="lesson-objective">
+              <Localize>{lesson.action}</Localize>
             </p>
             <p>
-              This lesson’s progress records your reading and reflection. It
-              does not record a child’s abilities or certify that a hazard has
-              been resolved.
+              <Localize>
+                {
+                  "Think about what you would like to discuss with another caregiver or qualified professional. No private notes need to be entered here."
+                }
+              </Localize>
+            </p>
+            <p>
+              <Localize>
+                {
+                  "This lesson\u2019s progress records your reading and reflection. It does not record a child\u2019s abilities or certify that a hazard has been resolved."
+                }
+              </Localize>
             </p>
             <button
               className="button primary"
               onClick={() => save(2, !state?.completed)}
               aria-pressed={state?.completed || false}
             >
-              {state?.completed && <Check size={16} aria-hidden="true" />}
-              {state?.completed
-                ? "Mark lesson as not explored"
-                : "Mark lesson as explored"}
+              <Localize>
+                {state?.completed && <Check size={16} aria-hidden="true" />}
+              </Localize>
+              <Localize>
+                {state?.completed
+                  ? "Mark lesson as not explored"
+                  : "Mark lesson as explored"}
+              </Localize>
             </button>
-            {state?.completed && (
-              <p role="status">
-                Lesson explored. You can revisit it whenever you like.
-              </p>
-            )}
+            <Localize>
+              {state?.completed && (
+                <p role="status">
+                  <Localize>
+                    {"Lesson explored. You can revisit it whenever you like."}
+                  </Localize>
+                </p>
+              )}
+            </Localize>
           </>
         )}
         <div className="lesson-source">
           <a className="text-link" href={lesson.source.url}>
-            Source: {lesson.source.title}
+            <Localize>{"Source: "}</Localize>
+            <Localize>{lesson.source.title}</Localize>
             <ArrowRight size={16} aria-hidden="true" />
           </a>
           <p className="field-help">
-            {lesson.source.jurisdiction} · {lesson.source.sourceDate} · Content
-            reviewed 31 October 2026.
+            <Localize>{lesson.source.jurisdiction}</Localize> ·{" "}
+            <Localize>{lesson.source.sourceDate}</Localize>
+            <Localize>{" \u00B7 Content reviewed 31 October 2026."}</Localize>
           </p>
         </div>
-        <nav className="lesson-controls" aria-label="Move through lesson">
+        <nav
+          className="lesson-controls"
+          aria-label={localeText("Move through lesson")}
+        >
           <button
             className="button secondary"
             disabled={loading || step === 0}
             onClick={() => save(step - 1)}
           >
             <ArrowLeft size={16} aria-hidden="true" />
-            Previous step
+            <Localize>{"Previous step"}</Localize>
           </button>
-          {step < 2 ? (
-            <button
-              className="button primary"
-              disabled={loading}
-              onClick={() => save(step + 1)}
-            >
-              Continue
-              <ArrowRight size={16} aria-hidden="true" />
-            </button>
-          ) : next ? (
-            <Link className="button secondary" href={lessonHref(next)}>
-              Next lesson
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          ) : (
-            <Link className="button secondary" href="/learning-map">
-              Return to Learning Map
-            </Link>
-          )}
+          <Localize>
+            {step < 2 ? (
+              <button
+                className="button primary"
+                disabled={loading}
+                onClick={() => save(step + 1)}
+              >
+                <Localize>{"Continue"}</Localize>
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            ) : next ? (
+              <Link className="button secondary" href={lessonHref(next)}>
+                <Localize>{"Next lesson"}</Localize>
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            ) : (
+              <Link className="button secondary" href="/learning-map">
+                <Localize>{"Return to Learning Map"}</Localize>
+              </Link>
+            )}
+          </Localize>
         </nav>
         <p className="field-help">
-          {account
-            ? "Learning choices use your account settings."
-            : "Guest learning choices stay in this browser."}
+          <Localize>
+            {account
+              ? "Learning choices use your account settings."
+              : "Guest learning choices stay in this browser."}
+          </Localize>
         </p>
-        {message && <p role="status">{message}</p>}
+        <Localize>
+          {message && (
+            <p role="status">
+              <Localize>{message}</Localize>
+            </p>
+          )}
+        </Localize>
       </article>
       <LearningCompanion
         message={

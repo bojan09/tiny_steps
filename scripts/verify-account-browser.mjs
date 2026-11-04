@@ -80,6 +80,38 @@ try {
   await page
     .getByRole("heading", { name: "Welcome, Browser verified." })
     .waitFor();
+  stage = "language persistence";
+  await page.goto(base + "/settings");
+  await page.getByLabel("App language", { exact: true }).selectOption("mk");
+  await page
+    .locator(".settings-footer")
+    .getByRole("status")
+    .filter({ hasText: "Зачувано во вашата сметка." })
+    .waitFor();
+  await page.reload();
+  await page.getByLabel("Јазик на апликацијата", { exact: true }).waitFor();
+  assert.equal(
+    await page
+      .getByLabel("Јазик на апликацијата", { exact: true })
+      .inputValue(),
+    "mk",
+  );
+  await page.goto(base + "/profile");
+  await page
+    .getByRole("heading", {
+      name: "Добредојдовте, Browser verified.",
+      exact: true,
+    })
+    .waitFor();
+  await page.goto(base + "/settings");
+  await page
+    .getByLabel("Јазик на апликацијата", { exact: true })
+    .selectOption("en");
+  await page
+    .locator(".settings-footer")
+    .getByRole("status")
+    .filter({ hasText: "Saved to your account." })
+    .waitFor();
   stage = "save appearance";
   await page.goto(base + "/settings");
   await page.getByRole("button", { name: "Peach Warm & cozy" }).click();
@@ -213,7 +245,7 @@ try {
   );
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: real authenticated profile, preference/Studio/first-year/SafeNest/bookmark persistence, guest isolation and sign-out. Google consent is a separate user check.",
+    "PASS: real authenticated profile, language/preference/Studio/first-year/SafeNest/bookmark persistence, guest isolation and sign-out. Google consent is a separate user check.",
   );
 } catch (error) {
   console.error(

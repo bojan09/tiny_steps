@@ -43,6 +43,7 @@ export const usePreferences = create<State>()(
         set((s) => ({
           preferences: {
             ...defaults,
+            language: s.preferences.language,
             learningStage: s.preferences.learningStage,
             activeLearningLesson: s.preferences.activeLearningLesson,
             learningProgress: s.preferences.learningProgress,

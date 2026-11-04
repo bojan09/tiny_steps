@@ -1,6 +1,6 @@
 # TinySteps
 
-A gentler beginning to parenthood. Version 1.6.0: Learning Studio, connected paths and companion guidance of a warm, responsive parenting education PWA built from the approved Living Editorial concept.
+A gentler beginning to parenthood. Version 1.7.0: English/Macedonian learning and durable personalization in a warm, responsive parenting education PWA built from the approved Living Editorial concept.
 
 ## Run locally
 
@@ -83,4 +83,10 @@ The save indicator now stays pending until all newer preference/progress changes
 
 Care Academy now contains twelve three-step lessons across four paths, using the already sourced SafeNest topics. Understand a comparison, try optional practice and carry a small action forward. The Learning Map displays Not started, In progress and Explored states; lessons resume at their saved step, and My Journey shows self-reported exploration counts. Appearance reset preserves learning choices. The existing app introduction remains available.
 
-Account progress uses the existing validated, revisioned preferences JSON and owner RLS; guest choices remain separate. No migration or AI service is added. Sprout provides contextual, dismissible inline guidance with reduced-motion support and a dedicated companion route. The 64-lesson curriculum is not claimed delivered. New lesson content is English; complete localization and personalization remain Phase 7. See docs/PHASE_6_REVIEW.md and docs/CLOUD_HANDOFF.md for validation and release evidence.
+Account progress uses the existing validated, revisioned preferences JSON and owner RLS; guest choices remain separate. No migration or AI service is added. Sprout provides contextual, dismissible inline guidance with reduced-motion support and a dedicated companion route. The 64-lesson curriculum is not claimed delivered. Phase 7 adds complete English/Macedonian interface and released-lesson localization. See docs/PHASE_6_REVIEW.md and docs/CLOUD_HANDOFF.md for validation and release evidence.
+
+## Phase 7 — Localization and personalization, v1.7.0
+
+Settings switches the whole app between English and Macedonian, including search, accessible labels, save/error states, twelve Studio lessons and SafeNest comparisons. Global language also sets First 365 Days reading language; its separate reading selector remains available. Names, email addresses and source destinations stay unchanged. Profile and Settings remain separate. Thirteen palettes (including Custom), eight backgrounds, display mode, intensity, text size, motion and companion choices remain available. Notification support is described honestly; this release does not request permission or offer push scheduling.
+
+Language uses the existing revisioned account settings and isolated guest storage. No new dependency, schema or paid service. Edit lib/i18n/mk.tsv and run npm run i18n:build; npm run i18n:check verifies the checked-in catalog. Existing bilingual first-year content is reused. See docs/PHASE_7_REVIEW.md for scope and evidence. Phase 8 is next.

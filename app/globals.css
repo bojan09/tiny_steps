@@ -1698,7 +1698,7 @@ html[data-motion="minimal"] * {
     color: transparent;
   }
   .search-wrap:after {
-    content: "Find a little support…";
+    content: attr(data-mobile-placeholder);
     position: absolute;
     left: 25px;
     font-size: 11px;
