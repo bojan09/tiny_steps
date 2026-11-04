@@ -19,3 +19,9 @@ The existing first-year unit/day controls could accept input before account hydr
 ## Validation
 
 Final results, remote commit, hosted authenticated language persistence/RLS and deployment evidence are recorded in PHASE_PROGRESS.md and CLOUD_HANDOFF.md after publication. Local evidence is ignored under verification-results/phase7. This phase does not change offline caching/installability; Phase 8 is the remaining roadmap phase. The independent Supabase health workflow still requires verified successful execution and never guarantees pause prevention.
+
+## Final release evidence
+
+All 27 unit tests, 41 browser tests, lint/typecheck, generated catalog check and production build pass. Runtime audit found no missing translations, page errors or overflow across 29 routes and all lesson steps/room practices. Local mobile/tablet visual and automated WCAG A/AA checks pass. Final synthetic mobile LCP/CLS: First 365 Days 784ms/0; SafeNest 632ms/0.0001; Studio 672ms/0.0575; Map 624ms/0.0604; lesson 616ms/0.0146. These are local observations, not field metrics.
+
+Implementation `ab566830578abf1f45a87a14974fb5039fdcfc36` was published to master, with remote tree exactly matching tested local content. Hosted run https://github.com/bojan09/tiny_steps/actions/runs/41810135895 passed real RLS and authenticated language/profile/appearance/learning persistence, account isolation, sign-out and cleanup. Vercel succeeded; a fresh production guest browser verified v1.7.0 and the localized settings/reload/profile/Studio/safety flows, without production account writes. PHASE_PROGRESS.md and CLOUD_HANDOFF.md hold the detailed evidence. Only the independent pre-existing health-workflow activation remains unverified. Phase 8 is next.
